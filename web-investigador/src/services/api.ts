@@ -1,12 +1,15 @@
 /// <reference types="vite/client" />
 import { Comunidad, Bioindicador, Reporte, Metricas, RioGeoJSON } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+// Local backend only in development. A deployed build must get VITE_API_BASE_URL explicitly:
+// falling back to localhost would make a public page try to reach the visitor's own machine.
+const API_BASE: string = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8000/api/v1' : '');
 // Researcher key for write actions. Only needed when the backend defines ADMIN_API_KEY.
 const API_KEY: string | undefined = import.meta.env.VITE_API_KEY;
 
 export const api = {
   async getHealth(): Promise<boolean> {
+    if (!API_BASE) return false;
     try {
       const res = await fetch(`${API_BASE}/health`);
       return res.ok;
