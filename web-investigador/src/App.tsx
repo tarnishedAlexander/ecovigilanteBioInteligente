@@ -79,35 +79,27 @@ export function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#031a14] text-slate-100 overflow-hidden font-['Plus_Jakarta_Sans',sans-serif]">
-      {/* Top Header */}
-      <Header
-        metricas={metricas}
-        loading={loading}
-        onRefresh={loadData}
-        backendOnline={backendOnline}
-      />
+    <div className="flex h-screen w-screen flex-col overflow-hidden bg-paper text-ink">
+      <Header metricas={metricas} loading={loading} onRefresh={loadData} backendOnline={backendOnline} />
 
-      {/* Backend connection alert banner if offline */}
       {!backendOnline && !loading && (
-        <div className="bg-amber-950/80 border-b border-amber-500/40 px-4 py-2 text-xs text-amber-200 flex items-center justify-between z-40">
-          <div className="flex items-center space-x-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+        <div className="z-40 flex shrink-0 items-center justify-between gap-4 border-b border-ochre/30 bg-ochre-bg px-5 py-2 text-[13px] text-ink-2">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4 shrink-0 text-ochre" />
             <span>
-              <strong>Modo Desconectado:</strong> El backend no está corriendo en el puerto 8000. Inicia el servidor con <code className="bg-black/40 px-1 py-0.5 rounded text-amber-300">./run.sh</code> para ver datos en vivo.
+              <strong className="font-semibold text-ink">Sin conexión con el servidor.</strong> Inicia el backend con{' '}
+              <code className="rounded bg-surface px-1 py-0.5 font-mono text-[12px] text-ink">./run.sh</code> en la carpeta{' '}
+              <code className="rounded bg-surface px-1 py-0.5 font-mono text-[12px] text-ink">backend/</code>.
             </span>
           </div>
-          <button
-            onClick={loadData}
-            className="px-2.5 py-1 bg-amber-600/60 hover:bg-amber-600 text-white rounded font-medium text-[11px] flex items-center gap-1"
-          >
-            <RefreshCw className="w-3 h-3" /> Reintentar
+          <button onClick={loadData} className="btn-secondary px-2.5 py-1 text-[12px]">
+            <RefreshCw className="h-3.5 w-3.5" /> Reintentar
           </button>
         </div>
       )}
 
       {/* Main Workspace: Sidebar (Left) + Leaflet Map (Right) */}
-      <main className="flex flex-1 relative overflow-hidden">
+      <main className="relative flex min-h-0 flex-1 overflow-hidden">
         <Sidebar
           reportes={reportes}
           comunidades={comunidades}

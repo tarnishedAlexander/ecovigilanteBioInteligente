@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap, Polyline } from 'react-leaflet';
+import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Reporte, Comunidad, RioGeoJSON } from '../types';
-import { Layers, Globe, Eye, MapPin, AlertCircle, Compass, Waves } from 'lucide-react';
+import { ALERTAS, COLORS, ESTADOS, CATEGORIAS, alertaTone, estadoTone } from '../lib/ui';
 
 interface MapViewerProps {
   rios: RioGeoJSON | null;
@@ -13,56 +13,55 @@ interface MapViewerProps {
   flyToCoords: [number, number] | null;
 }
 
-// Custom Leaflet DivIcons with SVG Pulse Effects
-const createReportIcon = (estado: string) => {
-  let color = '#ef4444'; // crudo
-  let pulseClass = 'marker-pin-crudo';
-
-  if (estado === 'semiverificado') {
-    color = '#f59e0b';
-    pulseClass = 'marker-pin-semi';
-  } else if (estado === 'verificado') {
-    color = '#10b981';
-    pulseClass = 'marker-pin-verificado';
-  }
-
+const createReportIcon = (estado: string, selected: boolean) => {
+  const size = selected ? 18 : 14;
   return L.divIcon({
-    className: 'custom-report-pin',
-    html: `
-      <div class="${pulseClass}" style="display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:10px;font-weight:bold;color:white;">!</span>
-      </div>
-    `,
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
-    popupAnchor: [0, -14]
+    className: `ev-pin${selected ? ' is-selected' : ''}`,
+    html: `<span style="background:${estadoTone(estado).color}"></span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -size / 2 - 2],
   });
 };
 
-const createComunidadIcon = (alerta: string) => {
-  const isHigh = alerta === 'Critico' || alerta === 'Alto';
-  const color = isHigh ? '#f97316' : '#10b981';
-
-  return L.divIcon({
-    className: 'custom-comunidad-pin',
-    html: `
-      <div style="background:${color};border:2px solid #ffffff;border-radius:6px;width:14px;height:14px;box-shadow:0 0 10px ${color};"></div>
-    `,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
-    popupAnchor: [0, -10]
+const createComunidadIcon = (alerta: string) =>
+  L.divIcon({
+    className: 'ev-site',
+    html: `<span style="background:${alertaTone(alerta).color}"></span>`,
+    iconSize: [11, 11],
+    iconAnchor: [5.5, 5.5],
+    popupAnchor: [0, -8],
   });
-};
 
-// Component to handle programmatic map camera movements
 const MapFlyHandler: React.FC<{ coords: [number, number] | null }> = ({ coords }) => {
   const map = useMap();
   useEffect(() => {
-    if (coords) {
-      map.flyTo(coords, 11, { duration: 1.5 });
-    }
+    if (coords) map.flyTo(coords, 11, { duration: 1.2 });
   }, [coords, map]);
   return null;
+};
+
+const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void; children: React.ReactNode }> = ({
+  checked,
+  onChange,
+  children,
+}) => (
+  <label className="flex cursor-pointer items-center gap-2 py-1 text-[13px] text-ink">
+    <input
+      type="checkbox"
+      checked={checked}
+      onChange={(e) => onChange(e.target.checked)}
+      className="h-3.5 w-3.5 cursor-pointer accent-forest-600"
+    />
+    {children}
+  </label>
+);
+
+const Swatch: React.FC<{ color: string; shape?: 'dot' | 'diamond' | 'line' }> = ({ color, shape = 'dot' }) => {
+  if (shape === 'line') return <span className="inline-block h-[3px] w-4 rounded" style={{ background: color }} />;
+  if (shape === 'diamond')
+    return <span className="inline-block h-2 w-2 rotate-45" style={{ background: color, margin: '0 3px' }} />;
+  return <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: color, margin: '0 3px' }} />;
 };
 
 export const MapViewer: React.FC<MapViewerProps> = ({
@@ -71,9 +70,8 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   reportes,
   selectedReporte,
   onSelectReporte,
-  flyToCoords
+  flyToCoords,
 }) => {
-  // Center of northern Bolivian Amazon (approx Riberalta / Alto Beni)
   const defaultCenter: [number, number] = [-12.5, -66.8];
   const [baseMap, setBaseMap] = useState<'satellite' | 'pureSatellite' | 'terrain'>('satellite');
   const [showRios, setShowRios] = useState(true);
@@ -81,168 +79,114 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   const [showReportes, setShowReportes] = useState(true);
   const [simularAguasArriba, setSimularAguasArriba] = useState(false);
 
-  // Google Earth & Google Maps Direct Tiles (Sin API Key, alta resolución)
   const tileUrls = {
-    satellite: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',      // Google Earth Satélite Híbrido (Ríos y Poblados)
-    pureSatellite: 'https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',  // Google Earth Satélite Puro
-    terrain: 'https://mt{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'        // Google Earth Relieve Topográfico
+    satellite: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+    pureSatellite: 'https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+    terrain: 'https://mt{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
   };
+  const baseOptions: { id: keyof typeof tileUrls; label: string }[] = [
+    { id: 'satellite', label: 'Híbrido' },
+    { id: 'pureSatellite', label: 'Satélite' },
+    { id: 'terrain', label: 'Relieve' },
+  ];
 
   return (
-    <div className="relative flex-1 h-[calc(100vh-4rem)] bg-[#021813] overflow-hidden">
-      {/* Floating Map Controls & Layers Toggle */}
-      <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2 select-none">
-        {/* Layer Visibility Control */}
-        <div className="glass-panel p-2.5 rounded-xl shadow-xl flex items-center space-x-2 text-xs">
-          <button
-            onClick={() => setShowRios(!showRios)}
-            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
-              showRios ? 'bg-cyan-600/80 text-white shadow' : 'bg-emerald-950/40 text-slate-400 hover:text-white'
-            }`}
-          >
-            <Waves className="w-3.5 h-3.5 text-cyan-300" />
-            Ríos
-          </button>
-
-          <button
-            onClick={() => setShowComunidades(!showComunidades)}
-            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
-              showComunidades ? 'bg-emerald-600/80 text-white shadow' : 'bg-emerald-950/40 text-slate-400 hover:text-white'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5 text-emerald-300" />
+    <div className="relative flex-1 overflow-hidden">
+      {/* Layer control */}
+      <div className="card absolute right-3 top-3 z-[1000] w-56 select-none shadow-sm">
+        <div className="border-b border-line px-3 py-2.5">
+          <div className="eyebrow mb-2">Mapa base</div>
+          <div className="grid grid-cols-3 rounded border border-line-strong p-0.5">
+            {baseOptions.map((o) => (
+              <button
+                key={o.id}
+                onClick={() => setBaseMap(o.id)}
+                className={`rounded-sm py-1 text-[12px] font-medium transition-colors ${
+                  baseMap === o.id ? 'bg-forest-600 text-white' : 'text-ink-2 hover:bg-paper'
+                }`}
+              >
+                {o.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="border-b border-line px-3 py-2">
+          <div className="eyebrow mb-1">Capas</div>
+          <Toggle checked={showRios} onChange={setShowRios}>
+            Red hidrográfica
+          </Toggle>
+          <Toggle checked={showComunidades} onChange={setShowComunidades}>
             Comunidades
-          </button>
-
-          <button
-            onClick={() => setShowReportes(!showReportes)}
-            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
-              showReportes ? 'bg-red-600/80 text-white shadow' : 'bg-emerald-950/40 text-slate-400 hover:text-white'
-            }`}
-          >
-            <AlertCircle className="w-3.5 h-3.5 text-red-300" />
-            Alertas ({reportes.length})
-          </button>
+          </Toggle>
+          <Toggle checked={showReportes} onChange={setShowReportes}>
+            Reportes <span className="text-ink-3">({reportes.length})</span>
+          </Toggle>
         </div>
-
-        {/* Base Map Switcher: Google Earth Satélite vs Terreno */}
-        <div className="glass-panel p-2 rounded-xl shadow-xl flex items-center justify-between text-xs">
-          <span className="text-[11px] text-emerald-300 font-semibold px-1 flex items-center gap-1">
-            <Globe className="w-3.5 h-3.5 text-emerald-400" />
-            Google Earth:
-          </span>
-          <div className="flex gap-1">
-            <button
-              onClick={() => setBaseMap('satellite')}
-              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all flex items-center gap-1 ${
-                baseMap === 'satellite' ? 'bg-emerald-600 text-white shadow' : 'text-slate-300 hover:text-white bg-emerald-950/40'
-              }`}
-            >
-              🛰️ Satélite
-            </button>
-            <button
-              onClick={() => setBaseMap('pureSatellite')}
-              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all ${
-                baseMap === 'pureSatellite' ? 'bg-emerald-600 text-white shadow' : 'text-slate-300 hover:text-white bg-emerald-950/40'
-              }`}
-            >
-              Puro
-            </button>
-            <button
-              onClick={() => setBaseMap('terrain')}
-              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all flex items-center gap-1 ${
-                baseMap === 'terrain' ? 'bg-emerald-600 text-white shadow' : 'text-slate-300 hover:text-white bg-emerald-950/40'
-              }`}
-            >
-              🏔️ Terreno
-            </button>
-          </div>
-        </div>
-
-        {/* Upstream River Tracing Tool Pill */}
-        <div className="glass-panel p-2.5 rounded-xl shadow-xl text-xs space-y-1">
-          <div className="flex items-center justify-between">
-            <span className="font-semibold text-white flex items-center gap-1.5">
-              <Eye className="w-3.5 h-3.5 text-amber-400" />
-              Trazado Aguas Arriba
-            </span>
-            <input
-              type="checkbox"
-              checked={simularAguasArriba}
-              onChange={(e) => setSimularAguasArriba(e.target.checked)}
-              className="accent-emerald-500 rounded cursor-pointer"
-            />
-          </div>
-          <p className="text-[10px] text-slate-300">
-            Resalta el vector hidrográfico hacia el origen de vertido minero.
+        <div className="px-3 py-2">
+          <Toggle checked={simularAguasArriba} onChange={setSimularAguasArriba}>
+            Trazado aguas arriba
+          </Toggle>
+          <p className="pl-[22px] text-[11px] leading-snug text-ink-3">
+            Resalta los cauces hacia posibles fuentes de vertido.
           </p>
         </div>
       </div>
 
-      {/* Floating Map Legend */}
-      <div className="absolute bottom-6 left-6 z-[1000] glass-panel-dark p-3 rounded-xl border border-emerald-500/30 text-xs shadow-2xl select-none hidden sm:block">
-        <span className="font-bold text-white block mb-1.5 flex items-center gap-1">
-          <Layers className="w-3.5 h-3.5 text-emerald-400" />
-          Leyenda de Detección
-        </span>
-        <div className="space-y-1 text-[11px]">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm shadow-red-500"></span>
-            <span className="text-slate-200">Alerta en Crudo (Comunario)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm shadow-amber-500"></span>
-            <span className="text-slate-200">Semiverificado (Prioridad)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500"></span>
-            <span className="text-slate-200">Verificado Científicamente (Lab)</span>
-          </div>
-          <div className="flex items-center gap-2 pt-1 border-t border-emerald-900/40">
-            <span className="w-4 h-1 bg-cyan-400 rounded"></span>
-            <span className="text-cyan-300">Río Madre de Dios / Beni</span>
-          </div>
+      {/* Legend */}
+      <div className="card absolute bottom-6 left-3 z-[1000] hidden select-none px-3 py-2.5 shadow-sm sm:block">
+        <div className="eyebrow mb-1.5">Reportes</div>
+        <ul className="mb-2 space-y-1 text-[12px] text-ink-2">
+          {(['crudo', 'semiverificado', 'verificado'] as const).map((k) => (
+            <li key={k} className="flex items-center gap-2">
+              <Swatch color={ESTADOS[k].color} />
+              {ESTADOS[k].label}
+            </li>
+          ))}
+        </ul>
+        <div className="eyebrow mb-1.5">Comunidades · nivel de alerta</div>
+        <ul className="mb-2 flex gap-3 text-[12px] text-ink-2">
+          {(['Bajo', 'Medio', 'Alto', 'Critico'] as const).map((k) => (
+            <li key={k} className="flex items-center gap-1">
+              <Swatch color={ALERTAS[k].color} shape="diamond" />
+              {ALERTAS[k].label}
+            </li>
+          ))}
+        </ul>
+        <div className="flex items-center gap-2 text-[12px] text-ink-2">
+          <Swatch color={simularAguasArriba ? COLORS.ochre : '#7FB3D5'} shape="line" />
+          {simularAguasArriba ? 'Trazado aguas arriba' : 'Ríos principales'}
         </div>
       </div>
 
-      {/* Main Leaflet Map Container */}
-      <MapContainer
-        center={defaultCenter}
-        zoom={6.8}
-        scrollWheelZoom={true}
-        className="w-full h-full"
-      >
+      <MapContainer center={defaultCenter} zoom={6.8} scrollWheelZoom className="h-full w-full">
         <MapFlyHandler coords={flyToCoords} />
 
         <TileLayer
           key={baseMap}
-          attribution='&copy; Google Earth Imagery'
+          attribution="&copy; Google"
           url={tileUrls[baseMap]}
           maxZoom={20}
           subdomains={['0', '1', '2', '3']}
         />
 
-        {/* Rivers GeoJSON Layer */}
         {showRios && rios && (
           <GeoJSON
             data={rios as any}
             style={(feature) => ({
-              color: simularAguasArriba ? '#f59e0b' : (feature?.properties.color || '#0ea5e9'),
-              weight: (feature?.properties.grosor || 3) + (simularAguasArriba ? 2 : 0),
-              opacity: 0.85,
-              dashArray: simularAguasArriba ? '8, 8' : undefined
+              color: simularAguasArriba ? COLORS.ochre : '#7FB3D5',
+              weight: (feature?.properties.grosor || 3) + (simularAguasArriba ? 1 : 0),
+              opacity: 0.95,
+              dashArray: simularAguasArriba ? '6 6' : undefined,
+              lineCap: 'round',
             })}
             onEachFeature={(feature, layer) => {
               layer.bindPopup(`
-                <div style="font-family:'Plus Jakarta Sans',sans-serif;padding:4px;">
-                  <h4 style="font-size:13px;font-weight:bold;color:#38bdf8;margin:0 0 4px 0;">
-                    ${feature.properties.nombre}
-                  </h4>
-                  <p style="font-size:11px;color:#cbd5e1;margin:0 0 6px 0;">
-                    ${feature.properties.descripcion}
-                  </p>
-                  <div style="font-size:10px;font-weight:bold;color:#f59e0b;background:rgba(245,158,11,0.1);padding:4px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);">
-                    ⚠️ ${feature.properties.riesgo_minero}
+                <div style="max-width:240px">
+                  <div style="font-weight:600;font-size:13px;margin-bottom:2px">${feature.properties.nombre}</div>
+                  <div style="color:${COLORS.ink3};font-size:11px;margin-bottom:6px">${feature.properties.cuenca}</div>
+                  <div style="color:${COLORS.ink2};margin-bottom:8px">${feature.properties.descripcion}</div>
+                  <div style="border-left:2px solid ${COLORS.ochre};padding-left:8px;color:${COLORS.ink2}">
+                    <span style="color:${COLORS.ochre};font-weight:600">Riesgo minero:</span> ${feature.properties.riesgo_minero}
                   </div>
                 </div>
               `);
@@ -250,77 +194,72 @@ export const MapViewer: React.FC<MapViewerProps> = ({
           />
         )}
 
-        {/* Communities Pins */}
-        {showComunidades && comunidades.map((c) => (
-          <Marker
-            key={c.id}
-            position={[c.latitud, c.longitud]}
-            icon={createComunidadIcon(c.alerta_nivel)}
-          >
-            <Popup>
-              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", padding: '4px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                  <h4 style={{ fontSize: '13px', fontWeight: 'bold', color: '#ffffff', margin: 0 }}>
-                    {c.nombre}
-                  </h4>
-                  <span style={{ fontSize: '10px', fontWeight: 'bold', color: c.alerta_nivel === 'Critico' ? '#ef4444' : '#10b981' }}>
-                    Alerta {c.alerta_nivel}
-                  </span>
-                </div>
-                <p style={{ fontSize: '11px', color: '#94a3b8', margin: '0 0 6px 0' }}>
-                  {c.cuenca_principal} • Pob: ~{c.poblacion_estimada.toLocaleString()}
-                </p>
-                <div style={{ fontSize: '10px', color: '#fbbf24', background: 'rgba(251,191,36,0.1)', padding: '4px 6px', borderRadius: '4px', border: '1px solid rgba(251,191,36,0.3)' }}>
-                  <strong>Sospecha Minera:</strong> {c.posible_fuente_minera_aguas_arriba}
-                </div>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+        {showComunidades &&
+          comunidades.map((c) => {
+            const t = alertaTone(c.alerta_nivel);
+            return (
+              <Marker key={c.id} position={[c.latitud, c.longitud]} icon={createComunidadIcon(c.alerta_nivel)}>
+                <Popup>
+                  <div style={{ maxWidth: 240 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 2 }}>
+                      <strong style={{ fontSize: 13 }}>{c.nombre}</strong>
+                      <span style={{ color: t.color, fontWeight: 600, fontSize: 11 }}>Alerta {t.label.toLowerCase()}</span>
+                    </div>
+                    <div style={{ color: COLORS.ink3, fontSize: 11, marginBottom: 6 }}>
+                      {c.cuenca_principal} · {c.poblacion_estimada.toLocaleString('es-BO')} hab.
+                    </div>
+                    <div style={{ color: COLORS.ink2 }}>
+                      <span style={{ color: COLORS.ink3 }}>Posible fuente: </span>
+                      {c.posible_fuente_minera_aguas_arriba}
+                    </div>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
 
-        {/* Reports Pins with Animated Glow */}
-        {showReportes && reportes.map((r) => (
-          <Marker
-            key={r.id}
-            position={[r.latitud, r.longitud]}
-            icon={createReportIcon(r.estado)}
-            eventHandlers={{
-              click: () => onSelectReporte(r)
-            }}
-          >
-            <Popup>
-              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", minWidth: '180px', padding: '4px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                  <strong style={{ fontSize: '12px', color: '#ffffff', textTransform: 'capitalize' }}>
-                    {r.categoria.toUpperCase()} • {r.comunidad_nombre}
-                  </strong>
-                  <span style={{ fontSize: '10px', color: r.estado === 'crudo' ? '#f87171' : '#34d399', fontWeight: 'bold' }}>
-                    {r.estado}
-                  </span>
-                </div>
-                <p style={{ fontSize: '11px', color: '#cbd5e1', margin: '0 0 6px 0' }}>
-                  {r.descripcion_usuario || 'Reporte de síntomas registrado'}
-                </p>
-                <button
-                  onClick={() => onSelectReporte(r)}
-                  style={{
-                    width: '100%',
-                    background: '#047857',
-                    color: 'white',
-                    border: 'none',
-                    padding: '5px 8px',
-                    borderRadius: '6px',
-                    fontSize: '11px',
-                    cursor: 'pointer',
-                    fontWeight: 600
-                  }}
-                >
-                  Abrir Ficha de Análisis
-                </button>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+        {showReportes &&
+          reportes.map((r) => {
+            const t = estadoTone(r.estado);
+            return (
+              <Marker
+                key={r.id}
+                position={[r.latitud, r.longitud]}
+                icon={createReportIcon(r.estado, selectedReporte?.id === r.id)}
+                zIndexOffset={selectedReporte?.id === r.id ? 1000 : 0}
+                eventHandlers={{ click: () => onSelectReporte(r) }}
+              >
+                <Popup>
+                  <div style={{ minWidth: 200, maxWidth: 240 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 2 }}>
+                      <strong style={{ fontSize: 13 }}>{CATEGORIAS[r.categoria] ?? r.categoria}</strong>
+                      <span style={{ color: t.color, fontWeight: 600, fontSize: 11 }}>{t.label}</span>
+                    </div>
+                    <div style={{ color: COLORS.ink3, fontSize: 11, marginBottom: 6 }}>{r.comunidad_nombre}</div>
+                    <div style={{ color: COLORS.ink2, marginBottom: 8 }}>
+                      {r.descripcion_usuario || 'Reporte de síntomas registrado'}
+                    </div>
+                    <button
+                      onClick={() => onSelectReporte(r)}
+                      style={{
+                        width: '100%',
+                        background: COLORS.forest,
+                        color: '#fff',
+                        border: 0,
+                        padding: '6px 8px',
+                        borderRadius: 4,
+                        fontSize: 12,
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Abrir ficha
+                    </button>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
       </MapContainer>
     </div>
   );

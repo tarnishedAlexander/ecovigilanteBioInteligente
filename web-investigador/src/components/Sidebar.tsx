@@ -1,24 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  AlertCircle, 
-  MapPin, 
-  Fish, 
-  Droplets, 
-  Leaf, 
-  Activity, 
-  CheckCircle, 
-  Clock, 
-  Eye, 
-  Sparkles, 
-  ShieldAlert, 
-  ChevronRight, 
-  Compass, 
-  FileText,
-  Filter,
-  Check,
-  Send
-} from 'lucide-react';
+import { ArrowLeft, Check, Crosshair, Minus } from 'lucide-react';
 import { Reporte, Comunidad, Bioindicador } from '../types';
+import { CATEGORIAS, SINTOMAS, alertaTone, estadoTone, formatCoord, formatFecha } from '../lib/ui';
 
 interface SidebarProps {
   reportes: Reporte[];
@@ -32,26 +15,84 @@ interface SidebarProps {
   onFlyTo: (lat: number, lng: number) => void;
 }
 
+type Tab = 'reportes' | 'comunidades' | 'bioindicadores';
+
+/* ---------- Small presentational pieces ---------- */
+
+const Pill: React.FC<{ text: string; bg: string; color: string; children: React.ReactNode }> = ({
+  text,
+  bg,
+  color,
+  children,
+}) => (
+  <span className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 text-[11px] font-medium ${bg} ${text}`}>
+    <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
+    {children}
+  </span>
+);
+
+const EstadoPill: React.FC<{ estado: string }> = ({ estado }) => {
+  const t = estadoTone(estado);
+  return (
+    <Pill text={t.text} bg={t.bg} color={t.color}>
+      {t.label}
+    </Pill>
+  );
+};
+
+const ScoreBar: React.FC<{ score: number }> = ({ score }) => (
+  <div className="flex items-center gap-2" title={`Índice de sospecha ${score} de 5`}>
+    <div className="flex gap-0.5">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <span
+          key={i}
+          className={`h-2 w-3.5 rounded-[1px] ${i <= score ? (score >= 4 ? 'bg-clay' : 'bg-ochre') : 'bg-line'}`}
+        />
+      ))}
+    </div>
+    <span className="text-[12px] font-semibold text-ink">{score}/5</span>
+  </div>
+);
+
+const Section: React.FC<{ title: string; aside?: React.ReactNode; children: React.ReactNode }> = ({
+  title,
+  aside,
+  children,
+}) => (
+  <section className="border-t border-line px-5 py-4">
+    <div className="mb-3 flex items-center justify-between">
+      <h3 className="eyebrow">{title}</h3>
+      {aside}
+    </div>
+    {children}
+  </section>
+);
+
+const Field: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
+  <div className="grid grid-cols-[120px_1fr] gap-3 py-1.5 text-[13px]">
+    <dt className="text-ink-3">{label}</dt>
+    <dd className="text-ink">{children}</dd>
+  </div>
+);
+
+/* ---------- Sidebar ---------- */
+
 export const Sidebar: React.FC<SidebarProps> = ({
   reportes,
   comunidades,
   bioindicadores,
   selectedReporte,
-  selectedComunidad,
   onSelectReporte,
   onSelectComunidad,
   onUpdateEstado,
-  onFlyTo
+  onFlyTo,
 }) => {
-  const [activeTab, setActiveTab] = useState<'reportes' | 'comunidades' | 'bioindicadores'>('reportes');
+  const [activeTab, setActiveTab] = useState<Tab>('reportes');
   const [filterEstado, setFilterEstado] = useState<string>('todos');
   const [notasTemp, setNotasTemp] = useState<string>('');
   const [savingEstado, setSavingEstado] = useState<boolean>(false);
 
-  const filteredReportes = reportes.filter(r => {
-    if (filterEstado === 'todos') return true;
-    return r.estado === filterEstado;
-  });
+  const filteredReportes = reportes.filter((r) => filterEstado === 'todos' || r.estado === filterEstado);
 
   const handleUpdate = async (nuevoEstado: string) => {
     if (!selectedReporte) return;
@@ -64,394 +105,289 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
-  const getCategoriaIcon = (cat: string) => {
-    switch (cat) {
-      case 'pez': return <Fish className="w-4 h-4 text-cyan-400" />;
-      case 'agua': return <Droplets className="w-4 h-4 text-blue-400" />;
-      case 'planta': return <Leaf className="w-4 h-4 text-emerald-400" />;
-      case 'salud': return <Activity className="w-4 h-4 text-rose-400" />;
-      default: return <AlertCircle className="w-4 h-4 text-amber-400" />;
-    }
-  };
-
-  const getEstadoBadge = (estado: string) => {
-    switch (estado) {
-      case 'crudo':
-        return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-950/80 text-red-400 border border-red-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
-            En Crudo
-          </span>
-        );
-      case 'semiverificado':
-        return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-950/80 text-amber-400 border border-amber-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-            Semiverificado
-          </span>
-        );
-      case 'verificado':
-        return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
-            <CheckCircle className="w-3 h-3 text-emerald-400" />
-            Verificado Lab
-          </span>
-        );
-      default:
-        return null;
-    }
-  };
+  const tabs: { id: Tab; label: string; count?: number }[] = [
+    { id: 'reportes', label: 'Reportes', count: reportes.length },
+    { id: 'comunidades', label: 'Comunidades', count: comunidades.length },
+    { id: 'bioindicadores', label: 'Bioindicadores' },
+  ];
 
   return (
-    <aside className="w-96 lg:w-[420px] h-[calc(100vh-4rem)] glass-panel border-r border-emerald-900/40 flex flex-col z-20 shadow-2xl overflow-hidden">
-      {/* Top Navigation Tabs */}
-      <div className="flex border-b border-emerald-900/40 p-2 bg-[#02231b]/60">
-        <button
-          onClick={() => { setActiveTab('reportes'); onSelectReporte(null); }}
-          className={`flex-1 py-2 px-1 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-            activeTab === 'reportes'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md'
-              : 'text-emerald-300/70 hover:text-white hover:bg-emerald-950/40'
-          }`}
-        >
-          <MapPin className="w-3.5 h-3.5" />
-          <span>Denuncias ({reportes.length})</span>
-        </button>
+    <aside className="z-20 flex w-[400px] shrink-0 flex-col overflow-hidden border-r border-line bg-surface">
+      {/* Tabs */}
+      <nav className="flex shrink-0 border-b border-line px-5" role="tablist">
+        {tabs.map((t) => {
+          const active = activeTab === t.id && !selectedReporte;
+          return (
+            <button
+              key={t.id}
+              role="tab"
+              aria-selected={active}
+              onClick={() => {
+                setActiveTab(t.id);
+                onSelectReporte(null);
+              }}
+              className={`-mb-px mr-5 flex items-center gap-1.5 border-b-2 py-3 text-[13px] font-medium transition-colors ${
+                active ? 'border-forest-600 text-ink' : 'border-transparent text-ink-3 hover:text-ink'
+              }`}
+            >
+              {t.label}
+              {t.count !== undefined && (
+                <span className="rounded bg-paper px-1.5 text-[11px] font-semibold text-ink-2">{t.count}</span>
+              )}
+            </button>
+          );
+        })}
+      </nav>
 
-        <button
-          onClick={() => { setActiveTab('comunidades'); onSelectReporte(null); }}
-          className={`flex-1 py-2 px-1 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-            activeTab === 'comunidades'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md'
-              : 'text-emerald-300/70 hover:text-white hover:bg-emerald-950/40'
-          }`}
-        >
-          <Compass className="w-3.5 h-3.5" />
-          <span>Comunidades ({comunidades.length})</span>
-        </button>
-
-        <button
-          onClick={() => { setActiveTab('bioindicadores'); onSelectReporte(null); }}
-          className={`flex-1 py-2 px-1 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-            activeTab === 'bioindicadores'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md'
-              : 'text-emerald-300/70 hover:text-white hover:bg-emerald-950/40'
-          }`}
-        >
-          <Fish className="w-3.5 h-3.5" />
-          <span>Bioindicadores</span>
-        </button>
-      </div>
-
-      {/* Detail View of Selected Report (Modal / Slide View) */}
       {selectedReporte ? (
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 animate-fade-in bg-gradient-to-b from-[#04211a] to-[#021813]">
-          <div className="flex items-center justify-between pb-2 border-b border-emerald-900/40">
+        /* ---------- Report detail ---------- */
+        <div className="flex-1 overflow-y-auto">
+          <div className="flex items-center justify-between px-5 py-3">
             <button
               onClick={() => onSelectReporte(null)}
-              className="text-xs text-emerald-400 hover:text-emerald-200 flex items-center gap-1 font-medium transition-colors"
+              className="flex items-center gap-1 text-[13px] font-medium text-forest-600 hover:text-forest-700"
             >
-              ← Volver al listado
+              <ArrowLeft className="h-4 w-4" /> Volver al listado
             </button>
-            {getEstadoBadge(selectedReporte.estado)}
+            <span className="font-mono text-[11px] text-ink-3">{selectedReporte.id}</span>
           </div>
 
-          {/* Photo Evidence */}
+          <div className="px-5 pb-4">
+            <div className="mb-1.5 flex items-center gap-2">
+              <EstadoPill estado={selectedReporte.estado} />
+              <span className="text-[12px] text-ink-3">{formatFecha(selectedReporte.fecha_reporte)}</span>
+            </div>
+            <h2 className="font-serif text-[20px] font-semibold leading-snug text-ink">
+              {CATEGORIAS[selectedReporte.categoria] ?? selectedReporte.categoria} · {selectedReporte.comunidad_nombre}
+            </h2>
+            <p className="mt-2 text-[13px] leading-relaxed text-ink-2">
+              {selectedReporte.descripcion_usuario || 'Sin descripción del comunario.'}
+            </p>
+          </div>
+
           {selectedReporte.url_foto && (
-            <div className="relative rounded-xl overflow-hidden border border-emerald-700/40 shadow-lg group">
+            <figure className="px-5 pb-4">
               <img
                 src={selectedReporte.url_foto}
-                alt="Evidencia fotográfica"
-                className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
+                alt="Evidencia fotográfica del reporte"
+                className="h-44 w-full rounded border border-line object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                <span className="text-[11px] text-emerald-200 font-medium flex items-center gap-1">
-                  <Eye className="w-3.5 h-3.5 text-emerald-400" />
-                  Evidencia fotográfica capturada por comunario
-                </span>
-              </div>
-            </div>
+              <figcaption className="mt-1.5 text-[11px] text-ink-3">Fotografía enviada por el comunario</figcaption>
+            </figure>
           )}
 
-          {/* Core Report Meta */}
-          <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-800/40 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-white flex items-center gap-1.5">
-                {getCategoriaIcon(selectedReporte.categoria)}
-                Categoría: {selectedReporte.categoria.toUpperCase()}
-              </span>
-              <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                <Clock className="w-3 h-3 text-slate-400" />
-                {new Date(selectedReporte.fecha_reporte).toLocaleDateString('es-BO')}
-              </span>
-            </div>
-            <p className="text-xs text-slate-200 italic bg-black/30 p-2.5 rounded-lg border border-emerald-900/30">
-              "{selectedReporte.descripcion_usuario || 'Sin comentario manual'}"
-            </p>
-            <div className="flex items-center justify-between text-[11px] text-emerald-300">
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                {selectedReporte.comunidad_nombre}
-              </span>
-              <button
-                onClick={() => onFlyTo(selectedReporte.latitud, selectedReporte.longitud)}
-                className="text-[10px] underline hover:text-white"
-              >
-                Centrar en Mapa
-              </button>
-            </div>
-          </div>
-
-          {/* Gemma 2B AI Extraction Breakdown */}
-          {selectedReporte.entrevista_ia && (
-            <div className="p-4 rounded-xl bg-gradient-to-br from-[#063327] to-[#04241c] border border-emerald-500/40 shadow-md space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">
-                    Análisis Gemma 2B (Local Edge)
-                  </span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-[10px] text-emerald-300/80">Sospecha:</span>
-                  <div className="flex gap-0.5">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <span
-                        key={i}
-                        className={`w-2 h-2 rounded-full ${
-                          i <= selectedReporte.entrevista_ia!.score_sospecha
-                            ? 'bg-red-500'
-                            : 'bg-emerald-950'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Fish diet analysis */}
-              <div className="text-xs space-y-1">
-                <div className="text-emerald-300/90 font-medium flex items-center justify-between">
-                  <span>Consumo de pescado:</span>
-                  <span className="font-bold text-amber-300 capitalize">
-                    {selectedReporte.entrevista_ia.frecuencia_consumo_pescado}
-                  </span>
-                </div>
-                {selectedReporte.entrevista_ia.tipos_pescado_mencionados.length > 0 && (
-                  <div className="flex flex-wrap gap-1 pt-1">
-                    {selectedReporte.entrevista_ia.tipos_pescado_mencionados.map((p, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-medium"
-                      >
-                        🐟 {p} (bioacumulador)
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Clinical symptoms checklist */}
-              <div className="space-y-1.5 pt-2 border-t border-emerald-800/40">
-                <span className="text-[11px] font-semibold text-slate-300 block">
-                  Signos y Síntomas Mencionados al Chat:
+          <Section title="Ubicación">
+            <dl>
+              <Field label="Comunidad">{selectedReporte.comunidad_nombre}</Field>
+              <Field label="Coordenadas">
+                <span className="flex items-center justify-between">
+                  {formatCoord(selectedReporte.latitud, selectedReporte.longitud)}
+                  <button
+                    onClick={() => onFlyTo(selectedReporte.latitud, selectedReporte.longitud)}
+                    className="ml-2 text-forest-600 hover:text-forest-700"
+                    title="Centrar en el mapa"
+                    aria-label="Centrar en el mapa"
+                  >
+                    <Crosshair className="h-4 w-4" />
+                  </button>
                 </span>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {Object.entries(selectedReporte.entrevista_ia.sintomas).map(([key, val]) => (
-                    <div
-                      key={key}
-                      className={`p-1.5 rounded-lg border text-[10px] flex items-center gap-1.5 ${
-                        val
-                          ? 'bg-red-950/60 border-red-500/40 text-red-200 font-medium'
-                          : 'bg-emerald-950/30 border-emerald-900/30 text-emerald-600 line-through'
-                      }`}
-                    >
-                      <span className={`w-1.5 h-1.5 rounded-full ${val ? 'bg-red-400' : 'bg-emerald-900'}`} />
-                      {key.replace(/_/g, ' ')}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              </Field>
+              <Field label="Sincronizado">{formatFecha(selectedReporte.fecha_sincronizacion)}</Field>
+            </dl>
+          </Section>
+
+          {selectedReporte.entrevista_ia && (
+            <Section
+              title="Entrevista asistida (Gemma, en dispositivo)"
+              aside={<ScoreBar score={selectedReporte.entrevista_ia.score_sospecha} />}
+            >
+              <dl className="mb-3">
+                <Field label="Consumo de pescado">
+                  <span className="capitalize">{selectedReporte.entrevista_ia.frecuencia_consumo_pescado ?? '—'}</span>
+                </Field>
+                {selectedReporte.entrevista_ia.tipos_pescado_mencionados.length > 0 && (
+                  <Field label="Especies">
+                    <span className="capitalize">{selectedReporte.entrevista_ia.tipos_pescado_mencionados.join(', ')}</span>
+                  </Field>
+                )}
+                {selectedReporte.entrevista_ia.tiempo_con_sintomas && (
+                  <Field label="Evolución">{selectedReporte.entrevista_ia.tiempo_con_sintomas}</Field>
+                )}
+                {selectedReporte.entrevista_ia.fuente_agua_comunal && (
+                  <Field label="Fuente de agua">{selectedReporte.entrevista_ia.fuente_agua_comunal}</Field>
+                )}
+              </dl>
+
+              <div className="eyebrow mb-2">Síntomas referidos</div>
+              <ul className="divide-y divide-line rounded border border-line">
+                {Object.entries(selectedReporte.entrevista_ia.sintomas).map(([key, val]) => (
+                  <li key={key} className="flex items-center gap-2.5 px-3 py-2 text-[13px]">
+                    {val ? (
+                      <Check className="h-4 w-4 shrink-0 text-clay" />
+                    ) : (
+                      <Minus className="h-4 w-4 shrink-0 text-line-strong" />
+                    )}
+                    <span className={val ? 'text-ink' : 'text-ink-3'}>{SINTOMAS[key] ?? key}</span>
+                  </li>
+                ))}
+              </ul>
 
               {selectedReporte.entrevista_ia.indicio_ambiental_adicional && (
-                <div className="text-[11px] text-emerald-200/90 bg-emerald-950/50 p-2.5 rounded-lg border border-emerald-800/40">
-                  <span className="font-semibold text-emerald-400 block mb-0.5">Observación Ambiental:</span>
+                <blockquote className="mt-3 border-l-2 border-ochre bg-ochre-bg/60 px-3 py-2 text-[13px] leading-relaxed text-ink-2">
+                  <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ochre">
+                    Observación ambiental
+                  </span>
                   {selectedReporte.entrevista_ia.indicio_ambiental_adicional}
-                </div>
+                </blockquote>
               )}
-            </div>
+            </Section>
           )}
 
-          {/* Researcher Triage / Decision Box */}
-          <div className="p-3.5 rounded-xl bg-black/40 border border-emerald-700/40 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300">
-              <ShieldAlert className="w-4 h-4 text-emerald-400" />
-              Ponderación Científica
-            </div>
-
+          <Section title="Evaluación del investigador">
             {selectedReporte.notas_investigador && (
-              <div className="text-xs text-slate-300 bg-emerald-950/40 p-2 rounded-lg border border-emerald-800/40">
-                <span className="text-[10px] text-emerald-400 font-semibold block">Notas Previas:</span>
+              <div className="mb-3 rounded border border-line bg-paper px-3 py-2 text-[13px] leading-relaxed text-ink-2">
+                <span className="mb-0.5 block text-[11px] font-semibold text-ink-3">Notas registradas</span>
                 {selectedReporte.notas_investigador}
               </div>
             )}
 
+            <label htmlFor="notas" className="mb-1 block text-[12px] text-ink-3">
+              Nueva nota o criterio de muestreo
+            </label>
             <textarea
+              id="notas"
               value={notasTemp}
               onChange={(e) => setNotasTemp(e.target.value)}
-              placeholder="Agregar nota o criterio de muestreo de campo..."
-              className="w-full text-xs bg-slate-900/80 border border-emerald-800/60 rounded-lg p-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-400 h-16"
+              placeholder="Ej.: programar muestreo de cabello y sedimento…"
+              className="h-20 w-full resize-none rounded border border-line-strong bg-surface p-2.5 text-[13px] text-ink placeholder:text-ink-3 focus:border-forest-500 focus:outline-none focus:ring-1 focus:ring-forest-500"
             />
 
-            <div className="grid grid-cols-2 gap-2 pt-1">
-              <button
-                disabled={savingEstado}
-                onClick={() => handleUpdate('semiverificado')}
-                className="py-2 px-3 text-xs font-semibold rounded-lg bg-amber-600/80 hover:bg-amber-500 text-white flex items-center justify-center gap-1 transition-all disabled:opacity-50 shadow-md shadow-amber-950/50"
-              >
-                <Check className="w-3.5 h-3.5" />
-                Semiverificar
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button disabled={savingEstado} onClick={() => handleUpdate('semiverificado')} className="btn-secondary">
+                Marcar semiverificado
               </button>
-
-              <button
-                disabled={savingEstado}
-                onClick={() => handleUpdate('verificado')}
-                className="py-2 px-3 text-xs font-semibold rounded-lg bg-emerald-600/80 hover:bg-emerald-500 text-white flex items-center justify-center gap-1 transition-all disabled:opacity-50 shadow-md shadow-emerald-950/50"
-              >
-                <CheckCircle className="w-3.5 h-3.5" />
-                Verificar Lab
+              <button disabled={savingEstado} onClick={() => handleUpdate('verificado')} className="btn-primary">
+                Verificar (laboratorio)
               </button>
             </div>
-          </div>
+          </Section>
         </div>
       ) : activeTab === 'reportes' ? (
-        // List of Reports
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Subfilter Bar */}
-          <div className="p-3 border-b border-emerald-900/40 flex items-center justify-between text-xs bg-[#021f18]">
-            <span className="text-emerald-300/80 font-medium flex items-center gap-1">
-              <Filter className="w-3 h-3 text-emerald-400" />
-              Estado:
-            </span>
-            <div className="flex gap-1">
-              {['todos', 'crudo', 'semiverificado', 'verificado'].map((st) => (
-                <button
-                  key={st}
-                  onClick={() => setFilterEstado(st)}
-                  className={`px-2 py-0.5 rounded text-[10px] font-semibold transition-all capitalize ${
-                    filterEstado === st
-                      ? 'bg-emerald-500 text-white'
-                      : 'text-slate-400 hover:text-white bg-emerald-950/40'
-                  }`}
-                >
-                  {st}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
-            {filteredReportes.map((rep) => (
-              <div
-                key={rep.id}
-                onClick={() => {
-                  onSelectReporte(rep);
-                  onFlyTo(rep.latitud, rep.longitud);
-                }}
-                className="p-3 rounded-xl bg-gradient-to-r from-emerald-950/50 to-teal-950/30 hover:from-emerald-900/60 hover:to-teal-900/40 border border-emerald-800/40 hover:border-emerald-500/50 cursor-pointer transition-all duration-200 group shadow-sm"
+        /* ---------- Report list ---------- */
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <div className="flex shrink-0 items-center gap-1 border-b border-line bg-paper/60 px-5 py-2.5">
+            {['todos', 'crudo', 'semiverificado', 'verificado'].map((st) => (
+              <button
+                key={st}
+                onClick={() => setFilterEstado(st)}
+                className={`rounded px-2 py-1 text-[12px] font-medium transition-colors ${
+                  filterEstado === st ? 'bg-ink text-white' : 'text-ink-2 hover:bg-line/60'
+                }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-1.5">
-                    {getCategoriaIcon(rep.categoria)}
-                    <span className="text-xs font-bold text-white capitalize">{rep.categoria}</span>
-                  </div>
-                  {getEstadoBadge(rep.estado)}
-                </div>
-
-                <p className="text-xs text-slate-300 line-clamp-2 mb-2 font-normal">
-                  {rep.descripcion_usuario || 'Reporte de síntomas o indicio ambiental'}
-                </p>
-
-                <div className="flex items-center justify-between text-[11px] text-emerald-400/80 pt-1 border-t border-emerald-900/30">
-                  <span className="flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-emerald-400" />
-                    {rep.comunidad_nombre}
-                  </span>
-                  <span className="text-emerald-300 group-hover:translate-x-1 transition-transform flex items-center">
-                    Ver ficha <ChevronRight className="w-3 h-3 ml-0.5" />
-                  </span>
-                </div>
-              </div>
+                {st === 'todos' ? 'Todos' : estadoTone(st).label}
+              </button>
             ))}
           </div>
+
+          <ul className="flex-1 divide-y divide-line overflow-y-auto">
+            {filteredReportes.length === 0 && (
+              <li className="px-5 py-10 text-center text-[13px] text-ink-3">No hay reportes con este estado.</li>
+            )}
+            {filteredReportes.map((rep) => (
+              <li key={rep.id}>
+                <button
+                  onClick={() => {
+                    onSelectReporte(rep);
+                    onFlyTo(rep.latitud, rep.longitud);
+                  }}
+                  className="relative block w-full px-5 py-3.5 text-left transition-colors hover:bg-paper"
+                >
+                  <span className="absolute inset-y-0 left-0 w-[3px]" style={{ background: estadoTone(rep.estado).color }} />
+                  <div className="mb-1 flex items-center justify-between gap-2">
+                    <span className="text-[13px] font-semibold text-ink">
+                      {CATEGORIAS[rep.categoria] ?? rep.categoria}
+                    </span>
+                    <EstadoPill estado={rep.estado} />
+                  </div>
+                  <p className="mb-2 line-clamp-2 text-[13px] leading-snug text-ink-2">
+                    {rep.descripcion_usuario || 'Reporte de síntomas o indicio ambiental'}
+                  </p>
+                  <div className="flex items-center justify-between text-[12px] text-ink-3">
+                    <span>
+                      {rep.comunidad_nombre} · {formatFecha(rep.fecha_reporte)}
+                    </span>
+                    <span>
+                      Sospecha <span className="font-semibold text-ink-2">{rep.score_sospecha}/5</span>
+                    </span>
+                  </div>
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : activeTab === 'comunidades' ? (
-        // List of Communities
-        <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
-          {comunidades.map((c) => (
-            <div
-              key={c.id}
-              onClick={() => {
-                onSelectComunidad(c);
-                onFlyTo(c.latitud, c.longitud);
-              }}
-              className="p-3.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/40 border border-emerald-800/40 hover:border-emerald-500/50 cursor-pointer transition-all"
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-bold text-white">{c.nombre}</span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  c.alerta_nivel === 'Critico' ? 'bg-red-500/20 text-red-400 border border-red-500/40' :
-                  c.alerta_nivel === 'Alto' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' :
-                  'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                }`}>
-                  Alerta {c.alerta_nivel}
-                </span>
-              </div>
-              <div className="text-xs text-emerald-300/80 mb-2 font-medium">
-                {c.cuenca_principal} • {c.departamento}
-              </div>
-              <div className="text-[11px] text-slate-300 bg-black/30 p-2 rounded-lg border border-emerald-900/40">
-                <span className="text-amber-400 font-semibold block mb-0.5">Sospecha Aguas Arriba:</span>
-                {c.posible_fuente_minera_aguas_arriba}
-              </div>
-            </div>
-          ))}
-        </div>
+        /* ---------- Communities ---------- */
+        <ul className="flex-1 divide-y divide-line overflow-y-auto">
+          {comunidades.map((c) => {
+            const t = alertaTone(c.alerta_nivel);
+            return (
+              <li key={c.id}>
+                <button
+                  onClick={() => {
+                    onSelectComunidad(c);
+                    onFlyTo(c.latitud, c.longitud);
+                  }}
+                  className="block w-full px-5 py-3.5 text-left transition-colors hover:bg-paper"
+                >
+                  <div className="mb-0.5 flex items-center justify-between">
+                    <span className="text-[14px] font-semibold text-ink">{c.nombre}</span>
+                    <Pill text={t.text} bg={t.bg} color={t.color}>
+                      Alerta {t.label.toLowerCase()}
+                    </Pill>
+                  </div>
+                  <div className="mb-2 text-[12px] text-ink-3">
+                    {c.cuenca_principal} · {c.departamento} · {c.poblacion_estimada.toLocaleString('es-BO')} hab.
+                    {c.total_reportes !== undefined && ` · ${c.total_reportes} reportes`}
+                  </div>
+                  <p className="text-[13px] leading-snug text-ink-2">
+                    <span className="text-ink-3">Posible fuente aguas arriba: </span>
+                    {c.posible_fuente_minera_aguas_arriba}
+                  </p>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       ) : (
-        // Bioindicadores Catalog
-        <div className="flex-1 overflow-y-auto p-3 space-y-3">
-          <div className="p-3 rounded-xl bg-blue-950/30 border border-cyan-500/30 text-xs text-cyan-200">
-            <span className="font-bold text-cyan-300 block mb-1">Principio de Biomagnificación:</span>
-            Los peces piscívoros (carnívoros) como el Surubí o Muturo concentran el metilmercurio a niveles hasta 10 veces superiores que los peces detritívoros (Sábalo).
-          </div>
-
-          {bioindicadores.map((b) => (
-            <div
-              key={b.id}
-              className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-950/50 to-teal-950/40 border border-emerald-800/40 space-y-2"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="text-xs font-bold text-white">{b.nombre_comun}</h4>
-                  <p className="text-[10px] text-emerald-300 italic">{b.nombre_cientifico}</p>
-                </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  b.nivel_bioacumulacion === 'Crítico' ? 'bg-red-500/20 text-red-400 border border-red-500/40' :
-                  b.nivel_bioacumulacion === 'Alto' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' :
-                  'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                }`}>
-                  Bioacumulación: {b.nivel_bioacumulacion}
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {b.descripcion_ecologica}
-              </p>
-              <div className="text-[11px] text-amber-300/90 bg-amber-950/30 p-2 rounded border border-amber-500/20">
-                <span className="font-semibold block text-amber-400">Riesgo en Dieta Humana:</span>
-                {b.factor_riesgo_salud}
-              </div>
-            </div>
-          ))}
+        /* ---------- Bioindicators ---------- */
+        <div className="flex-1 overflow-y-auto">
+          <p className="border-b border-line bg-water-light/60 px-5 py-3 text-[13px] leading-relaxed text-ink-2">
+            <span className="font-semibold text-water">Biomagnificación.</span> Los peces piscívoros (surubí, muturo)
+            concentran metilmercurio hasta 10 veces más que los detritívoros (sábalo).
+          </p>
+          <ul className="divide-y divide-line">
+            {bioindicadores.map((b) => {
+              const t = alertaTone(b.nivel_bioacumulacion);
+              return (
+                <li key={b.id} className="px-5 py-4">
+                  <div className="mb-1.5 flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-[14px] font-semibold text-ink">{b.nombre_comun}</h4>
+                      <p className="text-[12px] italic text-ink-3">{b.nombre_cientifico}</p>
+                    </div>
+                    <Pill text={t.text} bg={t.bg} color={t.color}>
+                      {b.nivel_bioacumulacion}
+                    </Pill>
+                  </div>
+                  <p className="mb-2 text-[13px] leading-relaxed text-ink-2">{b.descripcion_ecologica}</p>
+                  <p className="text-[12px] leading-relaxed text-ink-2">
+                    <span className="font-semibold text-ink">Riesgo en la dieta: </span>
+                    {b.factor_riesgo_salud}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </aside>
