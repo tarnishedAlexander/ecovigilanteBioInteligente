@@ -1,0 +1,22 @@
+# Render Blueprint: backend de EcoVigilante (demo, no producción).
+# Plan gratuito: sin disco persistente. La base SQLite se vuelve a sembrar con los datos
+# de demostración en cada reinicio; los cambios de estado no sobreviven a un redeploy.
+services:
+  - type: web
+    name: ecovigilante-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      # Clave que exige el backend para cambiar el estado de un reporte.
+      # Render la genera; cópiala a VITE_API_KEY en Vercel.
+      - key: ADMIN_API_KEY
+        generateValue: true
+      # Dominio(s) del frontend, separados por coma. Se completa tras el deploy en Vercel.
+      - key: CORS_ORIGINS
+        sync: false

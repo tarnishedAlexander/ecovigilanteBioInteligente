@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException, Query
+import os
+import secrets
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List, Dict, Any
 from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, Bioindicador
@@ -12,6 +14,7 @@ from app.database import (
     create_reporte
 )
 from app.seed_data import RIOS_GEOJSON
+from app.services.gemma_extractor import extract_entrevista_from_text, haversine_distance, GEMMA_SYSTEM_PROMPT
 
 app = FastAPI(
     title="EcoVigilante API",
@@ -19,14 +22,28 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Permitir CORS para el frontend de desarrollo (Vite / React)
+# CORS: solo los orígenes configurados. En local, el frontend de Vite.
+# En el servidor: CORS_ORIGINS="https://mi-sitio.vercel.app,https://otro-dominio"
+CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if o.strip()]
+# Opcional: expresión regular para aceptar las URLs de vista previa de Vercel del proyecto.
+CORS_ORIGIN_REGEX = os.getenv("CORS_ORIGIN_REGEX") or None
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=CORS_ORIGINS,
+    allow_origin_regex=CORS_ORIGIN_REGEX,
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+    allow_headers=["Content-Type", "X-API-Key"],
 )
+
+# Clave simple para acciones del investigador (cambiar el estado de un reporte).
+# Si ADMIN_API_KEY no está definida (desarrollo local), no se exige.
+ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
+
+def requiere_investigador(x_api_key: Optional[str] = Header(default=None)):
+    if ADMIN_API_KEY and not (x_api_key and secrets.compare_digest(x_api_key, ADMIN_API_KEY)):
+        raise HTTPException(status_code=401, detail="Clave de investigador inválida o ausente")
 
 @app.on_event("startup")
 def startup_event():
@@ -71,7 +88,7 @@ def get_reporte(reporte_id: str):
         raise HTTPException(status_code=404, detail="Reporte no encontrado")
     return rep
 
-@app.patch("/api/v1/reportes/{reporte_id}/estado", response_model=Reporte)
+@app.patch("/api/v1/reportes/{reporte_id}/estado", response_model=Reporte, dependencies=[Depends(requiere_investigador)])
 def change_reporte_estado(reporte_id: str, payload: ReporteUpdateEstado):
     """Acción del investigador para ponderar un reporte: crudo -> semiverificado -> verificado"""
     updated = update_reporte_estado(reporte_id, payload.estado, payload.notas_investigador)
@@ -79,11 +96,39 @@ def change_reporte_estado(reporte_id: str, payload: ReporteUpdateEstado):
         raise HTTPException(status_code=404, detail="Reporte no encontrado")
     return updated
 
+@app.get("/api/v1/gemma/prompt")
+def get_gemma_prompt():
+    """Devuelve el system prompt y especificación para Gemma 2B local"""
+    return {
+        "model_target": "Gemma 2B / Gemma-2 2B (4-bit)",
+        "role": "Entrevistador Comunitario Empático (Sin diagnóstico médico directo)",
+        "system_prompt": GEMMA_SYSTEM_PROMPT
+    }
+
 @app.post("/api/v1/reportes", response_model=Reporte, status_code=201)
 def submit_reporte(payload: ReporteCreate):
     """Ingesta anónima de reportes desde la aplicación móvil del comunario"""
     data = payload.dict()
-    # Si viene con entrevista_ia, calcular comunidad más cercana o asignar
+
+    # 1. Si no viene entrevista_ia estructurada pero hay transcripción cruda, extraerla
+    if not data.get("entrevista_ia") and data.get("transcripcion_chat"):
+        extracted = extract_entrevista_from_text(
+            data["transcripcion_chat"],
+            comunidad_hint=data.get("comunidad_nombre")
+        )
+        data["entrevista_ia"] = extracted.dict()
+
+    # 2. Si no tiene comunidad asignada, calcular la más cercana según coordenadas GPS
+    if not data.get("comunidad_id") or not data.get("comunidad_nombre"):
+        todas_comunidades = get_all_comunidades()
+        if todas_comunidades:
+            comunidad_mas_cercana = min(
+                todas_comunidades,
+                key=lambda c: haversine_distance(data["latitud"], data["longitud"], c["latitud"], c["longitud"])
+            )
+            data["comunidad_id"] = comunidad_mas_cercana["id"]
+            data["comunidad_nombre"] = comunidad_mas_cercana["nombre"]
+
     nuevo = create_reporte(data)
     return nuevo
 

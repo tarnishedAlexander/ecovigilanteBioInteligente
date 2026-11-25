@@ -182,10 +182,12 @@ def get_reporte_by_id(reporte_id: str) -> Optional[Dict[str, Any]]:
     if not row:
         return None
     item = dict(row)
+    # Siempre definir la clave: el modelo de respuesta la exige aunque no haya entrevista.
+    item["entrevista_ia"] = None
     if item.get("entrevista_ia_json"):
         try:
             item["entrevista_ia"] = json.loads(item["entrevista_ia_json"])
-        except:
+        except (TypeError, ValueError):
             item["entrevista_ia"] = None
     return item
 

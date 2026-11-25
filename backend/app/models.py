@@ -1,4 +1,4 @@
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Literal
 from pydantic import BaseModel, Field
 from datetime import datetime
 
@@ -27,10 +27,12 @@ class ReporteCreate(BaseModel):
     descripcion_usuario: Optional[str] = None
     url_foto: Optional[str] = None
     comunidad_id: Optional[str] = None
+    comunidad_nombre: Optional[str] = None
+    transcripcion_chat: Optional[str] = Field(None, description="Transcripción cruda de la conversación con el asistente para ser parseada")
     entrevista_ia: Optional[EntrevistaIAModel] = None
 
 class ReporteUpdateEstado(BaseModel):
-    estado: str = Field(..., description="crudo | semiverificado | verificado | descartado")
+    estado: Literal["crudo", "semiverificado", "verificado", "descartado"]
     notas_investigador: Optional[str] = None
     investigador_id: Optional[str] = "investigador_demo"
 

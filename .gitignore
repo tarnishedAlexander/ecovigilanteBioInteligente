@@ -4,3 +4,13 @@ backend/app/__pycache__/
 web-investigador/node_modules/
 web-investigador/dist/
 .DS_Store
+
+# Dependencias y builds de cualquier subproyecto
+**/node_modules/
+**/dist/
+**/__pycache__/
+# Base de datos local: el servidor la crea y siembra al iniciar
+backend/ecovigilante.db
+.env
+.env.*
+.vercel
