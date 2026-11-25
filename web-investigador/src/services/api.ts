@@ -1,6 +1,9 @@
+/// <reference types="vite/client" />
 import { Comunidad, Bioindicador, Reporte, Metricas, RioGeoJSON } from '../types';
 
-const API_BASE = 'http://localhost:8000/api/v1';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+// Researcher key for write actions. Only needed when the backend defines ADMIN_API_KEY.
+const API_KEY: string | undefined = import.meta.env.VITE_API_KEY;
 
 export const api = {
   async getHealth(): Promise<boolean> {
@@ -44,7 +47,7 @@ export const api = {
   async updateReporteEstado(id: string, estado: string, notasInvestigador?: string): Promise<Reporte> {
     const res = await fetch(`${API_BASE}/reportes/${id}/estado`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...(API_KEY ? { 'X-API-Key': API_KEY } : {}) },
       body: JSON.stringify({
         estado,
         notas_investigador: notasInvestigador,
