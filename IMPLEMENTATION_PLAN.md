@@ -19,26 +19,21 @@ Este plan está dividido en tareas secuenciales. Siguiendo la estrategia acordad
 ## Fase 2: Plataforma Web del Investigador (Dashboard SIG)
 > **Objetivo:** Construir la interfaz de escritorio tal como se diseñó en la Pizarra 2, donde el investigador explora el mapa, revisa las denuncias en crudo y pondera el riesgo.
 
-* [ ] **Tarea 2: Scaffolding de la Web del Investigador (React + Vite + TailwindCSS)**
-  * Configurar el proyecto web en `web-investigador/`.
-  * Diseñar el layout responsivo de escritorio: Barra superior de autenticación/investigador, panel lateral de análisis a la izquierda y contenedor de mapa a la derecha.
-  * **Hito / Feedback:** Interfaz base visual montada y funcional en navegador.
+* [x] **Tarea 2: Scaffolding de la Web del Investigador (React + Vite + TailwindCSS)** - *COMPLETADA*
+  * Configurado proyecto web con React, TypeScript, TailwindCSS y Lucide en `web-investigador/`.
+  * Paleta visual inspirada en la Amazonía (tonos esmeralda, verdes bosque, azul río y acentos ámbar/rojo de alerta).
+  * Header con métricas vivas (Total, En Crudo, Semiverificados, Verificados) e insignia de investigador.
 
-* [ ] **Tarea 3: Mapa SIG Interactivo de Cuencas y Comunidades (Leaflet)**
-  * Montar mapa centrado en el norte amazónico de Bolivia.
-  * Capa de ríos y afluentes.
-  * Capa de comunidades ribereñas.
-  * Marcadores de reportes ciudadanos con código de colores según estado (Rojo: Crudo, Amarillo: Semiverificado, Verde: Verificado).
-  * Selector de capas y filtros por fecha/tipo de bioindicador.
-  * **Hito / Feedback:** Navegación en el mapa con marcadores interactivos conectados a la API.
+* [x] **Tarea 3: Mapa SIG Interactivo de Cuencas y Comunidades (Leaflet)** - *COMPLETADA*
+  * Mapa centrado en el norte amazónico de Bolivia con soporte multi-capa.
+  * Trazados vectoriales de ríos auríferos (Río Beni, Madre de Dios, Mamoré, Kaka/Mapiri).
+  * Marcadores con efecto pulso CSS para alertas en crudo (rojo), semiverificado (ámbar) y verificado (verde).
+  * Selector de mapa base: Modo Noche / Modo Satelital (simulando Google Earth) y conmutador de Trazado Aguas Arriba.
 
-* [ ] **Tarea 4: Panel Lateral de Detalle, Evidencias e IA**
-  * Al hacer clic en un reporte o comunidad:
-    * Vista de fotos de peces/plantas/agua subidas por comunarios.
-    * Gráfico / Resumen de los síntomas clínicos extraídos por Gemma.
-    * Ficha de bioindicadores de la zona (nivel de bioacumulación de especies locales).
-    * Botón de acción: `[Ponderar / Marcar como Semiverificado]` que actualiza la API en tiempo real.
-  * **Hito / Feedback:** Flujo completo de revisión del investigador probado de extremo a extremo en la web.
+* [x] **Tarea 4: Panel Lateral de Detalle, Evidencias e IA** - *COMPLETADA*
+  * Pestañas interactivas: *Denuncias*, *Comunidades* y *Bioindicadores*.
+  * Ficha expandida con fotos de evidencia, transcripción de comunarios y análisis clínico-dietético de **Gemma 2B**.
+  * Acciones de ponderación: Botones para cambiar estado a *Semiverificado* o *Verificado Lab* con actualización en la API en tiempo real.
 
 ---
 
