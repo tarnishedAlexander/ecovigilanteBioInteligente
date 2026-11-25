@@ -7,12 +7,12 @@ Este plan está dividido en tareas secuenciales. Siguiendo la estrategia acordad
 ## Fase 1: Backend Central y Datos Geoespaciales de Bolivia
 > **Objetivo:** Tener la API lista con la base de datos, los modelos relacionales y datos geográficos base de la Amazonía boliviana (Riberalta, Río Beni, Madre de Dios).
 
-* [ ] **Tarea 1: Inicialización del Backend (FastAPI + SQLite/GeoJSON)**
-  * Configurar entorno Python (`backend/`).
-  * Crear modelos de datos: `Comunidades`, `Reportes`, `Bioindicadores`, `EntrevistasIA`.
-  * Poblar datos semilla (seed data) realistas: cuencas del norte amazónico (Riberalta, Cachuela Esperanza, Rurrenabaque), especies bioindicadoras (*Pseudoplatystoma*, *Zungaro zungaro*) y reportes simulados con síntomas de mercurio.
-  * Endpoints REST para servir mapa, capas y actualización de estados (`crudo` -> `semiverificado`).
-  * **Hito / Feedback:** Servidor levantado respondiendo datos geográficos y reportes en formato GeoJSON.
+* [x] **Tarea 1: Inicialización del Backend (FastAPI + SQLite/GeoJSON)** - *COMPLETADA*
+  * Configurado entorno Python con FastAPI y Pydantic en `backend/`.
+  * Modelos de datos: `Comunidades`, `Reportes`, `Bioindicadores`, `EntrevistasIA`.
+  * Base de datos SQLite inicializada y sembrada con datos de cuencas de Bolivia (Riberalta, Cachuela Esperanza, Río Beni, Madre de Dios, Mamoré, Kaka/Mapiri).
+  * Catálogo de bioindicadores clave (*Surubí*, *Muturo*, *Sábalo*, *Tarope*, *Piraña*) con niveles de bioacumulación de mercurio.
+  * Endpoints REST funcionando: `/api/v1/rios`, `/api/v1/comunidades`, `/api/v1/bioindicadores`, `/api/v1/reportes`, `/api/v1/metricas` y actualización de estado.
 
 ---
 
