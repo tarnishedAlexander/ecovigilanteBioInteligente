@@ -31,6 +31,13 @@ npm run dev
 # Dashboard disponible en http://localhost:5173
 ```
 
+### 3. App Móvil del Comunario (EcoGuardián - Offline & Gemma)
+```bash
+cd app-comunario
+npm run dev
+# App móvil disponible en http://localhost:5175
+```
+
 ---
 
 ## 🗺️ Mapa de Cuencas y Datos Semilla

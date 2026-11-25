@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/types.ts","./src/components/CameraScreen.tsx","./src/components/ChatGemmaScreen.tsx","./src/components/HeaderBar.tsx","./src/services/storage.ts"],"version":"5.9.3"}

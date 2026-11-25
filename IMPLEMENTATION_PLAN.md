@@ -40,28 +40,27 @@ Este plan está dividido en tareas secuenciales. Siguiendo la estrategia acordad
 ## Fase 3: Motor de Ingesta y Lógica de Extracción de Gemma
 > **Objetivo:** Dejar completamente estandarizado el procesamiento de las entrevistas y reportes anónimos.
 
-* [ ] **Tarea 5: Pipeline de Ingesta y Parser Estructurado de Gemma**
-  * Endpoint `POST /api/reportes/sync` para recibir paquetes de la app móvil (fotos, GPS y JSON de la entrevista).
-  * Validaciones de integridad y cálculo del score preliminar de sospecha.
-  * Servicio de simulación/test del prompt de Gemma para pruebas en terminal.
-  * **Hito / Feedback:** Prueba de envío de reporte y reflejo instantáneo en el mapa web.
+* [x] **Tarea 5: Pipeline de Ingesta y Parser Estructurado de Gemma** - *COMPLETADA*
+  * Diseñado el System Prompt de **Gemma 2B** (`EcoGuardián`) con directrices estrictas de empatía, escucha activa y prohibición de emitir diagnósticos médicos directos.
+  * Parser semántico con normalización fonética y de acentos para extraer especies de peces consumidas, checklist de signos neurológicos de hidrargirismo y cálculo calibrado de score de sospecha (1 a 5).
+  * Endpoint `POST /api/v1/reportes` con geocodificación inversa automática (distancia Haversine a la comunidad y cuenca más cercana).
+  * Batería de pruebas automatizadas en `backend/test_gemma_pipeline.py` validando con éxito los casos de alto y bajo riesgo y la actualización en vivo de las métricas.
 
 ---
 
 ## Fase 4: Aplicación Móvil del Comunario (Offline-First)
 > **Objetivo:** Construir la app móvil ligera y sin login para el comunario.
 
-* [ ] **Tarea 6: Interfaz Móvil y Captura Local (Offline)**
-  * Pantalla inicial con accesos gigantes: "Reportar Hallazgo (Cámara/GPS)" y "Hablar con el Asistente".
-  * Almacenamiento local en SQLite de los reportes cuando no hay red.
-  * Detector de conexión para sincronización automática en segundo plano hacia la API.
-  * **Hito / Feedback:** App registrando eventos offline y guardándolos en base local.
+* [x] **Tarea 6: Interfaz Móvil y Captura Local (Offline)** - *COMPLETADA*
+  * Desarrollada la aplicación móvil en `app-comunario/` con diseño para smartphone (touch-friendly, cero login y acceso anónimo).
+  * Módulo de captura visual con selector de categorías (Pez, Agua, Planta, Dragas), carga de evidencia fotográfica y geolocalización GPS.
+  * Persistencia offline en el teléfono: guarda los reportes en almacenamiento local con indicador de cola pendiente cuando se está en el río sin cobertura.
+  * Switch simulador de conectividad: permite alternar entre "Sin Red (Río Madre de Dios)" y "Conectado (Riberalta)" con sincronizador en segundo plano.
 
-* [ ] **Tarea 7: Integración del Chat Asistente con Gemma Local**
-  * Interfaz de conversación empática para el comunario.
-  * Integración del modelo Gemma 2B en el dispositivo (MediaPipe / LiteRT) o fallback de desarrollo.
-  * Generación y guardado del payload JSON con los síntomas detectados.
-  * **Hito / Feedback:** Conversación con la IA en el teléfono generando el reporte estructurado.
+* [x] **Tarea 7: Integración del Chat Asistente con Gemma Local** - *COMPLETADA*
+  * Pantalla de conversación empática y guiada por el System Prompt de **Gemma 2B** (`EcoGuardián`).
+  * Sugerencias de diálogo rápido para probar síntomas clínicos de mercurio (temblores, adormecimiento, frecuencia de consumo de surubí/muturo).
+  * Extracción del diálogo y compilación automática en reporte local con posterior sincronización a la API central y visualización inmediata en el dashboard web.
 
 ---
 

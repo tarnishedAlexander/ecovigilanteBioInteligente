@@ -128,3 +128,10 @@ cd web-investigador
 npm run dev
 # Abrir en el navegador: http://localhost:5173
 ```
+
+### 3. Iniciar la App Móvil del Comunario (EcoGuardián)
+```bash
+cd app-comunario
+npm run dev
+# Abrir en el navegador (vista smartphone): http://localhost:5175
+```
