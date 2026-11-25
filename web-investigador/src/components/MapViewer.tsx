@@ -75,17 +75,17 @@ export const MapViewer: React.FC<MapViewerProps> = ({
 }) => {
   // Center of northern Bolivian Amazon (approx Riberalta / Alto Beni)
   const defaultCenter: [number, number] = [-12.5, -66.8];
-  const [baseMap, setBaseMap] = useState<'dark' | 'satellite' | 'streets'>('dark');
+  const [baseMap, setBaseMap] = useState<'satellite' | 'pureSatellite' | 'terrain'>('satellite');
   const [showRios, setShowRios] = useState(true);
   const [showComunidades, setShowComunidades] = useState(true);
   const [showReportes, setShowReportes] = useState(true);
   const [simularAguasArriba, setSimularAguasArriba] = useState(false);
 
-  // Tile layers URLs
+  // Google Earth & Google Maps Direct Tiles (Sin API Key, alta resolución)
   const tileUrls = {
-    dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    streets: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    satellite: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',      // Google Earth Satélite Híbrido (Ríos y Poblados)
+    pureSatellite: 'https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',  // Google Earth Satélite Puro
+    terrain: 'https://mt{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'        // Google Earth Relieve Topográfico
   };
 
   return (
@@ -125,28 +125,36 @@ export const MapViewer: React.FC<MapViewerProps> = ({
           </button>
         </div>
 
-        {/* Base Map Switcher (Carto Dark vs Satellite Google Earth Comparative) */}
+        {/* Base Map Switcher: Google Earth Satélite vs Terreno */}
         <div className="glass-panel p-2 rounded-xl shadow-xl flex items-center justify-between text-xs">
-          <span className="text-[11px] text-emerald-300/80 font-medium px-1 flex items-center gap-1">
+          <span className="text-[11px] text-emerald-300 font-semibold px-1 flex items-center gap-1">
             <Globe className="w-3.5 h-3.5 text-emerald-400" />
-            Mapa Base:
+            Google Earth:
           </span>
           <div className="flex gap-1">
             <button
-              onClick={() => setBaseMap('dark')}
-              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all ${
-                baseMap === 'dark' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              Noche
-            </button>
-            <button
               onClick={() => setBaseMap('satellite')}
               className={`px-2 py-1 rounded text-[11px] font-semibold transition-all flex items-center gap-1 ${
-                baseMap === 'satellite' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                baseMap === 'satellite' ? 'bg-emerald-600 text-white shadow' : 'text-slate-300 hover:text-white bg-emerald-950/40'
               }`}
             >
               🛰️ Satélite
+            </button>
+            <button
+              onClick={() => setBaseMap('pureSatellite')}
+              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all ${
+                baseMap === 'pureSatellite' ? 'bg-emerald-600 text-white shadow' : 'text-slate-300 hover:text-white bg-emerald-950/40'
+              }`}
+            >
+              Puro
+            </button>
+            <button
+              onClick={() => setBaseMap('terrain')}
+              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all flex items-center gap-1 ${
+                baseMap === 'terrain' ? 'bg-emerald-600 text-white shadow' : 'text-slate-300 hover:text-white bg-emerald-950/40'
+              }`}
+            >
+              🏔️ Terreno
             </button>
           </div>
         </div>
@@ -207,8 +215,11 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         <MapFlyHandler coords={flyToCoords} />
 
         <TileLayer
-          attribution='&copy; <a href="https://carto.com/">CARTO</a> / Esri'
+          key={baseMap}
+          attribution='&copy; Google Earth Imagery'
           url={tileUrls[baseMap]}
+          maxZoom={20}
+          subdomains={['0', '1', '2', '3']}
         />
 
         {/* Rivers GeoJSON Layer */}
