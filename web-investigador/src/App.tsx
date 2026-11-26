@@ -7,25 +7,29 @@ import { MapViewer, CameraTarget } from './components/MapViewer';
 import { ExplorerPanel, BioFilter } from './components/ExplorerPanel';
 import { DetailPanel, Seleccion } from './components/DetailPanel';
 import { api } from './services/api';
-import { Reporte, Comunidad, Bioindicador, Metricas, RioGeoJSON } from './types';
-import { ESTUDIOS } from './data/expedientes';
+import { Reporte, Comunidad, Metricas, RioGeoJSON, Sitio, Taxon } from './types';
+import { IndiceBio, indexar } from './lib/bio';
+import { normalize } from './lib/ui';
 import { DatosMineria, MIN_CELDAS_ZONA, ZonaMinera, cargarMineria } from './lib/mineria';
 
-function sampledCommunityIds(filter: NonNullable<BioFilter>, bioindicadores: Bioindicador[]) {
-  const species = bioindicadores.filter((bio) => {
-    if (filter.kind === 'species') return bio.id === filter.id;
-    return filter.category === 'peces' ? bio.tipo.startsWith('pez') : bio.tipo === 'planta';
-  });
-  const speciesIds = new Set(species.map((bio) => bio.id));
-  return [...new Set(ESTUDIOS
-    .filter((study) => study.muestras.some((sample) => sample.bioindicadorId && speciesIds.has(sample.bioindicadorId)))
-    .map((study) => study.comunidadId))];
+/** Taxa whose sampling sites the map shows for a filter: the taxon itself plus the relatives it relies on. */
+function taxaDelFiltro(filter: NonNullable<BioFilter>, bio: IndiceBio) {
+  if (filter.kind === 'grupo') return new Set(bio.catalogo.taxones.filter((t) => t.grupo === filter.grupo).map((t) => t.id));
+  const t = bio.taxon.get(filter.id);
+  return new Set([filter.id, ...(t?.referencias.map((r) => r.taxon) ?? [])]);
+}
+
+/** Communities in the Bolivian departments where the filtered taxon has been recorded (GBIF). */
+function comunidadesConTaxon(filter: NonNullable<BioFilter>, bio: IndiceBio, comunidades: Comunidad[]) {
+  if (filter.kind !== 'taxon') return null;
+  const deps = new Set((bio.taxon.get(filter.id)?.bolivia?.departamentos ?? []).map(normalize));
+  return comunidades.filter((c) => deps.has(normalize(c.departamento))).map((c) => c.id);
 }
 
 export function App() {
   const [reportes, setReportes] = useState<Reporte[]>([]);
   const [comunidades, setComunidades] = useState<Comunidad[]>([]);
-  const [bioindicadores, setBioindicadores] = useState<Bioindicador[]>([]);
+  const [bio, setBio] = useState<IndiceBio | null>(null);
   const [rios, setRios] = useState<RioGeoJSON | null>(null);
   const [metricas, setMetricas] = useState<Metricas | null>(null);
 
@@ -78,7 +82,7 @@ export function App() {
 
         setReportes(repsData);
         setComunidades(comsData);
-        setBioindicadores(biosData);
+        setBio(indexar(biosData));
         setRios(riosData);
         setMetricas(metsData);
       } else {
@@ -119,20 +123,34 @@ export function App() {
     flyTo(L.latLngBounds([[c.latitud, c.longitud]]), 15.25);
   };
 
-  const filterBio = (filter: BioFilter) => {
-    setBioFilter(filter);
-    if (!filter) return;
-    const ids = sampledCommunityIds(filter, bioindicadores);
-    const places = comunidades.filter((place) => ids.includes(place.id));
-    if (!places.length) return;
-    const bounds = L.latLngBounds(places.map((place) => [place.latitud, place.longitud]));
-    flyTo(bounds.pad(0.12).extend(bounds.getCenter().toBounds(20000)));
+  /** Frame the sampling sites of a taxon; sites outside South America's Amazon would zoom the map out too far. */
+  const flyToSitios = (ids: Set<string>) => {
+    if (!bio) return;
+    const puntos = bio.catalogo.mediciones
+      .filter((m) => ids.has(m.taxon))
+      .map((m) => bio.sitio.get(m.sitio)!)
+      .filter((s) => s.lat !== null && s.lng !== null && s.alcance !== 'fuera')
+      .map((s) => [s.lat!, s.lng!] as [number, number]);
+    if (!puntos.length) return;
+    const bounds = L.latLngBounds(puntos);
+    flyTo(bounds.pad(0.2).extend(bounds.getCenter().toBounds(60000)), 8);
   };
 
-  const selectBio = (b: Bioindicador) => {
-    setSeleccion({ tipo: 'bioindicador', bio: b });
+  const filterBio = (filter: BioFilter) => {
+    setBioFilter(filter);
+    if (filter?.kind === 'taxon' && bio) flyToSitios(taxaDelFiltro(filter, bio));
+  };
+
+  const selectBio = (t: Taxon) => {
+    setSeleccion({ tipo: 'bioindicador', bio: t });
     setExplorerCompact(true);
-    filterBio({ kind: 'species', id: b.id });
+    filterBio({ kind: 'taxon', id: t.id });
+  };
+
+  const selectSitio = (s: Sitio) => {
+    setSeleccion({ tipo: 'sitio', sitio: s });
+    setExplorerCompact(true);
+    if (s.lat !== null && s.lng !== null) flyTo(L.latLng(s.lat, s.lng).toBounds(40000), 9);
   };
 
   const selectZona = (zona: ZonaMinera) => {
@@ -148,7 +166,12 @@ export function App() {
     flyTo(L.latLng(r.latitud, r.longitud).toBounds(8000));
   };
 
-  const highlightIds = useMemo(() => bioFilter ? sampledCommunityIds(bioFilter, bioindicadores) : null, [bioFilter, bioindicadores]);
+  const highlightIds = useMemo(
+    () => (bioFilter && bio ? comunidadesConTaxon(bioFilter, bio, comunidades) : null),
+    [bioFilter, bio, comunidades],
+  );
+  const bioTaxonIds = useMemo(() => (bioFilter && bio ? taxaDelFiltro(bioFilter, bio) : null), [bioFilter, bio]);
+  const showBioSites = section === 'bioindicadores' || seleccion?.tipo === 'bioindicador' || seleccion?.tipo === 'sitio';
 
   const selectedComunidadId =
     seleccion?.tipo === 'comunidad' ? seleccion.comunidad.id : seleccion?.tipo === 'reporte' ? seleccion.desde?.id : undefined;
@@ -206,16 +229,20 @@ export function App() {
           selectedZonaId={seleccion?.tipo === 'zona' ? seleccion.zona.id : undefined}
           hoveredZonaId={hoveredZonaId}
           onSelectZona={selectZona}
+          bio={bio}
+          bioTaxonIds={bioTaxonIds}
+          showBioSites={showBioSites}
+          selectedSitioId={seleccion?.tipo === 'sitio' ? seleccion.sitio.id : undefined}
+          onSelectSitio={selectSitio}
         />
 
         <BasinSummary comunidades={comunidades} metricas={metricas} />
         <ExplorerPanel view={section} detailOpen={!!seleccion}
           loading={loading}
           comunidades={comunidades}
-          bioindicadores={bioindicadores}
+          bio={bio}
           reportes={reportes}
           filter={bioFilter}
-          matchingCommunities={comunidades.filter((c) => highlightIds?.includes(c.id)).length}
           onFilter={filterBio}
           compact={explorerCompact}
           onExpand={() => { setSeleccion(null); setExplorerCompact(false); }}
@@ -236,10 +263,11 @@ export function App() {
             seleccion={seleccion}
             comunidades={comunidades}
             reportes={reportes}
-            bioindicadores={bioindicadores}
+            bio={bio}
             onClose={() => setSeleccion(null)}
             onSelectComunidad={selectComunidad}
             onSelectBio={selectBio}
+            onSelectSitio={selectSitio}
             onSelectReporte={selectReporte}
             onUpdateEstado={handleUpdateEstado}
             onCenter={(lat, lng) => flyTo(L.latLng(lat, lng).toBounds(4000))}

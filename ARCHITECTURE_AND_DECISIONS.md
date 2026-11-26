@@ -39,8 +39,26 @@ Un conjunto de reportes con síntomas compatibles con exposición a mercurio y u
 
 ### 6. Datos de demostración aislados y señalizados
 
-- **Decisión:** los estudios de campo, testimonios y reportes semilla son ficticios, viven en archivos dedicados (`web-investigador/src/data/`, `backend/app/seed_data.py`) y la interfaz los marca como datos de demostración.
-- **Motivo:** permiten evaluar la plataforma sin presentar como mediciones valores que no lo son, y se pueden reemplazar por datos reales sin tocar los componentes.
+- **Decisión:** los reportes semilla y los testimonios son ficticios, viven en archivos dedicados (`backend/app/seed_data.py`, `web-investigador/src/data/`) y la interfaz los marca como demostración.
+- **Motivo:** permiten evaluar el flujo de reportes sin datos reales de comunidades, y se reemplazan sin tocar los componentes.
+
+### 7. Catálogo de bioindicadores como archivo versionado
+
+- **Decisión:** las mediciones publicadas de mercurio, los sitios de muestreo, las fuentes y la presencia de cada especie en Bolivia viven en `backend/app/data/bioindicadores.json`. El backend lo valida al arrancar (cada medición debe apuntar a un taxón, sitio y fuente existentes) y lo sirve en `GET /api/v1/bioindicadores`.
+- **Motivo:** son datos de referencia que cambian cuando se revisa la literatura, no con el uso de la plataforma. En git cada cambio queda revisable, y no se pierden con el reinicio de la base SQLite.
+- **Modelo:** un taxón puede ser especie, género o grupo (por ejemplo "peces piscívoros del lago Puruzinho"). Cada medición guarda tejido, estadístico (media, mediana, individual o rango), dispersión, unidad, base de peso, n y fuente; no se mezclan varios tejidos en un valor.
+
+### 8. Bioindicadores potenciales por parentesco
+
+- **Decisión:** las especies que viven en Bolivia sin mediciones propias se vinculan con el taxón medido que les sirve de base (misma especie, mismo género, misma familia o mismo gremio trófico). La web las muestra como candidatas para investigación y nunca atribuye a Bolivia un valor medido en otro país.
+- **Ampliación por familia:** para cada familia (o género, en plantas e insectos) con mediciones, se agregaron las especies con más registros de GBIF en Beni y Pando. Su dieta se anota como información general por confirmar.
+- **Solidez de la base:** alta si es la misma especie medida en la cuenca del Madeira; baja si es un pariente de familia medido lejos. Baja un nivel cuando una especie es depredadora y la otra no, porque el mercurio se biomagnifica en la cadena trófica.
+- **Motivo:** en Bolivia hay pocas mediciones publicadas. Los estudios de Perú y Brasil, sobre todo de la cuenca del Madeira, que comparte ríos con Bolivia, permiten priorizar qué estudiar, con una base científica explícita.
+
+### 9. Fundamentos citados, no generados
+
+- **Decisión:** el "por qué" de cada bioindicador viene de una lista de fundamentos escritos a partir de los papers del corpus, cada uno con su fuente. Se asignan a las especies por reglas (grupo, familia, género, dieta) y se muestran igual en la ficha y en la propuesta de estudio.
+- **Motivo:** la explicación tiene que ser verificable. Una regla explícita evita atribuir a una especie un mecanismo que su grupo no tiene.
 
 ## Stack
 

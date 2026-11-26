@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { Comunidad, Bioindicador, Reporte, Metricas, RioGeoJSON } from '../types';
+import { Comunidad, CatalogoBioindicadores, Reporte, Metricas, RioGeoJSON } from '../types';
 
 // Local backend only in development. A deployed build must get VITE_API_BASE_URL explicitly:
 // falling back to localhost would make a public page try to reach the visitor's own machine.
@@ -30,7 +30,7 @@ export const api = {
     return res.json();
   },
 
-  async getBioindicadores(): Promise<Bioindicador[]> {
+  async getBioindicadores(): Promise<CatalogoBioindicadores> {
     const res = await fetch(`${API_BASE}/bioindicadores`);
     if (!res.ok) throw new Error('Error al cargar bioindicadores');
     return res.json();

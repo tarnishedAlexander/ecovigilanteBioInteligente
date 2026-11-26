@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Check, Crosshair, ExternalLink, Minus, Pickaxe, X } from 'lucide-react';
-import { Bioindicador, Comunidad, Reporte } from '../types';
+import { Comunidad, Reporte, Sitio, Taxon } from '../types';
 import { CATEGORIAS, SINTOMAS, formatCoord, formatFecha, normalize, estadoTone } from '../lib/ui';
 import {
-  ESTUDIOS,
   FOTOS_BIOINDICADOR,
   FOTOS_COMUNIDAD,
   FOTOS_REPORTE,
   Foto,
-  Muestra,
   TESTIMONIOS,
 } from '../data/expedientes';
 import { FOTOS_TERRITORIO } from '../data/fotosTerritorio';
-import { DemoBadge, EstadoPill, Field, RiskPill, ScoreBar, Section, Stat } from './primitives';
+import { EstadoPill, Field, RiskPill, ScoreBar, Section, Stat } from './primitives';
+import { BioView, BioindicadoresPotenciales, EstadoChip, SitioView } from './BioViews';
+import type { IndiceBio } from '../lib/bio';
 import {
   ANIO_RECIENTE,
   DatosMineria,
@@ -28,7 +28,8 @@ import {
 
 export type Seleccion =
   | { tipo: 'comunidad'; comunidad: Comunidad }
-  | { tipo: 'bioindicador'; bio: Bioindicador }
+  | { tipo: 'bioindicador'; bio: Taxon }
+  | { tipo: 'sitio'; sitio: Sitio }
   | { tipo: 'reporte'; reporte: Reporte; desde?: Comunidad }
   | { tipo: 'zona'; zona: ZonaMinera };
 
@@ -36,10 +37,11 @@ interface DetailPanelProps {
   seleccion: Seleccion;
   comunidades: Comunidad[];
   reportes: Reporte[];
-  bioindicadores: Bioindicador[];
+  bio: IndiceBio | null;
   onClose: () => void;
   onSelectComunidad: (c: Comunidad) => void;
-  onSelectBio: (b: Bioindicador) => void;
+  onSelectBio: (t: Taxon) => void;
+  onSelectSitio: (s: Sitio) => void;
   onSelectReporte: (r: Reporte, desde?: Comunidad) => void;
   onUpdateEstado: (id: string, estado: string, notas?: string) => Promise<void>;
   onCenter: (lat: number, lng: number) => void;
@@ -86,49 +88,6 @@ const Galeria: React.FC<{ fotos: Foto[] }> = ({ fotos }) => {
         </div>
       )}
     </figure>
-  );
-};
-
-/** One lab result drawn as a bar against its reference limit. */
-const ResultadoMuestra: React.FC<{ m: Muestra; etiqueta?: React.ReactNode }> = ({ m, etiqueta }) => {
-  const escala = Math.max(m.valor, m.limite ?? 0) * 1.2 || 1;
-  const excede = m.limite !== undefined && m.valor > m.limite;
-  return (
-    <li className="py-2.5">
-      <div className="mb-1 flex items-baseline justify-between gap-3 text-[12px]">
-        <span className="text-ink">
-          {etiqueta ?? (
-            <>
-              <span className="font-medium">{m.especie}</span>
-              <span className="text-ink-3"> · {m.matriz.toLowerCase()} · n={m.n}</span>
-            </>
-          )}
-        </span>
-        <span className="whitespace-nowrap font-semibold text-ink">
-          {m.valor} <span className="font-normal text-ink-3">{m.unidad}</span>
-        </span>
-      </div>
-      <div className="relative h-2 rounded-full bg-paper">
-        <div
-          className={`h-2 rounded-full ${m.limite === undefined ? 'bg-water' : excede ? 'bg-clay' : 'bg-moss'}`}
-          style={{ width: `${(m.valor / escala) * 100}%` }}
-        />
-        {m.limite !== undefined && (
-          <div
-            className="absolute -top-1 h-4 w-[2px] bg-ink"
-            style={{ left: `${(m.limite / escala) * 100}%` }}
-            title={`Límite: ${m.limite} ${m.unidad} (${m.referenciaLimite})`}
-          />
-        )}
-      </div>
-      <div className="mt-1 text-[11px] text-ink-3">
-        {m.limite === undefined
-          ? 'Sin límite normado: indicador de acumulación ambiental'
-          : excede
-            ? <><span className="font-semibold text-clay">Supera el límite ×{(m.valor / m.limite).toFixed(1)}</span> · límite {m.limite} {m.unidad} ({m.referenciaLimite})</>
-            : <><span className="font-semibold text-moss">Bajo el límite</span> · límite {m.limite} {m.unidad} ({m.referenciaLimite})</>}
-      </div>
-    </li>
   );
 };
 
@@ -329,19 +288,15 @@ const ZonaView: React.FC<{
 const ComunidadView: React.FC<{
   c: Comunidad;
   reportes: Reporte[];
-  bioindicadores: Bioindicador[];
-  onSelectBio: (b: Bioindicador) => void;
+  bio: IndiceBio | null;
+  onSelectBio: (t: Taxon) => void;
   onSelectReporte: (r: Reporte) => void;
   mineria: DatosMineria | null;
   onSelectZona: (zona: ZonaMinera) => void;
-}> = ({ c, reportes, bioindicadores, onSelectBio, onSelectReporte, mineria, onSelectZona }) => {
+}> = ({ c, reportes, bio, onSelectBio, onSelectReporte, mineria, onSelectZona }) => {
   const cover = FOTOS_TERRITORIO[c.id];
   const photos = FOTOS_COMUNIDAD[c.id] ?? [];
-  const estudios = ESTUDIOS.filter((e) => e.comunidadId === c.id);
-  const actividad = [
-    ...reportes.map((reporte) => ({ fecha: reporte.fecha_reporte, tipo: 'reporte' as const, reporte })),
-    ...estudios.map((estudio) => ({ fecha: estudio.fecha, tipo: 'estudio' as const, estudio })),
-  ].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 5);
+  const actividad = [...reportes].sort((a, b) => b.fecha_reporte.localeCompare(a.fecha_reporte)).slice(0, 5);
   const entrevistas = reportes.map((r) => r.entrevista_ia).filter((e): e is NonNullable<typeof e> => !!e);
   const verificados = reportes.filter((r) => r.estado === 'verificado').length;
   const promedio = reportes.length
@@ -364,7 +319,7 @@ const ComunidadView: React.FC<{
   const especies = Array.from(new Set(entrevistas.flatMap((e) => e.tipos_pescado_mencionados.map(normalize))));
   const especiesInfo = especies.map((nombre) => ({
     nombre,
-    bio: bioindicadores.find((b) => normalize(b.nombre_comun).includes(nombre)),
+    taxon: bio?.catalogo.taxones.find((t) => t.nivel === 'especie' && normalize(t.nombre_comun).includes(nombre)),
   }));
 
   return (
@@ -393,17 +348,13 @@ const ComunidadView: React.FC<{
       <Section title="Actividad reciente">
         {actividad.length === 0 ? <p className="text-[13px] text-ink-3">Aún no hay actividad registrada.</p> : (
           <ol className="activity-list">
-            {actividad.map((item) => (
-              <li key={item.tipo === 'reporte' ? item.reporte.id : item.estudio.id}>
-                <time>{formatFecha(item.fecha)}</time>
-                {item.tipo === 'reporte' ? (
-                  <button onClick={() => onSelectReporte(item.reporte)}>
-                    <strong>{CATEGORIAS[item.reporte.categoria] ?? item.reporte.categoria}</strong>
-                    <span>Reporte comunitario · {estadoTone(item.reporte.estado).label}</span>
-                  </button>
-                ) : (
-                  <div><strong>Estudio de campo</strong><span>{item.estudio.muestras.length} tipos de muestra · demostración</span></div>
-                )}
+            {actividad.map((r) => (
+              <li key={r.id}>
+                <time>{formatFecha(r.fecha_reporte)}</time>
+                <button onClick={() => onSelectReporte(r)}>
+                  <strong>{CATEGORIAS[r.categoria] ?? r.categoria}</strong>
+                  <span>Reporte comunitario · {estadoTone(r.estado).label}</span>
+                </button>
               </li>
             ))}
           </ol>
@@ -414,58 +365,7 @@ const ComunidadView: React.FC<{
         <p className="text-[13px] leading-relaxed text-ink-2">{c.posible_fuente_minera_aguas_arriba}</p>
       </Section>
 
-      <Section title="Estudios de campo" aside={estudios.length > 0 ? <DemoBadge /> : undefined}>
-        {estudios.length === 0 ? (
-          <div className="rounded border border-dashed border-line-strong bg-paper px-3 py-3 text-[13px] leading-relaxed text-ink-2">
-            <span className="font-semibold text-ink">Sin estudios de campo de demostración para esta comunidad.</span> Consulta los reportes disponibles para orientar una investigación.
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {estudios.map((e) => (
-              <article key={e.id} className="rounded border border-line">
-                <header className="border-b border-line bg-paper/60 px-3 py-2">
-                  <div className="flex items-center justify-between text-[12px]">
-                    <span className="font-semibold text-ink">{e.equipo}</span>
-                    <span className="text-ink-3">{formatFecha(e.fecha)}</span>
-                  </div>
-                  <p className="mt-0.5 text-[12px] leading-snug text-ink-2">{e.objetivo}</p>
-                </header>
-                <ul className="divide-y divide-line px-3">
-                  {e.muestras.map((m, i) => (
-                    <ResultadoMuestra
-                      key={i}
-                      m={m}
-                      etiqueta={
-                        <>
-                          {m.bioindicadorId ? (
-                            <button
-                              className="font-medium underline decoration-line-strong underline-offset-2 hover:decoration-ink"
-                              onClick={() => {
-                                const b = bioindicadores.find((x) => x.id === m.bioindicadorId);
-                                if (b) onSelectBio(b);
-                              }}
-                            >
-                              {m.especie}
-                            </button>
-                          ) : (
-                            <span className="font-medium">{m.especie}</span>
-                          )}
-                          <span className="text-ink-3"> · {m.matriz.toLowerCase()} · n={m.n}</span>
-                        </>
-                      }
-                    />
-                  ))}
-                </ul>
-                <footer className="border-t border-line px-3 py-2 text-[12px] leading-relaxed text-ink-2">
-                  <span className="font-semibold text-ink">Conclusión: </span>
-                  {e.conclusion}
-                </footer>
-              </article>
-            ))}
-            <p className="text-[11px] text-ink-3">La marca vertical indica el límite de referencia de cada muestra.</p>
-          </div>
-        )}
-      </Section>
+      <BioindicadoresPotenciales c={c} idx={bio} onSelectTaxon={onSelectBio} />
 
       {voces.length > 0 && (
         <Section title="Lo que dicen los comunarios">
@@ -507,23 +407,23 @@ const ComunidadView: React.FC<{
       {especiesInfo.length > 0 && (
         <Section title="Especies que consume la comunidad">
           <ul className="divide-y divide-line rounded border border-line">
-            {especiesInfo.map(({ nombre, bio }) => (
+            {especiesInfo.map(({ nombre, taxon }) => (
               <li key={nombre}>
                 <button
-                  disabled={!bio}
-                  onClick={() => bio && onSelectBio(bio)}
+                  disabled={!taxon}
+                  onClick={() => taxon && onSelectBio(taxon)}
                   className="flex w-full items-center gap-3 px-3 py-2 text-left enabled:hover:bg-paper"
                 >
                   <div className="h-9 w-11 shrink-0 overflow-hidden rounded bg-paper">
-                    {bio && FOTOS_BIOINDICADOR[bio.id] && (
-                      <img src={FOTOS_BIOINDICADOR[bio.id].src} alt="" loading="lazy" className="h-full w-full object-cover" />
+                    {taxon && FOTOS_BIOINDICADOR[taxon.id] && (
+                      <img src={FOTOS_BIOINDICADOR[taxon.id].src} alt="" loading="lazy" className="h-full w-full object-cover" />
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-[13px] capitalize text-ink">{nombre}</div>
-                    <div className="text-[11px] italic text-ink-3">{bio ? bio.nombre_cientifico : 'Sin ficha en el catálogo'}</div>
+                    <div className="text-[11px] italic text-ink-3">{taxon ? taxon.nombre_cientifico : 'Sin ficha en el catálogo'}</div>
                   </div>
-                  {bio && <RiskPill nivel={bio.nivel_bioacumulacion.split(' ')[0]} />}
+                  {taxon && bio && <EstadoChip t={taxon} idx={bio} />}
                 </button>
               </li>
             ))}
@@ -556,88 +456,6 @@ const ComunidadView: React.FC<{
           </ul>
         )}
       </Section>
-    </>
-  );
-};
-
-/* ---------- Bioindicator ---------- */
-
-const BioView: React.FC<{ b: Bioindicador; comunidades: Comunidad[]; onSelectComunidad: (c: Comunidad) => void }> = ({
-  b,
-  comunidades,
-  onSelectComunidad,
-}) => {
-  const foto = FOTOS_BIOINDICADOR[b.id];
-  const resultados = ESTUDIOS.flatMap((e) =>
-    e.muestras.filter((m) => m.bioindicadorId === b.id).map((m) => ({ m, estudio: e })),
-  ).sort((a, z) => z.m.valor - a.m.valor);
-
-  return (
-    <>
-      {foto && (
-        <figure className="px-5 pt-4">
-          <img src={foto.src} alt={foto.titulo} className="h-48 w-full rounded border border-line bg-paper object-cover" />
-          <figcaption className="mt-1.5 text-right">
-            <Credito foto={foto} />
-          </figcaption>
-        </figure>
-      )}
-      <div className="px-5 pb-4 pt-2">
-        <div className="mb-1.5">
-          <RiskPill nivel={b.nivel_bioacumulacion} />
-        </div>
-        <h2 className="font-serif text-[24px] font-semibold leading-tight text-ink">{b.nombre_comun}</h2>
-        <p className="text-[13px] italic text-ink-3">{b.nombre_cientifico}</p>
-      </div>
-
-      <Section title="Ecología">
-        <p className="text-[13px] leading-relaxed text-ink-2">{b.descripcion_ecologica}</p>
-      </Section>
-
-      <Section title="Riesgo en la dieta humana">
-        <p className="text-[13px] leading-relaxed text-ink-2">{b.factor_riesgo_salud}</p>
-      </Section>
-
-      <Section title="Resultados por zona" aside={resultados.length > 0 ? <DemoBadge /> : undefined}>
-        {resultados.length === 0 ? (
-          <p className="text-[13px] text-ink-3">Aún no se ha muestreado esta especie en campo.</p>
-        ) : (
-          <>
-            <ul className="divide-y divide-line">
-              {resultados.map(({ m, estudio }) => {
-                const c = comunidades.find((x) => x.id === estudio.comunidadId);
-                return (
-                  <ResultadoMuestra
-                    key={estudio.id}
-                    m={m}
-                    etiqueta={
-                      <>
-                        <button
-                          className="font-medium underline decoration-line-strong underline-offset-2 hover:decoration-ink"
-                          onClick={() => c && onSelectComunidad(c)}
-                        >
-                          {c?.nombre ?? estudio.comunidadId}
-                        </button>
-                        <span className="text-ink-3">
-                          {' '}
-                          · {m.matriz.toLowerCase()} · n={m.n} · {formatFecha(estudio.fecha)}
-                        </span>
-                      </>
-                    }
-                  />
-                );
-              })}
-            </ul>
-            <p className="mt-2 text-[11px] text-ink-3">Zonas resaltadas en el mapa. La marca vertical indica el límite.</p>
-          </>
-        )}
-      </Section>
-
-      {b.especies_similares.length > 0 && (
-        <Section title="Especies similares">
-          <p className="text-[13px] italic text-ink-2">{b.especies_similares.join(', ')}</p>
-        </Section>
-      )}
     </>
   );
 };
@@ -782,10 +600,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   seleccion,
   comunidades,
   reportes,
-  bioindicadores,
+  bio,
   onClose,
   onSelectComunidad,
   onSelectBio,
+  onSelectSitio,
   onSelectReporte,
   onUpdateEstado,
   onCenter,
@@ -800,7 +619,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         ? seleccion.bio.id
         : seleccion.tipo === 'zona'
           ? seleccion.zona.id
-          : seleccion.reporte.id;
+          : seleccion.tipo === 'sitio'
+            ? seleccion.sitio.id
+            : seleccion.reporte.id;
 
   return (
     <aside
@@ -815,7 +636,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           aside={<span className="font-mono text-[11px] text-ink-3">{seleccion.reporte.id}</span>}
         />
       ) : (
-        <Header onClose={onClose} aside={<span className="eyebrow">{seleccion.tipo === 'comunidad' ? 'Comunidad' : seleccion.tipo === 'zona' ? 'Zona minera' : 'Bioindicador'}</span>} />
+        <Header onClose={onClose} aside={<span className="eyebrow">{seleccion.tipo === 'comunidad' ? 'Comunidad' : seleccion.tipo === 'zona' ? 'Zona minera' : seleccion.tipo === 'sitio' ? 'Sitio de muestreo' : 'Bioindicador'}</span>} />
       )}
 
       <div className="flex-1 overflow-y-auto">
@@ -823,16 +644,17 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           <ComunidadView
             c={seleccion.comunidad}
             reportes={reportes.filter((r) => r.comunidad_id === seleccion.comunidad.id)}
-            bioindicadores={bioindicadores}
+            bio={bio}
             onSelectBio={onSelectBio}
             onSelectReporte={(r) => onSelectReporte(r, seleccion.comunidad)}
             mineria={mineria}
             onSelectZona={onSelectZona}
           />
         )}
-        {seleccion.tipo === 'bioindicador' && (
-          <BioView b={seleccion.bio} comunidades={comunidades} onSelectComunidad={onSelectComunidad} />
+        {seleccion.tipo === 'bioindicador' && bio && (
+          <BioView t={seleccion.bio} idx={bio} onSelectTaxon={onSelectBio} onSelectSitio={onSelectSitio} />
         )}
+        {seleccion.tipo === 'sitio' && bio && <SitioView s={seleccion.sitio} idx={bio} onSelectTaxon={onSelectBio} />}
         {seleccion.tipo === 'zona' && mineria && (
           <ZonaView zona={seleccion.zona} mineria={mineria} comunidades={comunidades} onSelectComunidad={onSelectComunidad} />
         )}

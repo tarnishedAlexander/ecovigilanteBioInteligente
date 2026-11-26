@@ -3,7 +3,7 @@ import json
 import os
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-from app.seed_data import COMUNIDADES_DATA, BIOINDICADORES_DATA, REPORTES_INICIALES, RIOS_GEOJSON
+from app.seed_data import COMUNIDADES_DATA, REPORTES_INICIALES
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ecovigilante.db")
 
@@ -28,21 +28,6 @@ def init_db():
         poblacion_estimada INTEGER NOT NULL,
         posible_fuente_minera_aguas_arriba TEXT,
         alerta_nivel TEXT DEFAULT 'Bajo'
-    )
-    """)
-
-    # Tabla Bioindicadores
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS bioindicadores (
-        id TEXT PRIMARY KEY,
-        nombre_comun TEXT NOT NULL,
-        nombre_cientifico TEXT NOT NULL,
-        tipo TEXT NOT NULL,
-        nivel_bioacumulacion TEXT NOT NULL,
-        factor_riesgo_salud TEXT NOT NULL,
-        descripcion_ecologica TEXT NOT NULL,
-        especies_similares TEXT, -- JSON Array
-        icono TEXT
     )
     """)
 
@@ -77,15 +62,6 @@ def init_db():
             INSERT INTO comunidades (id, nombre, departamento, cuenca_principal, latitud, longitud, poblacion_estimada, posible_fuente_minera_aguas_arriba, alerta_nivel)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (c["id"], c["nombre"], c["departamento"], c["cuenca_principal"], c["latitud"], c["longitud"], c["poblacion_estimada"], c["posible_fuente_minera_aguas_arriba"], c["alerta_nivel"]))
-
-    # Sembrar bioindicadores si está vacía
-    cursor.execute("SELECT COUNT(*) FROM bioindicadores")
-    if cursor.fetchone()[0] == 0:
-        for b in BIOINDICADORES_DATA:
-            cursor.execute("""
-            INSERT INTO bioindicadores (id, nombre_comun, nombre_cientifico, tipo, nivel_bioacumulacion, factor_riesgo_salud, descripcion_ecologica, especies_similares, icono)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (b["id"], b["nombre_comun"], b["nombre_cientifico"], b["tipo"], b["nivel_bioacumulacion"], b["factor_riesgo_salud"], b["descripcion_ecologica"], json.dumps(b["especies_similares"]), b["icono"]))
 
     # Sembrar reportes si está vacía
     cursor.execute("SELECT COUNT(*) FROM reportes")
@@ -125,22 +101,6 @@ def get_all_comunidades() -> List[Dict[str, Any]]:
         ORDER BY c.nombre ASC
     """)
     rows = [dict(row) for row in cursor.fetchall()]
-    conn.close()
-    return rows
-
-def get_all_bioindicadores() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM bioindicadores")
-    rows = []
-    for row in cursor.fetchall():
-        d = dict(row)
-        if d.get("especies_similares"):
-            try:
-                d["especies_similares"] = json.loads(d["especies_similares"])
-            except:
-                d["especies_similares"] = []
-        rows.append(d)
     conn.close()
     return rows
 

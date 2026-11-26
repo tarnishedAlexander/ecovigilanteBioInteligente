@@ -51,16 +51,103 @@ class Reporte(BaseModel):
     notas_investigador: Optional[str]
     entrevista_ia: Optional[EntrevistaIAModel]
 
-class Bioindicador(BaseModel):
+# --- Catálogo de bioindicadores (datos de referencia en app/data/bioindicadores.json) ---
+
+class Fuente(BaseModel):
+    id: str
+    cita: str
+    url: str
+
+class Sitio(BaseModel):
+    id: str
+    nombre: str
+    pais: Optional[str] = None
+    region: Optional[str] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    precision: Literal["exacta", "aproximada", "desconocida"]
+    contexto: Literal["minero", "referencia", "mixto", "mercado", "desconocido"]
+    alcance: Literal["bolivia", "madeira", "amazonia", "fuera", "neotropico"]
+
+class PresenciaBolivia(BaseModel):
+    gbif_key: int
+    registros: int
+    departamentos: List[str] = Field(default_factory=list)
+
+class Referencia(BaseModel):
+    taxon: str
+    relacion: Literal["misma_especie", "mismo_genero", "misma_familia", "mismo_gremio", "mismo_habito"]
+
+class Prioridad(BaseModel):
+    orden: int
+    motivo: str
+    muestra: str
+
+class Taxon(BaseModel):
     id: str
     nombre_comun: str
     nombre_cientifico: str
-    tipo: str # "pez_carnivoro", "pez_detritivoro", "planta", "macroinvertebrado"
-    nivel_bioacumulacion: str # "Crítico", "Alto", "Medio", "Bajo"
-    factor_riesgo_salud: str
-    descripcion_ecologica: str
-    especies_similares: List[str] = Field(default_factory=list)
-    icono: str
+    familia: str
+    grupo: Literal["pez", "ave", "reptil", "mamifero", "insecto", "planta", "abiotico"]
+    nivel: Literal["especie", "genero", "grupo"]
+    dieta: str
+    introducida: bool = False
+    bolivia: Optional[PresenciaBolivia] = None
+    referencias: List[Referencia] = Field(default_factory=list)
+    prioridad: Optional[Prioridad] = None
+    nota: Optional[str] = None
+    # "corpus": aparece en los papers; "pariente_gbif": especie boliviana agregada por familia o género.
+    origen: Literal["corpus", "pariente_gbif"] = "corpus"
+    # Registros de GBIF en Beni y Pando (núcleo amazónico de Bolivia), solo para parientes agregados.
+    amazonia_bolivia: Optional[int] = None
+    foto: Optional[Foto] = None
+
+class Medicion(BaseModel):
+    id: str
+    taxon: str
+    sitio: str
+    tejido: str
+    estadistico: Literal["media", "mediana", "individual", "rango", "total", "bajo_ld"]
+    valor: Optional[float] = None
+    min: Optional[float] = None
+    max: Optional[float] = None
+    dispersion: Optional[float] = None
+    dispersion_tipo: Optional[Literal["DE", "EE"]] = None
+    unidad: Literal["mg/kg", "µg/g", "ng/L", "µg/m²"]
+    base: Optional[Literal["humedo", "seco"]] = None
+    n: Optional[int] = None
+    periodo: Optional[str] = None
+    fuente: str
+    nota: Optional[str] = None
+
+class AplicaFundamento(BaseModel):
+    grupos: List[str] = Field(default_factory=list)
+    familias: List[str] = Field(default_factory=list)
+    generos: List[str] = Field(default_factory=list)
+    dietas: List[str] = Field(default_factory=list)  # normalizadas, sin tildes
+
+class Fundamento(BaseModel):
+    """Por qué un grupo de organismos sirve como bioindicador, según los papers citados."""
+    id: str
+    tipo: Literal["quimico", "biologico", "anatomico"]
+    titulo: str
+    texto: str
+    fuentes: List[str]
+    aplica: AplicaFundamento
+
+class Foto(BaseModel):
+    archivo: str  # nombre del archivo en Wikimedia Commons
+    licencia: Optional[str] = None
+    autor: Optional[str] = None
+
+class CatalogoBioindicadores(BaseModel):
+    version: str
+    nota: str
+    fundamentos: List[Fundamento] = Field(default_factory=list)
+    fuentes: List[Fuente]
+    sitios: List[Sitio]
+    taxones: List[Taxon]
+    mediciones: List[Medicion]
 
 class Comunidad(BaseModel):
     id: str

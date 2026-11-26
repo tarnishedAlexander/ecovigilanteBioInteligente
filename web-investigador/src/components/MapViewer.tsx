@@ -8,6 +8,9 @@ import { DatosMineria, MIN_CELDAS_ZONA, PERIODOS, PeriodoId, ZonaMinera, describ
 import type { AtlasSection } from './Header';
 import { MiningLayer } from './MiningLayer';
 import { BoliviaBorder } from './BoliviaBorder';
+import { BioSitesLayer } from './BioSitesLayer';
+import { ALCANCES, IndiceBio } from '../lib/bio';
+import type { Sitio } from '../types';
 
 export interface CameraTarget {
   bounds: L.LatLngBounds;
@@ -36,6 +39,12 @@ interface MapViewerProps {
   selectedZonaId?: string;
   hoveredZonaId: string | null;
   onSelectZona: (zona: ZonaMinera) => void;
+  bio: IndiceBio | null;
+  /** Show sampling sites of these taxa (null = all) while the bioindicator layer is on. */
+  bioTaxonIds: Set<string> | null;
+  showBioSites: boolean;
+  selectedSitioId?: string;
+  onSelectSitio: (sitio: Sitio) => void;
 }
 
 const PICKAXE_SVG =
@@ -198,6 +207,11 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   selectedZonaId,
   hoveredZonaId,
   onSelectZona,
+  bio,
+  bioTaxonIds,
+  showBioSites,
+  selectedSitioId,
+  onSelectSitio,
 }) => {
   const [baseMap, setBaseMap] = useState<'satellite' | 'pureSatellite' | 'terrain'>('pureSatellite');
   const [showRios, setShowRios] = useState(false);
@@ -206,6 +220,12 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   const [controlsOpen, setControlsOpen] = useState(false);
   const [showMineria, setShowMineria] = useState(true);
   const [periodos, setPeriodos] = useState<Set<PeriodoId>>(() => new Set(PERIODOS.map((p) => p.id)));
+  const [showBio, setShowBio] = useState(false);
+
+  // The Bioindicadores section and any bioindicator selection bring the sampling sites back.
+  useEffect(() => {
+    setShowBio(showBioSites);
+  }, [showBioSites]);
 
   // The Minería section and any zone selection always bring the layer back.
   useEffect(() => {
@@ -297,6 +317,10 @@ export const MapViewer: React.FC<MapViewerProps> = ({
               <Toggle checked={showReportes} onChange={setShowReportes}>
                 Reportes <span className="text-ink-3">({reportes.length})</span>
               </Toggle>
+              <Toggle checked={showBio} onChange={setShowBio}>
+                Mercurio medido (sitios)
+                {bio && <span className="text-ink-3">({bio.catalogo.sitios.filter((x) => x.lat !== null).length})</span>}
+              </Toggle>
               <Toggle checked={showMineria} onChange={setShowMineria}>
                 Huella minera (satélite)
                 {mineria && <span className="text-ink-3">({mineria.celdas.length.toLocaleString('es-BO')})</span>}
@@ -341,6 +365,20 @@ export const MapViewer: React.FC<MapViewerProps> = ({
                     </p>
                   </>
                 )}
+              </div>
+            )}
+            {showBio && (
+              <div className="border-t border-line px-3 py-2.5">
+                <div className="eyebrow mb-1.5">Sitios con mercurio medido</div>
+                <ul className="space-y-0.5 text-[11px] text-ink-2">
+                  {(['bolivia', 'madeira', 'amazonia', 'fuera'] as const).map((k) => (
+                    <li key={k} className="flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ background: ALCANCES[k].color }} />
+                      {ALCANCES[k].label}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-1.5 text-[10px] leading-snug text-ink-3">Ubicación aproximada del estudio. Datos publicados, con su fuente.</p>
               </div>
             )}
             <div className="border-t border-line px-3 py-2.5">
@@ -393,6 +431,10 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         <BoliviaBorder />
 
         {showMineria && mineria && <MiningLayer datos={mineria} periodos={periodos} />}
+
+        {showBio && bio && (
+          <BioSitesLayer indice={bio} taxonIds={bioTaxonIds} selectedSitioId={selectedSitioId} onSelect={onSelectSitio} />
+        )}
 
         {mostrarZonas &&
           zonasVisibles.map((z) => {

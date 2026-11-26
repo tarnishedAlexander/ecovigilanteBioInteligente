@@ -1,0 +1,5330 @@
+{
+ "version": "2026-11-26",
+ "nota": "Mediciones de mercurio publicadas (THg) y presencia en Bolivia según GBIF (consulta del 2026-11-26). Las coordenadas marcadas 'aproximada' ubican el sitio a escala regional; no son el punto exacto de muestreo. Los parientes agregados por familia o género provienen de GBIF (especies con registros en Beni y Pando); su dieta es informativa y debe confirmarse.",
+ "fuentes": [
+  {
+   "id": "rodriguez2022",
+   "cita": "Rodriguez-Levy et al. 2022. Trace element accumulation in different edible fish species from the Bolivian Amazon and the risk for human consumption. Heliyon.",
+   "url": "https://doi.org/10.1016/j.heliyon.2022.e11649"
+  },
+  {
+   "id": "martinez2018",
+   "cita": "Martinez et al. 2018. Mercury contamination in riverine sediments and fish associated with artisanal and small-scale gold mining in Madre de Dios, Peru. Int. J. Environ. Res. Public Health 15:1584.",
+   "url": "https://doi.org/10.3390/ijerph15081584"
+  },
+  {
+   "id": "monteiro2026",
+   "cita": "Monteiro et al. 2026. Contrasting anthropogenic drivers of mercury bioaccumulation in fish and associated dietary exposure risks in Amazon and Cerrado floodplain lakes. Environ. Geochem. Health 48:458.",
+   "url": "https://doi.org/10.1007/s10653-026-03335-0"
+  },
+  {
+   "id": "castilho2026",
+   "cita": "Castilho et al. 2026. Mercury in southern legal Amazonia: evaluating Prochilodus nigricans as a bioindicator species and the risk of its consumption. Environ. Monit. Assess. 198:611.",
+   "url": "https://doi.org/10.1007/s10661-026-15477-w"
+  },
+  {
+   "id": "guayana_dma",
+   "cita": "Application of the European Water Framework Directive: identification of reference sites and bioindicator fish species for mercury in tropical freshwater ecosystems (French Guiana). HAL hal-02609460.",
+   "url": "https://hal.inrae.fr/hal-02609460v1"
+  },
+  {
+   "id": "pisconte2024",
+   "cita": "Pisconte et al. 2024. Elevated mercury exposure to bird communities inhabiting artisanal and small-scale gold mining landscapes of the southeastern Peruvian Amazon. Ecotoxicology.",
+   "url": "https://doi.org/10.1007/s10646-024-02740-4"
+  },
+  {
+   "id": "gerson2022",
+   "cita": "Gerson et al. 2022. Amazon forests capture high levels of atmospheric mercury pollution from artisanal gold mining. Nat. Commun. 13:312.",
+   "url": "https://doi.org/10.1038/s41467-022-27997-3"
+  },
+  {
+   "id": "sayers2023",
+   "cita": "Sayers et al. 2023. Mercury in Neotropical birds: a synthesis and prospectus on 13 years of exposure data. Ecotoxicology 32:1096-1123.",
+   "url": "https://doi.org/10.1007/s10646-023-02706-y"
+  },
+  {
+   "id": "ramirez2025",
+   "cita": "Ramirez-Ortiz et al. 2025. Bull. Environ. Contam. Toxicol. Mercurio en gallina doméstica de San Martín de Loba y Arjona (Bolívar, Colombia).",
+   "url": "https://doi.org/10.1007/s00128-025-04096-9"
+  },
+  {
+   "id": "lemaire2023",
+   "cita": "Lemaire 2023. Using crocodylians for monitoring mercury in the tropics. Ecotoxicology 32:977-993 (tabla 1, compila los estudios originales).",
+   "url": "https://doi.org/10.1007/s10646-023-02703-1"
+  },
+  {
+   "id": "borges",
+   "cita": "Borges et al. Mercury bioaccumulation, genotoxic and biochemical biomarkers in yellow-spotted Amazon River turtles (Podocnemis unifilis). Acta Amazonica.",
+   "url": "https://doi.org/10.1590/1809-4392202201230"
+  },
+  {
+   "id": "facundo2026",
+   "cita": "Facundo et al. 2026. Non-invasive assessment of mercury exposure in rodents and marsupials from a historically contaminated area of the Madeira River, Western Amazon. Bull. Environ. Contam. Toxicol. 116:108.",
+   "url": "https://doi.org/10.1007/s00128-026-04260-9"
+  },
+  {
+   "id": "chaboteaux2026",
+   "cita": "Chaboteaux et al. 2026. Mercury accumulation in tropical insects is structured by trophic gradients and contaminant risk landscapes. Sci. Rep. 16:36722.",
+   "url": "https://doi.org/10.1038/s41598-026-64948-0"
+  },
+  {
+   "id": "monteiro2024",
+   "cita": "Monteiro et al. 2024. Mercury bioconcentration and translocation in rooted macrophytes (Paspalum repens) from floodplain lakes in the Araguaia River watershed. Water 16:1199.",
+   "url": "https://doi.org/10.3390/w16091199"
+  },
+  {
+   "id": "gbif",
+   "cita": "GBIF.org, registros de ocurrencia con pais = Bolivia, consultados el 26 de noviembre de 2026.",
+   "url": "https://www.gbif.org"
+  }
+ ],
+ "sitios": [
+  {
+   "id": "bo-riberalta-rurre",
+   "nombre": "Mercados de Riberalta y Rurrenabaque",
+   "pais": "Bolivia",
+   "region": "Beni",
+   "lat": -11.0065,
+   "lng": -66.0825,
+   "precision": "aproximada",
+   "contexto": "mercado",
+   "alcance": "bolivia"
+  },
+  {
+   "id": "bo-la-paz",
+   "nombre": "Departamento de La Paz (sitio no especificado)",
+   "pais": "Bolivia",
+   "region": "La Paz",
+   "lat": null,
+   "lng": null,
+   "precision": "desconocida",
+   "contexto": "desconocido",
+   "alcance": "bolivia"
+  },
+  {
+   "id": "bo-colorado-maja",
+   "nombre": "Lagos Colorado y Maja",
+   "pais": "Bolivia",
+   "region": null,
+   "lat": null,
+   "lng": null,
+   "precision": "desconocida",
+   "contexto": "desconocido",
+   "alcance": "bolivia"
+  },
+  {
+   "id": "pe-malinowski",
+   "nombre": "Río Malinowski (con minería)",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.95,
+   "lng": -69.85,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-tambopata",
+   "nombre": "Río Tambopata",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.75,
+   "lng": -69.3,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-heath",
+   "nombre": "Río Heath",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.7,
+   "lng": -68.8,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-mdd-rios",
+   "nombre": "Ríos Tambopata, Malinowski y Heath",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.8,
+   "lng": -69.4,
+   "precision": "aproximada",
+   "contexto": "mixto",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-mdd-mineros",
+   "nombre": "Sitios mineros de Madre de Dios (Azul, Inambari, Laberinto, Los Amigos)",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.72,
+   "lng": -69.59,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-la-torre",
+   "nombre": "La Torre, Reserva Nacional Tambopata",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.83,
+   "lng": -69.28,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-los-amigos",
+   "nombre": "Concesión de Conservación Los Amigos",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.57,
+   "lng": -70.1,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-cocha-cashu",
+   "nombre": "Estación Biológica Cocha Cashu",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -11.89,
+   "lng": -71.41,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-la-pampa",
+   "nombre": "Cocha Cashu, Los Amigos y concesión Linda-2 (La Pampa)",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -13.0177,
+   "lng": -69.9451,
+   "precision": "exacta",
+   "contexto": "mixto",
+   "alcance": "madeira"
+  },
+  {
+   "id": "pe-mdd-dosel",
+   "nombre": "Bosques junto a sitios mineros del río Madre de Dios",
+   "pais": "Perú",
+   "region": "Madre de Dios",
+   "lat": -12.65,
+   "lng": -69.75,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "madeira"
+  },
+  {
+   "id": "br-puruzinho",
+   "nombre": "Lago Puruzinho, cuenca del Madeira",
+   "pais": "Brasil",
+   "region": "Amazonas",
+   "lat": -7.37,
+   "lng": -63.05,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "madeira"
+  },
+  {
+   "id": "br-porto-velho",
+   "nombre": "Bajo río Madeira, represa Santo Antônio (Porto Velho)",
+   "pais": "Brasil",
+   "region": "Rondônia",
+   "lat": -8.8,
+   "lng": -63.95,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "madeira"
+  },
+  {
+   "id": "br-peixoto",
+   "nombre": "Río Peixoto de Azevedo, cuenca del Tapajós",
+   "pais": "Brasil",
+   "region": "Mato Grosso",
+   "lat": -10.22,
+   "lng": -54.98,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "amazonia"
+  },
+  {
+   "id": "br-purus",
+   "nombre": "Bajo río Purus, Reserva Piagaçu-Purus",
+   "pais": "Brasil",
+   "region": "Amazonas",
+   "lat": -4.27,
+   "lng": -61.9,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "amazonia"
+  },
+  {
+   "id": "br-mamiraua",
+   "nombre": "Reserva Mamirauá",
+   "pais": "Brasil",
+   "region": "Amazonas",
+   "lat": -2.4,
+   "lng": -65.1,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "amazonia"
+  },
+  {
+   "id": "br-araguaia",
+   "nombre": "Lagos de la planicie del río Araguaia",
+   "pais": "Brasil",
+   "region": "Goiás, Mato Grosso y Tocantins",
+   "lat": -13.1,
+   "lng": -50.6,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "fuera"
+  },
+  {
+   "id": "br-pantanal",
+   "nombre": "Pantanal",
+   "pais": "Brasil",
+   "region": "Mato Grosso do Sul",
+   "lat": -18.0,
+   "lng": -57.5,
+   "precision": "aproximada",
+   "contexto": "desconocido",
+   "alcance": "fuera"
+  },
+  {
+   "id": "gf-oyapock",
+   "nombre": "Ríos de referencia de la cuenca del Oyapock",
+   "pais": "Guayana Francesa",
+   "region": null,
+   "lat": 2.25,
+   "lng": -52.87,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "fuera"
+  },
+  {
+   "id": "gf-varios",
+   "nombre": "Guayana Francesa (varios sitios)",
+   "pais": "Guayana Francesa",
+   "region": null,
+   "lat": 4.0,
+   "lng": -53.0,
+   "precision": "aproximada",
+   "contexto": "mixto",
+   "alcance": "fuera"
+  },
+  {
+   "id": "gf-kaw",
+   "nombre": "Reserva Kaw-Roura",
+   "pais": "Guayana Francesa",
+   "region": null,
+   "lat": 4.55,
+   "lng": -52.15,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "fuera"
+  },
+  {
+   "id": "co-san-martin-loba",
+   "nombre": "San Martín de Loba (minero)",
+   "pais": "Colombia",
+   "region": "Bolívar",
+   "lat": 8.94,
+   "lng": -74.04,
+   "precision": "aproximada",
+   "contexto": "minero",
+   "alcance": "fuera"
+  },
+  {
+   "id": "co-arjona",
+   "nombre": "Arjona (control)",
+   "pais": "Colombia",
+   "region": "Bolívar",
+   "lat": 10.25,
+   "lng": -75.34,
+   "precision": "aproximada",
+   "contexto": "referencia",
+   "alcance": "fuera"
+  },
+  {
+   "id": "neotropico",
+   "nombre": "Varias localidades del Neotrópico (síntesis)",
+   "pais": null,
+   "region": null,
+   "lat": null,
+   "lng": null,
+   "precision": "desconocida",
+   "contexto": "mixto",
+   "alcance": "neotropico"
+  }
+ ],
+ "taxones": [
+  {
+   "id": "peces-comerciales-beni",
+   "nombre_comun": "Peces comerciales (35 especies)",
+   "nombre_cientifico": "Varias especies",
+   "familia": "11 familias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Varias"
+  },
+  {
+   "id": "peces-madre-de-dios",
+   "nombre_comun": "Peces (36 especies)",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Varias"
+  },
+  {
+   "id": "peces-piscivoros-puruzinho",
+   "nombre_comun": "Peces piscívoros",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Piscívora"
+  },
+  {
+   "id": "peces-carnivoros-puruzinho",
+   "nombre_comun": "Peces carnívoros",
+   "nombre_cientifico": "Varias especies, incl. Cichla pleiozona",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Carnívora"
+  },
+  {
+   "id": "peces-planctivoros-puruzinho",
+   "nombre_comun": "Peces planctívoros",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Planctívora"
+  },
+  {
+   "id": "peces-detritivoros-puruzinho",
+   "nombre_comun": "Peces detritívoros",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Detritívora"
+  },
+  {
+   "id": "peces-puruzinho",
+   "nombre_comun": "Peces (19 especies)",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Varias"
+  },
+  {
+   "id": "peces-araguaia",
+   "nombre_comun": "Peces (17 especies)",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "pez",
+   "nivel": "grupo",
+   "dieta": "Varias"
+  },
+  {
+   "id": "serrasalmus-spp",
+   "nombre_comun": "Paña, piraña",
+   "nombre_cientifico": "Serrasalmus spp.",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "genero",
+   "dieta": "Piscívora",
+   "foto": {
+    "archivo": "Piranha-serrasalmus manueli 01.jpg",
+    "licencia": "Public domain",
+    "autor": "Jonas Hansel (jonashansel@gmail.com)"
+   }
+  },
+  {
+   "id": "pseudoplatystoma-tigrinum",
+   "nombre_comun": "Chuncuina, puma zúngaro",
+   "nombre_cientifico": "Pseudoplatystoma tigrinum",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338667,
+    "registros": 1101,
+    "departamentos": [
+     "Cochabamba",
+     "Santa Cruz",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "prioridad": {
+    "orden": 1,
+    "motivo": "Piscívoro muy consumido en el Beni, con más de 3.400 registros en Bolivia junto con el surubí",
+    "muestra": "Músculo comprado en mercados"
+   },
+   "foto": {
+    "archivo": "Pseudoplatystoma tigrinum1.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Lerdsuwa"
+   }
+  },
+  {
+   "id": "pseudoplatystoma-fasciatum",
+   "nombre_comun": "Surubí",
+   "nombre_cientifico": "Pseudoplatystoma fasciatum",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338673,
+    "registros": 2305,
+    "departamentos": [
+     "Cochabamba",
+     "Santa Cruz",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "prioridad": {
+    "orden": 1,
+    "motivo": "Piscívoro muy consumido en el Beni, con más de 3.400 registros en Bolivia junto con la chuncuina",
+    "muestra": "Músculo comprado en mercados"
+   },
+   "foto": {
+    "archivo": "Pseudoplatystoma-fasciatum.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Chrumps"
+   }
+  },
+  {
+   "id": "zungaro-zungaro",
+   "nombre_comun": "Muturo",
+   "nombre_cientifico": "Zungaro zungaro",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338770,
+    "registros": 1165,
+    "departamentos": [
+     "La Paz",
+     "Cochabamba",
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    },
+    {
+     "taxon": "peces-piscivoros-puruzinho",
+     "relacion": "mismo_gremio"
+    }
+   ],
+   "prioridad": {
+    "orden": 6,
+    "motivo": "Muy consumido y sin ninguna medición en el corpus",
+    "muestra": "Músculo"
+   },
+   "foto": {
+    "archivo": "Zungaro zungaro.jpg",
+    "licencia": "Public domain",
+    "autor": "François-Louis Laporte, comte de Castelnau"
+   }
+  },
+  {
+   "id": "brachyplatystoma-filamentosum",
+   "nombre_comun": "Saltón, piraíba",
+   "nombre_cientifico": "Brachyplatystoma filamentosum",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338822,
+    "registros": 1359,
+    "departamentos": [
+     "Cochabamba",
+     "Santa Cruz",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "peces-piscivoros-puruzinho",
+     "relacion": "mismo_gremio"
+    }
+   ]
+  },
+  {
+   "id": "brachyplatystoma-rousseauxii",
+   "nombre_comun": "Dorado",
+   "nombre_cientifico": "Brachyplatystoma rousseauxii",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338831,
+    "registros": 498,
+    "departamentos": [
+     "Cochabamba",
+     "La Paz",
+     "Santa Cruz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "peces-piscivoros-puruzinho",
+     "relacion": "mismo_gremio"
+    }
+   ]
+  },
+  {
+   "id": "serrasalmus-rhombeus",
+   "nombre_comun": "Piraña negra",
+   "nombre_cientifico": "Serrasalmus rhombeus",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2354124,
+    "registros": 551,
+    "departamentos": [
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "nota": "En el lago Puruzinho es una de las especies que más superan el límite de consumo (Monteiro 2026), sin media por especie en el texto.",
+   "foto": {
+    "archivo": "BlackPirahna2010.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Ltshears"
+   }
+  },
+  {
+   "id": "pygocentrus-nattereri",
+   "nombre_comun": "Piraña roja, palometa",
+   "nombre_cientifico": "Pygocentrus nattereri",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2352479,
+    "registros": 336,
+    "departamentos": [
+     "La Paz",
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "nota": "Superó la ingesta semanal tolerable en lagos del Araguaia (Monteiro 2026), sin media publicada en el texto.",
+   "foto": {
+    "archivo": "Gregory Moine - Red bellied Piranha (by).jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Gregory Moine from Niantic, USA"
+   }
+  },
+  {
+   "id": "cichla-pleiozona",
+   "nombre_comun": "Tucunaré",
+   "nombre_cientifico": "Cichla pleiozona",
+   "familia": "Cichlidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 5208157,
+    "registros": 87,
+    "departamentos": [
+     "Cochabamba",
+     "Santa Cruz",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "peces-carnivoros-puruzinho",
+     "relacion": "misma_especie"
+    }
+   ],
+   "nota": "La especie que más superó el límite de consumo en el lago Puruzinho (n = 41).",
+   "prioridad": {
+    "orden": 4,
+    "motivo": "La especie que más superó el límite de consumo en la cuenca del Madeira",
+    "muestra": "Músculo"
+   },
+   "foto": {
+    "archivo": "Cichla_pleiozona_296042172.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Vincent A. Vos"
+   }
+  },
+  {
+   "id": "pellona-castelnaeana",
+   "nombre_comun": "Apapá",
+   "nombre_cientifico": "Pellona castelnaeana",
+   "familia": "Pristigasteridae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2413586,
+    "registros": 113,
+    "departamentos": [
+     "Cochabamba",
+     "Santa Cruz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "peces-piscivoros-puruzinho",
+     "relacion": "misma_especie"
+    }
+   ],
+   "nota": "Una de las especies que más superan el límite de consumo en el lago Puruzinho (n = 25).",
+   "foto": {
+    "archivo": "Pellona castelnaeana.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Clinton & Charles Robertson"
+   }
+  },
+  {
+   "id": "hypophthalmus-marginatus",
+   "nombre_comun": "Mapará",
+   "nombre_cientifico": "Hypophthalmus marginatus",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Planctívora",
+   "bolivia": {
+    "gbif_key": 5201979,
+    "registros": 11,
+    "departamentos": []
+   },
+   "foto": {
+    "archivo": "Hypophthalmus_marginatus_from_the_Lajeado_reservoir_(2_of_2)_(cropped).png",
+    "licencia": "CC BY 4.0",
+    "autor": "Renata Bartolette, Carolina Santos Vieira, amille Ferreira Lima Santos, Carlos D"
+   }
+  },
+  {
+   "id": "prochilodus-nigricans",
+   "nombre_comun": "Sábalo, curimbatá",
+   "nombre_cientifico": "Prochilodus nigricans",
+   "familia": "Prochilodontidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Detritívora",
+   "bolivia": {
+    "gbif_key": 2352160,
+    "registros": 1216,
+    "departamentos": [
+     "La Paz",
+     "Beni",
+     "Cochabamba",
+     "Santa Cruz"
+    ]
+   },
+   "nota": "Más del 80% de los detritívoros muestreados por Rodriguez-Levy (2022) en Riberalta y Rurrenabaque eran sábalos; el valor por especie está en su tabla A1.",
+   "prioridad": {
+    "orden": 5,
+    "motivo": "Detritívoro de bajo mercurio en músculo: sirve de control frente a los piscívoros",
+    "muestra": "Escama (menos invasiva) y músculo"
+   },
+   "foto": {
+    "archivo": "Prochilodus nigricans Castelnau.jpg",
+    "licencia": "Public domain",
+    "autor": "François-Louis Laporte, comte de Castelnau"
+   }
+  },
+  {
+   "id": "hoplias-aimara",
+   "nombre_comun": "Aimara",
+   "nombre_cientifico": "Hoplias aimara",
+   "familia": "Erythrinidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2352248,
+    "registros": 0,
+    "departamentos": []
+   },
+   "foto": {
+    "archivo": "Aymara.JPG",
+    "licencia": "Public domain",
+    "autor": "Pavabidule"
+   }
+  },
+  {
+   "id": "hoplias-malabaricus",
+   "nombre_comun": "Bentón",
+   "nombre_cientifico": "Hoplias malabaricus",
+   "familia": "Erythrinidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2352230,
+    "registros": 279,
+    "departamentos": [
+     "Beni",
+     "La Paz",
+     "Pando",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "hoplias-aimara",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "foto": {
+    "archivo": "Hoplias malabaricus2.jpg",
+    "licencia": "Public domain",
+    "autor": "J. F. Hennig"
+   }
+  },
+  {
+   "id": "acestrorhynchus-spp",
+   "nombre_comun": "Pez aguja",
+   "nombre_cientifico": "Acestrorhynchus microlepis y A. falcatus",
+   "familia": "Acestrorhynchidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2355569,
+    "registros": 92,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "nota": "Registros en Bolivia: 67 de A. microlepis y 25 de A. falcatus.",
+   "foto": {
+    "archivo": "Acestrorhynchus_microlepis.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Clinton & Charles Robertson"
+   }
+  },
+  {
+   "id": "ageneiosus-inermis",
+   "nombre_comun": "Mandubé",
+   "nombre_cientifico": "Ageneiosus inermis",
+   "familia": "Auchenipteridae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2344519,
+    "registros": 83,
+    "departamentos": [
+     "Beni"
+    ]
+   },
+   "foto": {
+    "archivo": "Ageneiosus inermis 454199238.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Alex Karasoulos"
+   }
+  },
+  {
+   "id": "sternopygus-macrurus",
+   "nombre_comun": "Pez cuchillo",
+   "nombre_cientifico": "Sternopygus macrurus",
+   "familia": "Sternopygidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Invertívora",
+   "bolivia": {
+    "gbif_key": 2402060,
+    "registros": 53,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Sternopygus macrurus by Castelnau.jpg",
+    "licencia": "Public domain",
+    "autor": "François-Louis Laporte, comte de Castelnau"
+   }
+  },
+  {
+   "id": "copella-carsevennensis",
+   "nombre_comun": "Copella",
+   "nombre_cientifico": "Copella carsevennensis",
+   "familia": "Lebiasinidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Invertívora",
+   "bolivia": null
+  },
+  {
+   "id": "arapaima-gigas",
+   "nombre_comun": "Paiche",
+   "nombre_cientifico": "Arapaima gigas",
+   "familia": "Arapaimidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "introducida": true,
+   "bolivia": {
+    "gbif_key": 5212877,
+    "registros": 229,
+    "departamentos": [
+     "Beni",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "peces-comerciales-beni",
+     "relacion": "misma_especie"
+    }
+   ],
+   "nota": "Especie introducida en la cuenca boliviana. Fue muestreada en Riberalta y Rurrenabaque (Rodriguez-Levy 2022); su valor está en la tabla A1.",
+   "foto": {
+    "archivo": "Arapaima gigas captivity.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "This illustration was made by Citron\nYou must credit this : Citron / CC-BY-SA-3."
+   }
+  },
+  {
+   "id": "chloroceryle-americana",
+   "nombre_comun": "Martín pescador verde",
+   "nombre_cientifico": "Chloroceryle americana",
+   "familia": "Alcedinidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2475486,
+    "registros": 1358,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Cochabamba"
+    ]
+   },
+   "prioridad": {
+    "orden": 2,
+    "motivo": "Las medias más altas del corpus (hasta 39 µg/g) y común en Beni y Pando",
+    "muestra": "Pluma del pecho, sin sacrificar al ave"
+   },
+   "foto": {
+    "archivo": "Green kingfisher (Chloroceryle americana americana) male.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Charles J. Sharp"
+   }
+  },
+  {
+   "id": "chloroceryle-inda",
+   "nombre_comun": "Martín pescador verde y rufo",
+   "nombre_cientifico": "Chloroceryle inda",
+   "familia": "Alcedinidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2475492,
+    "registros": 313,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "prioridad": {
+    "orden": 2,
+    "motivo": "Martín pescador con mercurio muy alto en Madre de Dios",
+    "muestra": "Pluma del pecho"
+   },
+   "foto": {
+    "archivo": "Chloroceryle inda -Madidi National Park -Bolivia-8a-4c.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "derivative work: Snowmanradio (talk)\nChloroceryle_inda_-Madidi_National_Park_-Bo"
+   }
+  },
+  {
+   "id": "chloroceryle-amazona",
+   "nombre_comun": "Martín pescador amazónico",
+   "nombre_cientifico": "Chloroceryle amazona",
+   "familia": "Alcedinidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2475482,
+    "registros": 2003,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "prioridad": {
+    "orden": 2,
+    "motivo": "Martín pescador con mercurio muy alto y el más registrado en Bolivia",
+    "muestra": "Pluma del pecho"
+   },
+   "foto": {
+    "archivo": "Amazon Kingfisher.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Andreas Trepte"
+   }
+  },
+  {
+   "id": "chloroceryle-aenea",
+   "nombre_comun": "Martín pescador pigmeo",
+   "nombre_cientifico": "Chloroceryle aenea",
+   "familia": "Alcedinidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2475483,
+    "registros": 318,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "026 American pygmy kingfisher in Encontro das Águas State Park Photo by Giles Laurent.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Giles Laurent"
+   }
+  },
+  {
+   "id": "megaceryle-torquata",
+   "nombre_comun": "Martín pescador grande",
+   "nombre_cientifico": "Megaceryle torquata",
+   "familia": "Alcedinidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2475466,
+    "registros": 3243,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "chloroceryle-americana",
+     "relacion": "misma_familia"
+    },
+    {
+     "taxon": "chloroceryle-amazona",
+     "relacion": "misma_familia"
+    }
+   ],
+   "foto": {
+    "archivo": "Ringed Kingfisher (Megaceryle torquata) male (28808454175).jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Bernard DUPONT from FRANCE"
+   }
+  },
+  {
+   "id": "furnarius-leucopus",
+   "nombre_comun": "Hornero de patas pálidas",
+   "nombre_cientifico": "Furnarius leucopus",
+   "familia": "Furnariidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 9309489,
+    "registros": 443,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz",
+     "La Paz"
+    ]
+   },
+   "foto": {
+    "archivo": "Furnarius leucopus assimilis - Pale-legged hornero; Riachuelo, Rio Grande do Norte, Brazil.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "jacana-jacana",
+   "nombre_comun": "Jacana",
+   "nombre_cientifico": "Jacana jacana",
+   "familia": "Jacanidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2481846,
+    "registros": 6580,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Cochabamba",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Acana jacana -near Yarina Lodge, Napo Province, Ecuador -adult-8 cropped.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Geoff Gallice from Gainesville"
+   }
+  },
+  {
+   "id": "oneillornis-salvini",
+   "nombre_comun": "Hormiguero de garganta blanca",
+   "nombre_cientifico": "Oneillornis salvini",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490006,
+    "registros": 166,
+    "departamentos": [
+     "Pando",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "foto": {
+    "archivo": "Oneillornis salvini - White-throated antbird (male); Careiro, Amazonas, Brazil.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "phlegopsis-nigromaculata",
+   "nombre_comun": "Ojo pelado moteado",
+   "nombre_cientifico": "Phlegopsis nigromaculata",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490230,
+    "registros": 286,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz",
+     "La Paz"
+    ]
+   }
+  },
+  {
+   "id": "myrmotherula-axillaris",
+   "nombre_comun": "Hormiguerito flanquiblanco",
+   "nombre_cientifico": "Myrmotherula axillaris",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490191,
+    "registros": 577,
+    "departamentos": [
+     "La Paz",
+     "Pando",
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "foto": {
+    "archivo": "Myrmotherula axillaris White-flanked Antwren (male); Ramal do Noca, Rio Branco, Acre , Brazil.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "pipra-fasciicauda",
+   "nombre_comun": "Saltarín de cola bandeada",
+   "nombre_cientifico": "Pipra fasciicauda",
+   "familia": "Pipridae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2487653,
+    "registros": 774,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Pipra fasciicauda - Band-tailed manakin (male).JPG",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "aves-sitios-mineros",
+   "nombre_comun": "Aves de sitios mineros",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "ave",
+   "nivel": "grupo",
+   "dieta": "Varias"
+  },
+  {
+   "id": "aves-sitio-control",
+   "nombre_comun": "Aves del sitio control",
+   "nombre_cientifico": "Varias especies",
+   "familia": "Varias",
+   "grupo": "ave",
+   "nivel": "grupo",
+   "dieta": "Varias"
+  },
+  {
+   "id": "gallus-gallus",
+   "nombre_comun": "Gallina doméstica",
+   "nombre_cientifico": "Gallus gallus",
+   "familia": "Phasianidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": null,
+   "nota": "Ave de corral; se incluye como comparación fuera de la Amazonía."
+  },
+  {
+   "id": "caiman-yacare",
+   "nombre_comun": "Yacaré",
+   "nombre_cientifico": "Caiman yacare",
+   "familia": "Alligatoridae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 5220210,
+    "registros": 1028,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Pando",
+     "Cochabamba"
+    ]
+   },
+   "prioridad": {
+    "orden": 3,
+    "motivo": "El único con datos bolivianos; falta medirlo en zonas mineras y en tejidos no letales",
+    "muestra": "Escamas caudales y garras"
+   },
+   "foto": {
+    "archivo": "Brillenkaiman Caiman yacare.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Andreas Trepte"
+   }
+  },
+  {
+   "id": "caiman-crocodilus",
+   "nombre_comun": "Caimán blanco, lagarto",
+   "nombre_cientifico": "Caiman crocodilus",
+   "familia": "Alligatoridae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 8953936,
+    "registros": 103,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "nota": "Algunos registros en Bolivia podrían ser yacarés mal identificados; requiere confirmación en campo.",
+   "foto": {
+    "archivo": "Spectacled caiman in Costa Rica 01.jpg",
+    "licencia": "CC0",
+    "autor": "Bernard Gagnon"
+   }
+  },
+  {
+   "id": "melanosuchus-niger",
+   "nombre_comun": "Caimán negro",
+   "nombre_cientifico": "Melanosuchus niger",
+   "familia": "Alligatoridae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2441409,
+    "registros": 192,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "foto": {
+    "archivo": "Jacaré Açú.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Jovem Rural"
+   }
+  },
+  {
+   "id": "paleosuchus-palpebrosus",
+   "nombre_comun": "Caimán enano",
+   "nombre_cientifico": "Paleosuchus palpebrosus",
+   "familia": "Alligatoridae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2441396,
+    "registros": 27,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Hul_-_Paleosuchus_palpebrosus_-_2.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Emőke Dénes"
+   }
+  },
+  {
+   "id": "paleosuchus-trigonatus",
+   "nombre_comun": "Caimán de frente lisa",
+   "nombre_cientifico": "Paleosuchus trigonatus",
+   "familia": "Alligatoridae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2441394,
+    "registros": 21,
+    "departamentos": [
+     "Beni",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Schneider's Smooth-fronted Caiman (Paleosuchus trigonatus) (13928729267).jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Bernard DUPONT from FRANCE"
+   }
+  },
+  {
+   "id": "podocnemis-unifilis",
+   "nombre_comun": "Taricaya",
+   "nombre_cientifico": "Podocnemis unifilis",
+   "familia": "Podocnemididae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 2442782,
+    "registros": 230,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Podocnemis unifilis (Yellow spotted river turtle).jpg",
+    "licencia": "CC BY-SA 2.5",
+    "autor": "http://opencage.info"
+   }
+  },
+  {
+   "id": "podocnemis-expansa",
+   "nombre_comun": "Tortuga charapa",
+   "nombre_cientifico": "Podocnemis expansa",
+   "familia": "Podocnemididae",
+   "grupo": "reptil",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 2442795,
+    "registros": 34,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "podocnemis-unifilis",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "foto": {
+    "archivo": "Podocnemis expansa INPA.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Whaldener Endo"
+   }
+  },
+  {
+   "id": "marmosops-sp",
+   "nombre_comun": "Marmosa de bosque",
+   "nombre_cientifico": "Marmosops sp.",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "genero",
+   "dieta": "Insectívora-omnívora",
+   "bolivia": {
+    "gbif_key": 2439940,
+    "registros": 214,
+    "departamentos": [
+     "Santa Cruz",
+     "La Paz",
+     "Cochabamba",
+     "Pando"
+    ]
+   },
+   "prioridad": {
+    "orden": 7,
+    "motivo": "El mamífero con más mercurio del estudio (3,4 mg/kg en pelaje)",
+    "muestra": "Pelaje de ejemplares de colección o rescate"
+   },
+   "foto": {
+    "archivo": "Marmosops incanus (cropped).jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Ramon Campos"
+   }
+  },
+  {
+   "id": "marmosa-murina",
+   "nombre_comun": "Marmosa rojiza",
+   "nombre_cientifico": "Marmosa murina",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439873,
+    "registros": 25,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni"
+    ]
+   },
+   "prioridad": {
+    "orden": 7,
+    "motivo": "Segundo valor más alto en mamíferos (2,6 mg/kg en pelaje)",
+    "muestra": "Pelaje"
+   },
+   "foto": {
+    "archivo": "Marmosa murina 345099180 (cropped).jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Thomaz de Carvalho Callado"
+   }
+  },
+  {
+   "id": "caluromys-lanatus",
+   "nombre_comun": "Zarigüeya lanuda",
+   "nombre_cientifico": "Caluromys lanatus",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Frugívora-omnívora",
+   "bolivia": {
+    "gbif_key": 2440004,
+    "registros": 24,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz"
+    ]
+   },
+   "foto": {
+    "archivo": "Caluramys lanatus.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Pachamama drake"
+   }
+  },
+  {
+   "id": "micoureus-demerarae",
+   "nombre_comun": "Marmosa gris",
+   "nombre_cientifico": "Micoureus demerarae",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439898,
+    "registros": 12,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni"
+    ]
+   },
+   "foto": {
+    "archivo": "North-eastern_Woolly_Mouse_Opossum_imported_from_iNaturalist_photo_417123381_on_18_October_2024.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "(c) Thomaz de Carvalho Callado, some rights reserved (CC BY)"
+   }
+  },
+  {
+   "id": "marmosa-constantiae",
+   "nombre_comun": "Marmosa gris de Constantia",
+   "nombre_cientifico": "Marmosa constantiae",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439904,
+    "registros": 45,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "Cochabamba",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "micoureus-demerarae",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "foto": {
+    "archivo": "Marmosa_constantiae.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Unknown authorUnknown author"
+   }
+  },
+  {
+   "id": "metachirus-nudicaudatus",
+   "nombre_comun": "Cuica de cola desnuda",
+   "nombre_cientifico": "Metachirus nudicaudatus",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 9686324,
+    "registros": 56,
+    "departamentos": [
+     "La Paz",
+     "Cochabamba",
+     "Santa Cruz"
+    ]
+   }
+  },
+  {
+   "id": "nectomys-rattus",
+   "nombre_comun": "Rata de agua",
+   "nombre_cientifico": "Nectomys rattus",
+   "familia": "Cricetidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 5706776,
+    "registros": 3,
+    "departamentos": [
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "nota": "El paper informa n = 1 con un rango (0,317-1,001), una inconsistencia del original.",
+   "foto": {
+    "archivo": "Nectomys_rattus.jpg",
+    "licencia": "CC0",
+    "autor": "Unknown authorUnknown author"
+   }
+  },
+  {
+   "id": "nectomys-apicalis",
+   "nombre_comun": "Rata de agua",
+   "nombre_cientifico": "Nectomys apicalis",
+   "familia": "Cricetidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 5706777,
+    "registros": 8,
+    "departamentos": [
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "nectomys-rattus",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "foto": {
+    "archivo": "Nectomys apicalis.jpg",
+    "licencia": "Public domain",
+    "autor": "J. D. L. Franz Wagner"
+   }
+  },
+  {
+   "id": "rattus-rattus",
+   "nombre_comun": "Rata negra",
+   "nombre_cientifico": "Rattus rattus",
+   "familia": "Muridae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "introducida": true,
+   "bolivia": {
+    "gbif_key": 2439270,
+    "registros": 318,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Pando",
+     "Tarija"
+    ]
+   },
+   "nota": "Especie introducida que vive junto a asentamientos humanos: indica exposición en pueblos, no en fauna silvestre.",
+   "foto": {
+    "archivo": "20191212 Szczury w Świątyni Karni Maty w Deśnok 1038 8111 DxO.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Jakub Hałun"
+   }
+  },
+  {
+   "id": "proechimys-gardneri",
+   "nombre_comun": "Rata espinosa",
+   "nombre_cientifico": "Proechimys gardneri",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 4262970,
+    "registros": 14,
+    "departamentos": [
+     "Pando",
+     "Beni"
+    ]
+   },
+   "nota": "El género Proechimys tiene 1.173 registros en Bolivia."
+  },
+  {
+   "id": "hydrochoerus-hydrochaeris",
+   "nombre_comun": "Capibara",
+   "nombre_cientifico": "Hydrochoerus hydrochaeris",
+   "familia": "Caviidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 5786666,
+    "registros": 931,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "nota": "Se caza para consumo: agrega una vía de exposición humana.",
+   "foto": {
+    "archivo": "Capybaras (Hydrochoerus hydrachaeris) female and young suckling ... (48427191032).jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Bernard DUPONT from FRANCE"
+   }
+  },
+  {
+   "id": "isothrix-bistriata",
+   "nombre_comun": "Rata arborícola",
+   "nombre_cientifico": "Isothrix bistriata",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 2439754,
+    "registros": 17,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Isothrix bistriata 74499273 (cropped).jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Jens-Christian Svenning"
+   }
+  },
+  {
+   "id": "oecomys-sp",
+   "nombre_comun": "Ratón arborícola",
+   "nombre_cientifico": "Oecomys sp.",
+   "familia": "Cricetidae",
+   "grupo": "mamifero",
+   "nivel": "genero",
+   "dieta": "Frugívora-granívora",
+   "bolivia": {
+    "gbif_key": 2439306,
+    "registros": 505,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Cochabamba",
+     "La Paz"
+    ]
+   },
+   "foto": {
+    "archivo": "Oecomys bicolor 31400763.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Diego Inclan"
+   }
+  },
+  {
+   "id": "cuniculus-paca",
+   "nombre_comun": "Jochi pintado, paca",
+   "nombre_cientifico": "Cuniculus paca",
+   "familia": "Cuniculidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 4263039,
+    "registros": 67,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "Pando",
+     "Cochabamba"
+    ]
+   },
+   "nota": "Se caza para consumo: agrega una vía de exposición humana.",
+   "foto": {
+    "archivo": "Cuniculus paca.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Hans Hillewaert"
+   }
+  },
+  {
+   "id": "mesomys-hispidus",
+   "nombre_comun": "Rata espinosa arborícola",
+   "nombre_cientifico": "Mesomys hispidus",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 5219935,
+    "registros": 20,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Pando"
+    ]
+   },
+   "foto": {
+    "archivo": "Mesomys_hispidus_female.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "This picture is a work by Antoine Baglan.\nPlease credit this with: Picture : Ant"
+   }
+  },
+  {
+   "id": "dactylomys-dactylinus",
+   "nombre_comun": "Rata de bambú",
+   "nombre_cientifico": "Dactylomys dactylinus",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 2439800,
+    "registros": 12,
+    "departamentos": [
+     "Pando",
+     "Beni"
+    ]
+   },
+   "foto": {
+    "archivo": "AmazonBambooRat.JPG",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Asohn19262"
+   }
+  },
+  {
+   "id": "dactylomys-boliviensis",
+   "nombre_comun": "Rata de bambú boliviana",
+   "nombre_cientifico": "Dactylomys boliviensis",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Herbívora",
+   "bolivia": {
+    "gbif_key": 2439798,
+    "registros": 22,
+    "departamentos": [
+     "La Paz",
+     "Cochabamba",
+     "Pando",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "dactylomys-dactylinus",
+     "relacion": "mismo_genero"
+    }
+   ]
+  },
+  {
+   "id": "coendou-prehensilis",
+   "nombre_comun": "Puercoespín",
+   "nombre_cientifico": "Coendou prehensilis",
+   "familia": "Erethizontidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2437600,
+    "registros": 15,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "La Paz"
+    ]
+   },
+   "foto": {
+    "archivo": "Prehensile-tailed_porcupine.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Wikinoobie1"
+   }
+  },
+  {
+   "id": "sphiggurus-roosmalenorum",
+   "nombre_comun": "Puercoespín de Roosmalen",
+   "nombre_cientifico": "Sphiggurus roosmalenorum",
+   "familia": "Erethizontidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 4264794,
+    "registros": 0,
+    "departamentos": []
+   }
+  },
+  {
+   "id": "insectos-madre-de-dios",
+   "nombre_comun": "Insectos terrestres (9 taxones)",
+   "nombre_cientifico": "Varias especies",
+   "familia": "5 familias",
+   "grupo": "insecto",
+   "nivel": "grupo",
+   "dieta": "Gradiente de herbívoros a necrófagos"
+  },
+  {
+   "id": "paraponera-clavata",
+   "nombre_comun": "Hormiga bala, isula",
+   "nombre_cientifico": "Paraponera clavata",
+   "familia": "Formicidae",
+   "grupo": "insecto",
+   "nivel": "especie",
+   "dieta": "Depredadora de insectos",
+   "bolivia": {
+    "gbif_key": 1320410,
+    "registros": 158,
+    "departamentos": [
+     "La Paz",
+     "Cochabamba",
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ],
+   "foto": {
+    "archivo": "Paraponera clavata.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hans Hillewaert"
+   }
+  },
+  {
+   "id": "guyalna-spp",
+   "nombre_comun": "Chicharras",
+   "nombre_cientifico": "Guyalna spp.",
+   "familia": "Cicadidae",
+   "grupo": "insecto",
+   "nivel": "genero",
+   "dieta": "Herbívora (savia)",
+   "bolivia": {
+    "gbif_key": 4772047,
+    "registros": 81,
+    "departamentos": [
+     "Santa Cruz",
+     "Pando",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "foto": {
+    "archivo": "Guyalna - Parque Estadual da Serra do Mar - iNaturalist 68884002 (1).jpeg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Gilmar R. Ferreira"
+   }
+  },
+  {
+   "id": "oxysternon-conspicillatum",
+   "nombre_comun": "Escarabajo pelotero",
+   "nombre_cientifico": "Oxysternon conspicillatum",
+   "familia": "Scarabaeidae",
+   "grupo": "insecto",
+   "nivel": "especie",
+   "dieta": "Coprófaga",
+   "bolivia": {
+    "gbif_key": 1089064,
+    "registros": 50,
+    "departamentos": [
+     "Santa Cruz",
+     "La Paz",
+     "Beni",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ],
+   "prioridad": {
+    "orden": 9,
+    "motivo": "Nivel alto del gradiente de mercurio en insectos y casi sin registros en Bolivia",
+    "muestra": "Cuerpo entero, con trampas con cebo"
+   },
+   "foto": {
+    "archivo": "Oxysternon-conspicillatum male.jpg",
+    "licencia": "CC BY-SA 2.5",
+    "autor": "Richard Bartz, Munich Makro Freak"
+   }
+  },
+  {
+   "id": "nasutitermes-spp",
+   "nombre_comun": "Termitas",
+   "nombre_cientifico": "Nasutitermes spp.",
+   "familia": "Termitidae",
+   "grupo": "insecto",
+   "nivel": "genero",
+   "dieta": "Detritívora",
+   "bolivia": {
+    "gbif_key": 5431333,
+    "registros": 29,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "foto": {
+    "archivo": "CSIRO ScienceImage 2043 Nasutitermes triodiae termites.jpg",
+    "licencia": "CC BY 3.0",
+    "autor": "division, CSIRO"
+   }
+  },
+  {
+   "id": "paramastax-nigra",
+   "nombre_comun": "Saltamontes",
+   "nombre_cientifico": "Paramastax nigra",
+   "familia": "Eumastacidae",
+   "grupo": "insecto",
+   "nivel": "especie",
+   "dieta": "Generalista",
+   "bolivia": {
+    "gbif_key": 1697095,
+    "registros": 10,
+    "departamentos": [
+     "Cochabamba",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ]
+  },
+  {
+   "id": "coprophanaeus-lancifer",
+   "nombre_comun": "Escarabajo carroñero",
+   "nombre_cientifico": "Coprophanaeus lancifer",
+   "familia": "Scarabaeidae",
+   "grupo": "insecto",
+   "nivel": "especie",
+   "dieta": "Necrófaga",
+   "bolivia": {
+    "gbif_key": 1086392,
+    "registros": 2,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ],
+   "nota": "Coprophanaeus telamon, el otro carroñero del estudio, no tiene registros en Bolivia.",
+   "prioridad": {
+    "orden": 9,
+    "motivo": "Los necrófagos son el nivel más alto del gradiente: unas 39 veces más mercurio que los herbívoros",
+    "muestra": "Cuerpo entero, con trampas con cebo de carroña"
+   },
+   "foto": {
+    "archivo": "Coprophanaeus lancifer (Linné, 1767) female (3318458683).jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Udo Schmidt from Deutschland"
+   }
+  },
+  {
+   "id": "dichotomius-prietoi",
+   "nombre_comun": "Escarabajo pelotero",
+   "nombre_cientifico": "Dichotomius prietoi",
+   "familia": "Scarabaeidae",
+   "grupo": "insecto",
+   "nivel": "especie",
+   "dieta": "Coprófaga",
+   "bolivia": {
+    "gbif_key": 1092941,
+    "registros": 4,
+    "departamentos": [
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "insectos-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ],
+   "foto": {
+    "archivo": "Dichotomius_prietoi.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Flores, J. F., Loayza, O. O., Valencia, G., Yabar-Landa, E., Ochoa, J. A., & Nor"
+   }
+  },
+  {
+   "id": "hojas-dosel-madre-de-dios",
+   "nombre_comun": "Hojas del dosel (higuerón y pacay)",
+   "nombre_cientifico": "Ficus insipida e Inga feuillei",
+   "familia": "Moraceae y Fabaceae",
+   "grupo": "planta",
+   "nivel": "grupo",
+   "dieta": "No aplica"
+  },
+  {
+   "id": "ficus-insipida",
+   "nombre_comun": "Higuerón",
+   "nombre_cientifico": "Ficus insipida",
+   "familia": "Moraceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 6358534,
+    "registros": 230,
+    "departamentos": [
+     "La Paz",
+     "Beni",
+     "Santa Cruz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "hojas-dosel-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ],
+   "prioridad": {
+    "orden": 8,
+    "motivo": "Sus hojas registran el mercurio que llega por el aire desde la quema de amalgama",
+    "muestra": "Hojas del dosel"
+   },
+   "foto": {
+    "archivo": "Ficus insipida roots.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Erik Fox from Richmond, VA, United States of America"
+   }
+  },
+  {
+   "id": "inga-feuillei",
+   "nombre_comun": "Pacay",
+   "nombre_cientifico": "Inga feuillei",
+   "familia": "Fabaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5357953,
+    "registros": 31,
+    "departamentos": [
+     "Santa Cruz",
+     "La Paz",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "hojas-dosel-madre-de-dios",
+     "relacion": "misma_especie"
+    }
+   ],
+   "foto": {
+    "archivo": "Pacay (Inga feuillei).jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Drew Avery"
+   }
+  },
+  {
+   "id": "paspalum-repens",
+   "nombre_comun": "Grama de agua, canutillo",
+   "nombre_cientifico": "Paspalum repens",
+   "familia": "Poaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 2705655,
+    "registros": 71,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Pando",
+     "La Paz"
+    ]
+   }
+  },
+  {
+   "id": "eichhornia-crassipes",
+   "nombre_comun": "Tarope, jacinto de agua",
+   "nombre_cientifico": "Eichhornia crassipes",
+   "familia": "Pontederiaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 2765942,
+    "registros": 279,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Cochabamba",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "paspalum-repens",
+     "relacion": "mismo_habito"
+    }
+   ],
+   "nota": "Ningún paper de la carpeta mide su mercurio; macrófita flotante como Paspalum repens.",
+   "foto": {
+    "archivo": "Pontederia crassipes in native habitat, Transpantaneira, Poconé, Mato Grosso, Brazil.jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Bernard DUPONT"
+   }
+  },
+  {
+   "id": "sedimento-fluvial",
+   "nombre_comun": "Sedimento fluvial",
+   "nombre_cientifico": "Matriz abiótica",
+   "familia": "No aplica",
+   "grupo": "abiotico",
+   "nivel": "grupo",
+   "dieta": "No aplica"
+  },
+  {
+   "id": "suelo",
+   "nombre_comun": "Suelo",
+   "nombre_cientifico": "Matriz abiótica",
+   "familia": "No aplica",
+   "grupo": "abiotico",
+   "nivel": "grupo",
+   "dieta": "No aplica"
+  },
+  {
+   "id": "agua-superficial",
+   "nombre_comun": "Agua superficial",
+   "nombre_cientifico": "Matriz abiótica",
+   "familia": "No aplica",
+   "grupo": "abiotico",
+   "nivel": "grupo",
+   "dieta": "No aplica"
+  },
+  {
+   "id": "pimelodus-blochii",
+   "nombre_comun": "Bagre",
+   "nombre_cientifico": "Pimelodus blochii",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2338881,
+    "registros": 110,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 96,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Pimelodus blochii (16521587555).jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Ictiologia Universidad Católica de Oriente"
+   }
+  },
+  {
+   "id": "phractocephalus-hemioliopterus",
+   "nombre_comun": "General, pirarara",
+   "nombre_cientifico": "Phractocephalus hemioliopterus",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2338793,
+    "registros": 786,
+    "departamentos": [
+     "Santa Cruz",
+     "La Paz",
+     "Beni",
+     "Chuquisaca"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 79,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Phractocephalus hemioliopterus 2012 G1.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "George Chernilevsky"
+   }
+  },
+  {
+   "id": "sorubim-lima",
+   "nombre_comun": "Cucharón",
+   "nombre_cientifico": "Sorubim lima",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338684,
+    "registros": 179,
+    "departamentos": [
+     "La Paz",
+     "Beni",
+     "Pando",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 61,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Silure spatule.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Sitron"
+   }
+  },
+  {
+   "id": "brachyplatystoma-platynemum",
+   "nombre_comun": "Baboso",
+   "nombre_cientifico": "Brachyplatystoma platynemum",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338818,
+    "registros": 122,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Pando",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 55,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Goslinia platynema11.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "TaniaaBelén"
+   }
+  },
+  {
+   "id": "calophysus-macropterus",
+   "nombre_comun": "Blanquillo",
+   "nombre_cientifico": "Calophysus macropterus",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carroñera",
+   "bolivia": {
+    "gbif_key": 2338711,
+    "registros": 157,
+    "departamentos": [
+     "La Paz",
+     "Beni",
+     "Santa Cruz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 49,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Pimelodidae Callophysus macropterus.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Clinton & Charles Robertson"
+   }
+  },
+  {
+   "id": "sorubimichthys-planiceps",
+   "nombre_comun": "Pez leña",
+   "nombre_cientifico": "Sorubimichthys planiceps",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338869,
+    "registros": 360,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 36,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Firewood_catfish.jpg",
+    "licencia": "Public domain",
+    "autor": "U.S. Geological Survey Archive, U.S. Geological Survey, Bugwood.org"
+   }
+  },
+  {
+   "id": "hemisorubim-platyrhynchos",
+   "nombre_comun": "Bagre",
+   "nombre_cientifico": "Hemisorubim platyrhynchos",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338702,
+    "registros": 57,
+    "departamentos": [
+     "Beni",
+     "La Paz",
+     "Pando",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 34,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Johann Natterer - Jurupoca (Hemisorubim platyrhynchos).jpg",
+    "licencia": "Public domain",
+    "autor": "Johann Natterer"
+   }
+  },
+  {
+   "id": "pinirampus-pirinampu",
+   "nombre_comun": "Barba chata",
+   "nombre_cientifico": "Pinirampus pirinampu",
+   "familia": "Pimelodidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2338952,
+    "registros": 132,
+    "departamentos": [
+     "Santa Cruz",
+     "La Paz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pseudoplatystoma-tigrinum",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 33,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Pinirampus pirinampu.jpg",
+    "licencia": "Public domain",
+    "autor": "Paul Louis Oudart"
+   }
+  },
+  {
+   "id": "colossoma-macropomum",
+   "nombre_comun": "Tambaquí",
+   "nombre_cientifico": "Colossoma macropomum",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2353152,
+    "registros": 888,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 238,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Colossoma macropomum 205143907.jpg",
+    "licencia": "CC0",
+    "autor": "w_endo"
+   }
+  },
+  {
+   "id": "piaractus-brachypomus",
+   "nombre_comun": "Pacú",
+   "nombre_cientifico": "Piaractus brachypomus",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2353225,
+    "registros": 1427,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 140,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Pacu shedd.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Omnitarian"
+   }
+  },
+  {
+   "id": "serrasalmus-spilopleura",
+   "nombre_comun": "Piraña, palometa",
+   "nombre_cientifico": "Serrasalmus spilopleura",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2354120,
+    "registros": 121,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 85,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Serrasalmus spilopleura by OpenCage.jpg",
+    "licencia": "CC BY-SA 2.5",
+    "autor": null
+   }
+  },
+  {
+   "id": "serrasalmus-maculatus",
+   "nombre_comun": "Piraña, palometa",
+   "nombre_cientifico": "Serrasalmus maculatus",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2354117,
+    "registros": 132,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 59,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Serrasalmus maculatus.png",
+    "licencia": "Public domain",
+    "autor": "Rudolf Kner"
+   }
+  },
+  {
+   "id": "serrasalmus-elongatus",
+   "nombre_comun": "Piraña, palometa",
+   "nombre_cientifico": "Serrasalmus elongatus",
+   "familia": "Serrasalmidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2354160,
+    "registros": 51,
+    "departamentos": [
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "serrasalmus-spp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 43,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Johann Natterer - pirambeba (Serrasalmus elongatus).jpg",
+    "licencia": "Public domain",
+    "autor": "Johann Natterer"
+   }
+  },
+  {
+   "id": "semaprochilodus-insignis",
+   "nombre_comun": "Bocachico",
+   "nombre_cientifico": "Semaprochilodus insignis",
+   "familia": "Prochilodontidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Detritívora",
+   "bolivia": {
+    "gbif_key": 2352126,
+    "registros": 16,
+    "departamentos": [
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "prochilodus-nigricans",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 8,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Semaprochilodus insignis.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Cliff"
+   }
+  },
+  {
+   "id": "hoplerythrinus-unitaeniatus",
+   "nombre_comun": "Tararira",
+   "nombre_cientifico": "Hoplerythrinus unitaeniatus",
+   "familia": "Erythrinidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2352216,
+    "registros": 70,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "hoplias-aimara",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 42,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Hoplerythrinus unitaeniatus - 1828 - Print - Iconographia Zoologica - Special Collections University of Amsterdam - UBA01 IZAA100143.tif",
+    "licencia": "Public domain",
+    "autor": "Gerrit Schouten"
+   }
+  },
+  {
+   "id": "erythrinus-erythrinus",
+   "nombre_comun": "Tararira",
+   "nombre_cientifico": "Erythrinus erythrinus",
+   "familia": "Erythrinidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Carnívora",
+   "bolivia": {
+    "gbif_key": 2352207,
+    "registros": 16,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "hoplias-aimara",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 8,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Erythrinus_erythrinus.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Clinton & Charles Robertson"
+   }
+  },
+  {
+   "id": "hoplias-misionera",
+   "nombre_comun": "Bentón",
+   "nombre_cientifico": "Hoplias misionera",
+   "familia": "Erythrinidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 9875512,
+    "registros": 5,
+    "departamentos": [
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "hoplias-aimara",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 5,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "acestrorhynchus-heterolepis",
+   "nombre_comun": "Pez aguja",
+   "nombre_cientifico": "Acestrorhynchus heterolepis",
+   "familia": "Acestrorhynchidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2355583,
+    "registros": 24,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "acestrorhynchus-spp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 21,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "acestrorhynchus-falcirostris",
+   "nombre_comun": "Pez aguja",
+   "nombre_cientifico": "Acestrorhynchus falcirostris",
+   "familia": "Acestrorhynchidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Piscívora",
+   "bolivia": {
+    "gbif_key": 2355577,
+    "registros": 21,
+    "departamentos": [
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "acestrorhynchus-spp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 20,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Acestrorhynchus falcirostris.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Clinton & Charles Robertson"
+   }
+  },
+  {
+   "id": "auchenipterichthys-thoracatus",
+   "nombre_comun": "Bagre",
+   "nombre_cientifico": "Auchenipterichthys thoracatus",
+   "familia": "Auchenipteridae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2344726,
+    "registros": 48,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ageneiosus-inermis",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 42,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "entomocorus-benjamini",
+   "nombre_comun": "Bagre",
+   "nombre_cientifico": "Entomocorus benjamini",
+   "familia": "Auchenipteridae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2344620,
+    "registros": 44,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ageneiosus-inermis",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 38,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "tympanopleura-atronasus",
+   "nombre_comun": "Bagre",
+   "nombre_cientifico": "Tympanopleura atronasus",
+   "familia": "Auchenipteridae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 9246141,
+    "registros": 38,
+    "departamentos": [
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ageneiosus-inermis",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 36,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "eigenmannia-virescens",
+   "nombre_comun": "Pez cuchillo",
+   "nombre_cientifico": "Eigenmannia virescens",
+   "familia": "Sternopygidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Invertívora",
+   "bolivia": {
+    "gbif_key": 2402039,
+    "registros": 84,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "sternopygus-macrurus",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 68,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Eigenmannia virescens 000.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "Luis Ruiz Berti"
+   }
+  },
+  {
+   "id": "eigenmannia-limbata",
+   "nombre_comun": "Pez cuchillo",
+   "nombre_cientifico": "Eigenmannia limbata",
+   "familia": "Sternopygidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Invertívora",
+   "bolivia": {
+    "gbif_key": 2402046,
+    "registros": 32,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "sternopygus-macrurus",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 31,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "eigenmannia-macrops",
+   "nombre_comun": "Pez cuchillo",
+   "nombre_cientifico": "Eigenmannia macrops",
+   "familia": "Sternopygidae",
+   "grupo": "pez",
+   "nivel": "especie",
+   "dieta": "Invertívora",
+   "bolivia": {
+    "gbif_key": 2402035,
+    "registros": 18,
+    "departamentos": [
+     "Pando",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "sternopygus-macrurus",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 20,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "furnarius-rufus",
+   "nombre_comun": "Hornero",
+   "nombre_cientifico": "Furnarius rufus",
+   "familia": "Furnariidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2485821,
+    "registros": 13883,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "Cochabamba",
+     "Chuquisaca"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "furnarius-leucopus",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 3401,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Flickr - Dario Sanches - JOÃO-DE-BARRO (Furnarius rufus) (3).jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Dario Sanches from São Paulo, Brasil"
+   }
+  },
+  {
+   "id": "taraba-major",
+   "nombre_comun": "Batará mayor",
+   "nombre_cientifico": "Taraba major",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490224,
+    "registros": 3612,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "phlegopsis-nigromaculata",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 1377,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Great Antshrike - Male.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "https://www.flickr.com/photos/bertrandocampos/"
+   }
+  },
+  {
+   "id": "thamnophilus-doliatus",
+   "nombre_comun": "Batará barreteado",
+   "nombre_cientifico": "Thamnophilus doliatus",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 5959208,
+    "registros": 3484,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "phlegopsis-nigromaculata",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 1360,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Thamnophilus_doliatus_-Goias,_Brazil-8.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Wagner Machado Carlos Lemes"
+   }
+  },
+  {
+   "id": "formicivora-rufa",
+   "nombre_comun": "Hormiguerito dorsirrufo",
+   "nombre_cientifico": "Formicivora rufa",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490041,
+    "registros": 737,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "phlegopsis-nigromaculata",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 499,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Formicivora rufa - Rusty-backed antwren (male).jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "myrmeciza-atrothorax",
+   "nombre_comun": "Hormiguero golinegro",
+   "nombre_cientifico": "Myrmeciza atrothorax",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490157,
+    "registros": 1188,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "phlegopsis-nigromaculata",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 455,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Myrmophilax atrothorax - Black-throated Antbird (male); Manaus, Amazonas, Brazil.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "cercomacra-cinerascens",
+   "nombre_comun": "Hormiguero gris",
+   "nombre_cientifico": "Cercomacra cinerascens",
+   "familia": "Thamnophilidae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2490137,
+    "registros": 644,
+    "departamentos": [
+     "Beni",
+     "Pando",
+     "Santa Cruz",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "phlegopsis-nigromaculata",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 368,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Cercomacra cinerascens - Gray Anbird male; Carajás National Forest, Para, Brazil.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "pipra-rubrocapilla",
+   "nombre_comun": "Saltarín",
+   "nombre_cientifico": "Pipra rubrocapilla",
+   "familia": "Pipridae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2487621,
+    "registros": 351,
+    "departamentos": [
+     "Pando",
+     "Santa Cruz",
+     "Beni",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pipra-fasciicauda",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 231,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Pipra rubrocapilla 1838.jpg",
+    "licencia": "Public domain",
+    "autor": "Nicolas Huet / Jean Gabriel Prêtre"
+   }
+  },
+  {
+   "id": "machaeropterus-pyrocephalus",
+   "nombre_comun": "Saltarín encendido",
+   "nombre_cientifico": "Machaeropterus pyrocephalus",
+   "familia": "Pipridae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2487755,
+    "registros": 434,
+    "departamentos": [
+     "Pando",
+     "Santa Cruz",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pipra-fasciicauda",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 215,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Machaeropterus pyrocephalus Fiery-capped Manakin (male); Rio Branco, Acre, Brazil.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Hector Bottai"
+   }
+  },
+  {
+   "id": "neopelma-sulphureiventer",
+   "nombre_comun": "Saltarín ventrisulfúreo",
+   "nombre_cientifico": "Neopelma sulphureiventer",
+   "familia": "Pipridae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 5230512,
+    "registros": 300,
+    "departamentos": [
+     "Beni",
+     "La Paz",
+     "Santa Cruz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pipra-fasciicauda",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 189,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Neopelma sulphureiventer - Sulphur-bellied Tyrant-Manakin (cropped).jpg",
+    "licencia": "CC BY-SA 2.0",
+    "autor": "Nick Athanas"
+   }
+  },
+  {
+   "id": "tyranneutes-stolzmanni",
+   "nombre_comun": "Saltarincillo enano",
+   "nombre_cientifico": "Tyranneutes stolzmanni",
+   "familia": "Pipridae",
+   "grupo": "ave",
+   "nivel": "especie",
+   "dieta": "Frugívora",
+   "bolivia": {
+    "gbif_key": 2487708,
+    "registros": 329,
+    "departamentos": [
+     "La Paz",
+     "Pando",
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "pipra-fasciicauda",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 125,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Tyranneutes stolzmanni 132818882.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "thibaudaronson"
+   }
+  },
+  {
+   "id": "philander-opossum",
+   "nombre_comun": "Carachupa de cuatro ojos",
+   "nombre_cientifico": "Philander opossum",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 5219950,
+    "registros": 186,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "marmosops-sp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 57,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Cuica verdadeira.jpg",
+    "licencia": "CC BY-SA 3.0",
+    "autor": "André de Souza Pereira"
+   }
+  },
+  {
+   "id": "didelphis-marsupialis",
+   "nombre_comun": "Carachupa",
+   "nombre_cientifico": "Didelphis marsupialis",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439920,
+    "registros": 248,
+    "departamentos": [
+     "La Paz",
+     "Beni",
+     "Santa Cruz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "marmosops-sp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 53,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Rabipelao2.jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Rabipelao.jpg: Juan Tello\nderivative work: WolfmanSF (talk)"
+   }
+  },
+  {
+   "id": "gracilinanus-agilis",
+   "nombre_comun": "Marmosa enana",
+   "nombre_cientifico": "Gracilinanus agilis",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Insectívora-omnívora",
+   "bolivia": {
+    "gbif_key": 2439852,
+    "registros": 41,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "marmosops-sp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 28,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Gracilinanus_agilis_04.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Naturalselections"
+   }
+  },
+  {
+   "id": "marmosops-noctivagus",
+   "nombre_comun": "Marmosa de bosque",
+   "nombre_cientifico": "Marmosops noctivagus",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Insectívora-omnívora",
+   "bolivia": {
+    "gbif_key": 2439957,
+    "registros": 90,
+    "departamentos": [
+     "Cochabamba",
+     "La Paz",
+     "Pando",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "marmosops-sp",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 8,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Marmosops noctivagus.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Michael A. Alcorn"
+   }
+  },
+  {
+   "id": "cryptonanus-unduaviensis",
+   "nombre_comun": "Marmosa",
+   "nombre_cientifico": "Cryptonanus unduaviensis",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 5786541,
+    "registros": 35,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "marmosops-sp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 8,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "monodelphis-glirina",
+   "nombre_comun": "Colicorto",
+   "nombre_cientifico": "Monodelphis glirina",
+   "familia": "Didelphidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Insectívora",
+   "bolivia": {
+    "gbif_key": 2439963,
+    "registros": 16,
+    "departamentos": [
+     "La Paz",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "marmosops-sp",
+     "relacion": "misma_familia"
+    }
+   ],
+   "amazonia_bolivia": 5,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "proechimys-longicaudatus",
+   "nombre_comun": "Rata espinosa",
+   "nombre_cientifico": "Proechimys longicaudatus",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439764,
+    "registros": 438,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "La Paz",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "proechimys-gardneri",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 216,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Proechimys longicaudatus.jpg",
+    "licencia": "Public domain",
+    "autor": "Marlysonjrc"
+   }
+  },
+  {
+   "id": "proechimys-steerei",
+   "nombre_comun": "Rata espinosa",
+   "nombre_cientifico": "Proechimys steerei",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439759,
+    "registros": 108,
+    "departamentos": [
+     "Pando",
+     "Beni",
+     "Cochabamba",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "proechimys-gardneri",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 50,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "proechimys-simonsi",
+   "nombre_comun": "Rata espinosa",
+   "nombre_cientifico": "Proechimys simonsi",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439769,
+    "registros": 29,
+    "departamentos": [
+     "Pando",
+     "La Paz",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "proechimys-gardneri",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 18,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "proechimys-brevicauda",
+   "nombre_comun": "Rata espinosa",
+   "nombre_cientifico": "Proechimys brevicauda",
+   "familia": "Echimyidae",
+   "grupo": "mamifero",
+   "nivel": "especie",
+   "dieta": "Omnívora",
+   "bolivia": {
+    "gbif_key": 2439788,
+    "registros": 192,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "proechimys-gardneri",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 13,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Proechimys_brevicauda.jpg",
+    "licencia": "CC BY 4.0",
+    "autor": "Unknown authorUnknown author"
+   }
+  },
+  {
+   "id": "ficus-paraensis",
+   "nombre_comun": "Bibosi",
+   "nombre_cientifico": "Ficus paraensis",
+   "familia": "Moraceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5569960,
+    "registros": 229,
+    "departamentos": [
+     "Santa Cruz",
+     "La Paz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ficus-insipida",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 52,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "ficus-gomelleira",
+   "nombre_comun": "Bibosi",
+   "nombre_cientifico": "Ficus gomelleira",
+   "familia": "Moraceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5571029,
+    "registros": 76,
+    "departamentos": [
+     "Beni",
+     "Santa Cruz",
+     "Pando",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ficus-insipida",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 32,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "ficus-pertusa",
+   "nombre_comun": "Bibosi",
+   "nombre_cientifico": "Ficus pertusa",
+   "familia": "Moraceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 7944396,
+    "registros": 197,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ficus-insipida",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 31,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Ficus pertusa - folhas.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Jorge EFO Silva"
+   }
+  },
+  {
+   "id": "ficus-maxima",
+   "nombre_comun": "Bibosi",
+   "nombre_cientifico": "Ficus maxima",
+   "familia": "Moraceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5571386,
+    "registros": 379,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Beni",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ficus-insipida",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 29,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "ficus-trigona",
+   "nombre_comun": "Bibosi",
+   "nombre_cientifico": "Ficus trigona",
+   "familia": "Moraceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 7930239,
+    "registros": 464,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Beni",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "ficus-insipida",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 24,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "inga-punctata",
+   "nombre_comun": "Pacay",
+   "nombre_cientifico": "Inga punctata",
+   "familia": "Fabaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5357665,
+    "registros": 326,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Beni",
+     "Pando"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "inga-feuillei",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 72,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "inga-edulis",
+   "nombre_comun": "Pacay",
+   "nombre_cientifico": "Inga edulis",
+   "familia": "Fabaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5357677,
+    "registros": 339,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Pando",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "inga-feuillei",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 72,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Inga edulis 06.jpg",
+    "licencia": "CC BY-SA 4.0",
+    "autor": "Burkhard Mücke"
+   }
+  },
+  {
+   "id": "inga-nobilis",
+   "nombre_comun": "Pacay",
+   "nombre_cientifico": "Inga nobilis",
+   "familia": "Fabaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5357519,
+    "registros": 479,
+    "departamentos": [
+     "La Paz",
+     "Santa Cruz",
+     "Cochabamba",
+     "Beni"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "inga-feuillei",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 62,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "inga-tomentosa",
+   "nombre_comun": "Pacay",
+   "nombre_cientifico": "Inga tomentosa",
+   "familia": "Fabaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 5357816,
+    "registros": 154,
+    "departamentos": [
+     "Beni",
+     "La Paz",
+     "Cochabamba",
+     "Santa Cruz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "inga-feuillei",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 52,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "paspalum-virgatum",
+   "nombre_comun": "Grama",
+   "nombre_cientifico": "Paspalum virgatum",
+   "familia": "Poaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 2705620,
+    "registros": 137,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "La Paz",
+     "Cochabamba"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "paspalum-repens",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 15,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "paspalum-orbiculatum",
+   "nombre_comun": "Grama",
+   "nombre_cientifico": "Paspalum orbiculatum",
+   "familia": "Poaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 2705628,
+    "registros": 18,
+    "departamentos": [
+     "Pando",
+     "Beni",
+     "La Paz"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "paspalum-repens",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 12,
+   "origen": "pariente_gbif"
+  },
+  {
+   "id": "paspalum-plicatulum",
+   "nombre_comun": "Grama",
+   "nombre_cientifico": "Paspalum plicatulum",
+   "familia": "Poaceae",
+   "grupo": "planta",
+   "nivel": "especie",
+   "dieta": "No aplica",
+   "bolivia": {
+    "gbif_key": 2705584,
+    "registros": 250,
+    "departamentos": [
+     "Santa Cruz",
+     "Beni",
+     "Chuquisaca",
+     "Tarija"
+    ]
+   },
+   "referencias": [
+    {
+     "taxon": "paspalum-repens",
+     "relacion": "mismo_genero"
+    }
+   ],
+   "amazonia_bolivia": 11,
+   "origen": "pariente_gbif",
+   "foto": {
+    "archivo": "Paspalum plicatulum (20650868772).jpg",
+    "licencia": "CC BY 2.0",
+    "autor": "Dick Culbert from Gibsons, B.C., Canada"
+   }
+  }
+ ],
+ "mediciones": [
+  {
+   "id": "m001",
+   "taxon": "peces-comerciales-beni",
+   "sitio": "bo-riberalta-rurre",
+   "tejido": "músculo",
+   "estadistico": "mediana",
+   "valor": 0.19,
+   "min": 0.009,
+   "max": 1.93,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 106,
+   "periodo": "jul-ago 2015",
+   "fuente": "rodriguez2022",
+   "nota": "Percentiles 5 y 95: 0,03 y 1,30. Pescados en los ríos Beni, Biata y Yata."
+  },
+  {
+   "id": "m002",
+   "taxon": "serrasalmus-spp",
+   "sitio": "pe-malinowski",
+   "tejido": "músculo",
+   "estadistico": "individual",
+   "valor": 1.5,
+   "unidad": "mg/kg",
+   "n": 1,
+   "periodo": "2017",
+   "fuente": "martinez2018",
+   "nota": "Ejemplar de 79 mm; máximo del estudio."
+  },
+  {
+   "id": "m003",
+   "taxon": "pseudoplatystoma-tigrinum",
+   "sitio": "pe-heath",
+   "tejido": "músculo",
+   "estadistico": "individual",
+   "valor": 0.82,
+   "unidad": "mg/kg",
+   "n": 1,
+   "periodo": "2017",
+   "fuente": "martinez2018",
+   "nota": "Ejemplar de 980 mm."
+  },
+  {
+   "id": "m004",
+   "taxon": "peces-madre-de-dios",
+   "sitio": "pe-mdd-rios",
+   "tejido": "músculo",
+   "estadistico": "mediana",
+   "valor": 0.14,
+   "min": 0.01,
+   "max": 1.5,
+   "unidad": "mg/kg",
+   "n": 308,
+   "periodo": "2017",
+   "fuente": "martinez2018",
+   "nota": "Medias por río y época entre 0,18 y 0,28 mg/kg."
+  },
+  {
+   "id": "m005",
+   "taxon": "peces-piscivoros-puruzinho",
+   "sitio": "br-puruzinho",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 1.033,
+   "dispersion": 0.431,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "fuente": "monteiro2026"
+  },
+  {
+   "id": "m006",
+   "taxon": "peces-carnivoros-puruzinho",
+   "sitio": "br-puruzinho",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.976,
+   "dispersion": 0.415,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "fuente": "monteiro2026"
+  },
+  {
+   "id": "m007",
+   "taxon": "peces-planctivoros-puruzinho",
+   "sitio": "br-puruzinho",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.606,
+   "dispersion": 0.161,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "fuente": "monteiro2026"
+  },
+  {
+   "id": "m008",
+   "taxon": "hypophthalmus-marginatus",
+   "sitio": "br-puruzinho",
+   "tejido": "músculo",
+   "estadistico": "rango",
+   "valor": null,
+   "min": 0.484,
+   "max": 0.907,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "fuente": "monteiro2026"
+  },
+  {
+   "id": "m009",
+   "taxon": "peces-detritivoros-puruzinho",
+   "sitio": "br-puruzinho",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.189,
+   "dispersion": 0.072,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "fuente": "monteiro2026"
+  },
+  {
+   "id": "m010",
+   "taxon": "peces-puruzinho",
+   "sitio": "br-puruzinho",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.75,
+   "dispersion": 0.516,
+   "dispersion_tipo": "DE",
+   "min": 0.037,
+   "max": 2.473,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 352,
+   "fuente": "monteiro2026",
+   "nota": "Todas las especies del lago juntas."
+  },
+  {
+   "id": "m011",
+   "taxon": "prochilodus-nigricans",
+   "sitio": "br-peixoto",
+   "tejido": "hígado",
+   "estadistico": "media",
+   "valor": 1.58,
+   "dispersion": 1.621,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 33,
+   "periodo": "jul-ago 2023",
+   "fuente": "castilho2026"
+  },
+  {
+   "id": "m012",
+   "taxon": "prochilodus-nigricans",
+   "sitio": "br-peixoto",
+   "tejido": "escama",
+   "estadistico": "media",
+   "valor": 0.537,
+   "dispersion": 1.803,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 33,
+   "periodo": "jul-ago 2023",
+   "fuente": "castilho2026"
+  },
+  {
+   "id": "m013",
+   "taxon": "prochilodus-nigricans",
+   "sitio": "br-peixoto",
+   "tejido": "piel",
+   "estadistico": "media",
+   "valor": 0.153,
+   "dispersion": 0.1,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 33,
+   "periodo": "jul-ago 2023",
+   "fuente": "castilho2026"
+  },
+  {
+   "id": "m014",
+   "taxon": "prochilodus-nigricans",
+   "sitio": "br-peixoto",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.089,
+   "dispersion": 0.043,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 33,
+   "periodo": "jul-ago 2023",
+   "fuente": "castilho2026"
+  },
+  {
+   "id": "m015",
+   "taxon": "peces-araguaia",
+   "sitio": "br-araguaia",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.202,
+   "dispersion": 0.295,
+   "dispersion_tipo": "DE",
+   "min": 0.006,
+   "max": 1.947,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 274,
+   "fuente": "monteiro2026",
+   "nota": "Piscívoros: 0,74 ± 0,36 mg/kg."
+  },
+  {
+   "id": "m016",
+   "taxon": "hoplias-aimara",
+   "sitio": "gf-oyapock",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.36,
+   "dispersion": 0.03,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 26,
+   "periodo": "2004-2015",
+   "fuente": "guayana_dma",
+   "nota": "Ejemplares de 38 a 82 cm."
+  },
+  {
+   "id": "m017",
+   "taxon": "acestrorhynchus-spp",
+   "sitio": "gf-oyapock",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.35,
+   "dispersion": 0.02,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 31,
+   "periodo": "2004-2015",
+   "fuente": "guayana_dma"
+  },
+  {
+   "id": "m018",
+   "taxon": "ageneiosus-inermis",
+   "sitio": "gf-oyapock",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.27,
+   "dispersion": 0.03,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 33,
+   "periodo": "2004-2015",
+   "fuente": "guayana_dma"
+  },
+  {
+   "id": "m019",
+   "taxon": "sternopygus-macrurus",
+   "sitio": "gf-varios",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.12,
+   "dispersion": 0.04,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "periodo": "2004-2015",
+   "fuente": "guayana_dma",
+   "nota": "Quebradas de referencia."
+  },
+  {
+   "id": "m020",
+   "taxon": "copella-carsevennensis",
+   "sitio": "gf-varios",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.031,
+   "dispersion": 0.003,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "periodo": "2004-2015",
+   "fuente": "guayana_dma",
+   "nota": "Quebradas de referencia."
+  },
+  {
+   "id": "m101",
+   "taxon": "chloroceryle-americana",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 39.08,
+   "dispersion": 28.4,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 7,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m102",
+   "taxon": "chloroceryle-inda",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "individual",
+   "valor": 37.08,
+   "unidad": "µg/g",
+   "n": 1,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m103",
+   "taxon": "chloroceryle-amazona",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 28.66,
+   "dispersion": 2.86,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 2,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m104",
+   "taxon": "furnarius-leucopus",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 18.65,
+   "dispersion": 10.61,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 4,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m105",
+   "taxon": "jacana-jacana",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 17.97,
+   "dispersion": 3.22,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 4,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m106",
+   "taxon": "oneillornis-salvini",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 9.67,
+   "dispersion": 5.55,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 2,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m107",
+   "taxon": "aves-sitios-mineros",
+   "sitio": "pe-mdd-mineros",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 3.14,
+   "dispersion": 7.97,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 312,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024",
+   "nota": "Una medición individual llegó a 72,7 µg/g."
+  },
+  {
+   "id": "m108",
+   "taxon": "aves-sitio-control",
+   "sitio": "pe-la-torre",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 0.47,
+   "dispersion": 0.42,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "n": 52,
+   "periodo": "jul-oct 2019",
+   "fuente": "pisconte2024"
+  },
+  {
+   "id": "m109",
+   "taxon": "phlegopsis-nigromaculata",
+   "sitio": "pe-los-amigos",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 4.1,
+   "unidad": "µg/g",
+   "n": 10,
+   "fuente": "gerson2022"
+  },
+  {
+   "id": "m110",
+   "taxon": "phlegopsis-nigromaculata",
+   "sitio": "pe-cocha-cashu",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 1.4,
+   "unidad": "µg/g",
+   "n": 2,
+   "fuente": "gerson2022"
+  },
+  {
+   "id": "m111",
+   "taxon": "myrmotherula-axillaris",
+   "sitio": "pe-los-amigos",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 1.8,
+   "unidad": "µg/g",
+   "n": 10,
+   "fuente": "gerson2022"
+  },
+  {
+   "id": "m112",
+   "taxon": "myrmotherula-axillaris",
+   "sitio": "pe-cocha-cashu",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 0.9,
+   "unidad": "µg/g",
+   "n": 2,
+   "fuente": "gerson2022"
+  },
+  {
+   "id": "m113",
+   "taxon": "pipra-fasciicauda",
+   "sitio": "pe-los-amigos",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 0.3,
+   "unidad": "µg/g",
+   "n": 46,
+   "fuente": "gerson2022"
+  },
+  {
+   "id": "m114",
+   "taxon": "pipra-fasciicauda",
+   "sitio": "pe-cocha-cashu",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 0.1,
+   "unidad": "µg/g",
+   "n": 2,
+   "fuente": "gerson2022"
+  },
+  {
+   "id": "m115",
+   "taxon": "chloroceryle-americana",
+   "sitio": "neotropico",
+   "tejido": "pluma corporal",
+   "estadistico": "media",
+   "valor": 35.75,
+   "dispersion": 27.92,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "fuente": "sayers2023"
+  },
+  {
+   "id": "m116",
+   "taxon": "chloroceryle-amazona",
+   "sitio": "neotropico",
+   "tejido": "pluma corporal",
+   "estadistico": "media",
+   "valor": 23.9,
+   "dispersion": 5.85,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "fuente": "sayers2023"
+  },
+  {
+   "id": "m117",
+   "taxon": "chloroceryle-aenea",
+   "sitio": "neotropico",
+   "tejido": "pluma de la cola",
+   "estadistico": "media",
+   "valor": 10.31,
+   "dispersion": 7.73,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "fuente": "sayers2023"
+  },
+  {
+   "id": "m118",
+   "taxon": "chloroceryle-aenea",
+   "sitio": "neotropico",
+   "tejido": "sangre",
+   "estadistico": "media",
+   "valor": 0.54,
+   "dispersion": 0.4,
+   "dispersion_tipo": "DE",
+   "unidad": "µg/g",
+   "base": "humedo",
+   "fuente": "sayers2023"
+  },
+  {
+   "id": "m119",
+   "taxon": "gallus-gallus",
+   "sitio": "co-san-martin-loba",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 2.37,
+   "dispersion": 0.42,
+   "dispersion_tipo": "EE",
+   "unidad": "µg/g",
+   "base": "seco",
+   "n": 40,
+   "fuente": "ramirez2025"
+  },
+  {
+   "id": "m120",
+   "taxon": "gallus-gallus",
+   "sitio": "co-arjona",
+   "tejido": "pluma del pecho",
+   "estadistico": "media",
+   "valor": 0.41,
+   "dispersion": 0.05,
+   "dispersion_tipo": "EE",
+   "unidad": "µg/g",
+   "base": "seco",
+   "n": 31,
+   "fuente": "ramirez2025"
+  },
+  {
+   "id": "m201",
+   "taxon": "caiman-yacare",
+   "sitio": "bo-la-paz",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.21,
+   "dispersion": 0.22,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 64,
+   "periodo": "2007-2008",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Rivera et al. 2016."
+  },
+  {
+   "id": "m202",
+   "taxon": "caiman-yacare",
+   "sitio": "bo-colorado-maja",
+   "tejido": "hígado",
+   "estadistico": "media",
+   "valor": 1.81,
+   "dispersion": 0.8,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 7,
+   "periodo": "2017",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Salazar-Pammo et al. 2021."
+  },
+  {
+   "id": "m203",
+   "taxon": "caiman-yacare",
+   "sitio": "bo-colorado-maja",
+   "tejido": "riñón",
+   "estadistico": "media",
+   "valor": 0.57,
+   "dispersion": 0.3,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 7,
+   "periodo": "2017",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Salazar-Pammo et al. 2021."
+  },
+  {
+   "id": "m204",
+   "taxon": "caiman-yacare",
+   "sitio": "bo-colorado-maja",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.15,
+   "dispersion": 0.06,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 7,
+   "periodo": "2017",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Salazar-Pammo et al. 2021."
+  },
+  {
+   "id": "m205",
+   "taxon": "caiman-yacare",
+   "sitio": "br-pantanal",
+   "tejido": "músculo de la cola",
+   "estadistico": "rango",
+   "valor": null,
+   "min": 0.02,
+   "max": 0.36,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 79,
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Vieira et al. 2011."
+  },
+  {
+   "id": "m206",
+   "taxon": "caiman-crocodilus",
+   "sitio": "br-purus",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.29,
+   "dispersion": 0.21,
+   "dispersion_tipo": "DE",
+   "min": 0.063,
+   "max": 0.68,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 10,
+   "periodo": "2008",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Schneider et al. 2012. Ubicación aproximada en el río Purus."
+  },
+  {
+   "id": "m207",
+   "taxon": "caiman-crocodilus",
+   "sitio": "br-purus",
+   "tejido": "escama epidérmica",
+   "estadistico": "media",
+   "valor": 3.35,
+   "dispersion": 2.14,
+   "dispersion_tipo": "DE",
+   "min": 0.5,
+   "max": 7.15,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 7,
+   "periodo": "2008",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Schneider et al. 2015."
+  },
+  {
+   "id": "m208",
+   "taxon": "caiman-crocodilus",
+   "sitio": "gf-varios",
+   "tejido": "garras",
+   "estadistico": "media",
+   "valor": 2.69,
+   "dispersion": 1.61,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 48,
+   "periodo": "2016-2020",
+   "fuente": "lemaire2023"
+  },
+  {
+   "id": "m209",
+   "taxon": "melanosuchus-niger",
+   "sitio": "br-purus",
+   "tejido": "escama epidérmica",
+   "estadistico": "media",
+   "valor": 3.85,
+   "dispersion": 2.82,
+   "dispersion_tipo": "DE",
+   "min": 1.1,
+   "max": 10.4,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 13,
+   "periodo": "2008",
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Schneider et al. 2015."
+  },
+  {
+   "id": "m210",
+   "taxon": "melanosuchus-niger",
+   "sitio": "br-mamiraua",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.41,
+   "dispersion": 0.11,
+   "dispersion_tipo": "DE",
+   "min": 0.25,
+   "max": 0.78,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 60,
+   "fuente": "lemaire2023",
+   "nota": "Estudio original: Correia et al. 2014. Fila por confirmar contra la versión publicada."
+  },
+  {
+   "id": "m211",
+   "taxon": "melanosuchus-niger",
+   "sitio": "gf-kaw",
+   "tejido": "sangre entera",
+   "estadistico": "media",
+   "valor": 1.28,
+   "dispersion": 0.67,
+   "dispersion_tipo": "DE",
+   "min": 0.3,
+   "max": 3.41,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 72,
+   "periodo": "2013-2015",
+   "fuente": "lemaire2023",
+   "nota": "Fila por confirmar contra la versión publicada."
+  },
+  {
+   "id": "m212",
+   "taxon": "paleosuchus-palpebrosus",
+   "sitio": "gf-varios",
+   "tejido": "garras",
+   "estadistico": "media",
+   "valor": 8.35,
+   "dispersion": 4.97,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 13,
+   "periodo": "2016-2020",
+   "fuente": "lemaire2023"
+  },
+  {
+   "id": "m213",
+   "taxon": "paleosuchus-palpebrosus",
+   "sitio": "gf-varios",
+   "tejido": "escamas",
+   "estadistico": "media",
+   "valor": 7.65,
+   "dispersion": 4.74,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 13,
+   "periodo": "2016-2020",
+   "fuente": "lemaire2023"
+  },
+  {
+   "id": "m214",
+   "taxon": "paleosuchus-trigonatus",
+   "sitio": "gf-varios",
+   "tejido": "escamas",
+   "estadistico": "media",
+   "valor": 3.33,
+   "dispersion": 3.07,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 48,
+   "periodo": "2016-2020",
+   "fuente": "lemaire2023"
+  },
+  {
+   "id": "m215",
+   "taxon": "paleosuchus-trigonatus",
+   "sitio": "gf-varios",
+   "tejido": "garras",
+   "estadistico": "media",
+   "valor": 2.42,
+   "dispersion": 1.91,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 50,
+   "periodo": "2016-2020",
+   "fuente": "lemaire2023"
+  },
+  {
+   "id": "m216",
+   "taxon": "podocnemis-unifilis",
+   "sitio": "br-purus",
+   "tejido": "músculo",
+   "estadistico": "media",
+   "valor": 0.011,
+   "dispersion": 0.012,
+   "dispersion_tipo": "DE",
+   "min": 0.004,
+   "max": 0.04,
+   "unidad": "mg/kg",
+   "base": "humedo",
+   "n": 6,
+   "fuente": "borges"
+  },
+  {
+   "id": "m301",
+   "taxon": "marmosops-sp",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "individual",
+   "valor": 3.379,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m302",
+   "taxon": "marmosa-murina",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "individual",
+   "valor": 2.571,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m303",
+   "taxon": "caluromys-lanatus",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.136,
+   "min": 0.082,
+   "max": 0.18,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 3,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m304",
+   "taxon": "micoureus-demerarae",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "individual",
+   "valor": 0.083,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m305",
+   "taxon": "metachirus-nudicaudatus",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "individual",
+   "valor": 0.077,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m306",
+   "taxon": "nectomys-rattus",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.317,
+   "min": 0.317,
+   "max": 1.001,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m307",
+   "taxon": "rattus-rattus",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.18,
+   "min": 0.065,
+   "max": 0.331,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 6,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m308",
+   "taxon": "proechimys-gardneri",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.044,
+   "min": 0.027,
+   "max": 0.59,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 13,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m309",
+   "taxon": "hydrochoerus-hydrochaeris",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "individual",
+   "valor": 0.039,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m310",
+   "taxon": "isothrix-bistriata",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.023,
+   "max": 0.073,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 8,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026",
+   "nota": "Mínimo bajo el límite de detección."
+  },
+  {
+   "id": "m311",
+   "taxon": "oecomys-sp",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "individual",
+   "valor": 0.021,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 1,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m312",
+   "taxon": "cuniculus-paca",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.02,
+   "min": 0.008,
+   "max": 0.051,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 8,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m313",
+   "taxon": "mesomys-hispidus",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.011,
+   "max": 0.023,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 2,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026",
+   "nota": "Mínimo bajo el límite de detección."
+  },
+  {
+   "id": "m314",
+   "taxon": "dactylomys-dactylinus",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.006,
+   "min": 0.003,
+   "max": 0.009,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 2,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026"
+  },
+  {
+   "id": "m315",
+   "taxon": "coendou-prehensilis",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "mediana",
+   "valor": 0.005,
+   "max": 0.229,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 10,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026",
+   "nota": "Mínimo bajo el límite de detección."
+  },
+  {
+   "id": "m316",
+   "taxon": "sphiggurus-roosmalenorum",
+   "sitio": "br-porto-velho",
+   "tejido": "pelaje",
+   "estadistico": "bajo_ld",
+   "valor": null,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 4,
+   "periodo": "2008-2014",
+   "fuente": "facundo2026",
+   "nota": "Todas las muestras bajo el límite de detección (0,0001 mg/kg)."
+  },
+  {
+   "id": "m401",
+   "taxon": "insectos-madre-de-dios",
+   "sitio": "pe-la-pampa",
+   "tejido": "cuerpo entero",
+   "estadistico": "rango",
+   "valor": null,
+   "min": 0.0014,
+   "max": 28.46,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 492,
+   "fuente": "chaboteaux2026",
+   "nota": "Los necrófagos tienen unas 39 veces más mercurio que los herbívoros; el sitio minero, unas 7 veces más que el sitio sin minería."
+  },
+  {
+   "id": "m501",
+   "taxon": "hojas-dosel-madre-de-dios",
+   "sitio": "pe-mdd-dosel",
+   "tejido": "hojas vivas del dosel",
+   "estadistico": "rango",
+   "valor": null,
+   "min": 0.08,
+   "max": 0.22,
+   "unidad": "mg/kg",
+   "periodo": "época seca 2018",
+   "fuente": "gerson2022",
+   "nota": "Rango de las medias de tres sitios mineros, las dos especies juntas."
+  },
+  {
+   "id": "m502",
+   "taxon": "paspalum-repens",
+   "sitio": "br-araguaia",
+   "tejido": "raíz",
+   "estadistico": "media",
+   "valor": 0.0303,
+   "dispersion": 0.0096,
+   "dispersion_tipo": "DE",
+   "min": 0.0177,
+   "max": 0.0492,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 17,
+   "fuente": "monteiro2024"
+  },
+  {
+   "id": "m503",
+   "taxon": "paspalum-repens",
+   "sitio": "br-araguaia",
+   "tejido": "parte aérea",
+   "estadistico": "media",
+   "valor": 0.0042,
+   "dispersion": 0.0024,
+   "dispersion_tipo": "DE",
+   "min": 0.002,
+   "max": 0.0119,
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 17,
+   "fuente": "monteiro2024"
+  },
+  {
+   "id": "m601",
+   "taxon": "sedimento-fluvial",
+   "sitio": "pe-malinowski",
+   "tejido": "sedimento",
+   "estadistico": "media",
+   "valor": 0.0239,
+   "dispersion": 0.0041,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "periodo": "2017",
+   "fuente": "martinez2018",
+   "nota": "Normalizado por carbono orgánico. El valor más alto del estudio (0,37 mg/kg) se midió justo aguas abajo de una operación minera."
+  },
+  {
+   "id": "m602",
+   "taxon": "sedimento-fluvial",
+   "sitio": "pe-tambopata",
+   "tejido": "sedimento",
+   "estadistico": "media",
+   "valor": 0.0211,
+   "dispersion": 0.0019,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "periodo": "2017",
+   "fuente": "martinez2018",
+   "nota": "Normalizado por carbono orgánico."
+  },
+  {
+   "id": "m603",
+   "taxon": "sedimento-fluvial",
+   "sitio": "pe-heath",
+   "tejido": "sedimento",
+   "estadistico": "media",
+   "valor": 0.0192,
+   "dispersion": 0.0034,
+   "dispersion_tipo": "DE",
+   "unidad": "mg/kg",
+   "periodo": "2017",
+   "fuente": "martinez2018",
+   "nota": "Normalizado por carbono orgánico."
+  },
+  {
+   "id": "m604",
+   "taxon": "suelo",
+   "sitio": "pe-los-amigos",
+   "tejido": "suelo de bosque, 0-5 cm",
+   "estadistico": "total",
+   "valor": 9100,
+   "unidad": "µg/m²",
+   "fuente": "gerson2022",
+   "nota": "Más de 80.000 µg/m² hasta 45 cm de profundidad."
+  },
+  {
+   "id": "m605",
+   "taxon": "suelo",
+   "sitio": "co-san-martin-loba",
+   "tejido": "suelo",
+   "estadistico": "media",
+   "valor": 45.5,
+   "dispersion": 12.4,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 30,
+   "fuente": "ramirez2025"
+  },
+  {
+   "id": "m606",
+   "taxon": "suelo",
+   "sitio": "co-arjona",
+   "tejido": "suelo",
+   "estadistico": "media",
+   "valor": 0.04,
+   "dispersion": 0.001,
+   "dispersion_tipo": "EE",
+   "unidad": "mg/kg",
+   "base": "seco",
+   "n": 21,
+   "fuente": "ramirez2025"
+  },
+  {
+   "id": "m607",
+   "taxon": "agua-superficial",
+   "sitio": "br-araguaia",
+   "tejido": "agua",
+   "estadistico": "media",
+   "valor": 1.68,
+   "dispersion": 0.95,
+   "dispersion_tipo": "DE",
+   "min": 0.5,
+   "max": 4,
+   "unidad": "ng/L",
+   "n": 17,
+   "fuente": "monteiro2024"
+  }
+ ],
+ "fundamentos": [
+  {
+   "id": "f-biomagnificacion",
+   "tipo": "biologico",
+   "titulo": "Biomagnificación en la cadena trófica",
+   "texto": "El mercurio se acumula más en cada nivel de la cadena alimentaria. En el lago Puruzinho (cuenca del Madeira) los peces piscívoros y carnívoros tuvieron más mercurio que los detritívoros, y el tamaño del pez también lo aumentó. En Madre de Dios la posición trófica, medida con isótopos de nitrógeno, se correlacionó con el mercurio de los peces.",
+   "fuentes": [
+    "monteiro2026",
+    "martinez2018"
+   ],
+   "aplica": {
+    "grupos": [
+     "pez"
+    ],
+    "dietas": [
+     "piscivora",
+     "carnivora",
+     "carronera"
+    ]
+   }
+  },
+  {
+   "id": "f-criterios-peces",
+   "tipo": "biologico",
+   "titulo": "Qué hace a un pez buen bioindicador",
+   "texto": "Según el estudio de la Guayana Francesa, un pez bioindicador debe ser depredador (nivel trófico de 3 o más), con dieta conocida, estar presente en muchas cuencas y acumular claramente más mercurio en sitios mineros que en sitios sin minería. Hoplias aimara se recomienda además por ser sedentario: refleja el lugar donde vive.",
+   "fuentes": [
+    "guayana_dma"
+   ],
+   "aplica": {
+    "grupos": [
+     "pez"
+    ],
+    "dietas": [
+     "piscivora",
+     "carnivora",
+     "carronera"
+    ]
+   }
+  },
+  {
+   "id": "f-musculo-higado",
+   "tipo": "quimico",
+   "titulo": "Músculo e hígado guardan tiempos distintos",
+   "texto": "En el músculo, el mercurio (sobre todo metilmercurio) se une a proteínas con aminoácidos azufrados, cisteína y metionina, y se acumula lentamente: refleja la exposición de largo plazo. El hígado, por su actividad metabólica, refleja la exposición reciente y contiene sobre todo mercurio inorgánico.",
+   "fuentes": [
+    "castilho2026"
+   ],
+   "aplica": {
+    "grupos": [
+     "pez"
+    ]
+   }
+  },
+  {
+   "id": "f-detritivoros",
+   "tipo": "biologico",
+   "titulo": "Peces de fondo: indicadores del sedimento",
+   "texto": "Los detritívoros como el sábalo comen lodo, algas y microorganismos del fondo, donde el mercurio se transforma en metilmercurio. Indican la contaminación del ambiente bentónico; sus escamas acumulan mercurio y permiten un muestreo menos invasivo.",
+   "fuentes": [
+    "castilho2026"
+   ],
+   "aplica": {
+    "grupos": [
+     "pez"
+    ],
+    "dietas": [
+     "detritivora"
+    ]
+   }
+  },
+  {
+   "id": "f-queratina",
+   "tipo": "quimico",
+   "titulo": "La queratina retiene el mercurio",
+   "texto": "Las escamas y garras están hechas de queratina, rica en grupos sulfhidrilo (–SH) con gran afinidad por el mercurio. Por eso acumulan concentraciones altas, reflejan la contaminación de largo plazo y se pueden tomar sin sacrificar al animal; además predicen el mercurio del hígado y del músculo.",
+   "fuentes": [
+    "lemaire2023"
+   ],
+   "aplica": {
+    "grupos": [
+     "reptil"
+    ]
+   }
+  },
+  {
+   "id": "f-cocodrilianos",
+   "tipo": "biologico",
+   "titulo": "Depredadores longevos y sedentarios",
+   "texto": "Los caimanes son depredadores de nivel trófico alto, viven décadas con un metabolismo lento y son territoriales y sedentarios. Así acumulan metilmercurio durante años en el mismo lugar, lo que los hace bioindicadores de la zona donde viven.",
+   "fuentes": [
+    "lemaire2023"
+   ],
+   "aplica": {
+    "familias": [
+     "Alligatoridae"
+    ]
+   }
+  },
+  {
+   "id": "f-tortugas",
+   "tipo": "biologico",
+   "titulo": "Tortugas herbívoras: nivel trófico bajo",
+   "texto": "Las taricayas adultas son mayormente herbívoras y acumulan poco mercurio en el músculo (0,011 mg/kg). Sirven como contraste de nivel trófico bajo y para evaluar el riesgo de consumo en comunidades que las comen.",
+   "fuentes": [
+    "borges"
+   ],
+   "aplica": {
+    "familias": [
+     "Podocnemididae"
+    ]
+   }
+  },
+  {
+   "id": "f-plumas",
+   "tipo": "anatomico",
+   "titulo": "La pluma registra el mercurio de la sangre",
+   "texto": "Mientras la pluma crece está conectada a vasos sanguíneos y refleja el mercurio de la sangre; después queda químicamente estable. Entre 95 y 99 % del mercurio en sangre, plumas y huevos de aves es metilmercurio. Tomar plumas no daña al ave y su almacenamiento es barato.",
+   "fuentes": [
+    "pisconte2024"
+   ],
+   "aplica": {
+    "grupos": [
+     "ave"
+    ]
+   }
+  },
+  {
+   "id": "f-gremios-aves",
+   "tipo": "biologico",
+   "titulo": "Aves piscívoras e insectívoras",
+   "texto": "En Madre de Dios las aves piscívoras tuvieron el mercurio más alto (31,03 µg/g en promedio). Las insectívoras tuvieron menos, pero al ser el grupo más abundante son candidatas para vigilar el ambiente terrestre.",
+   "fuentes": [
+    "pisconte2024"
+   ],
+   "aplica": {
+    "grupos": [
+     "ave"
+    ]
+   }
+  },
+  {
+   "id": "f-pelaje",
+   "tipo": "anatomico",
+   "titulo": "El pelaje registra exposición prolongada",
+   "texto": "El pelaje refleja la exposición al mercurio a lo largo de un periodo largo y se muestrea sin sacrificar al animal; incluso sirve con ejemplares de colecciones o rescates de fauna.",
+   "fuentes": [
+    "facundo2026"
+   ],
+   "aplica": {
+    "grupos": [
+     "mamifero"
+    ]
+   }
+  },
+  {
+   "id": "f-insectos-puente",
+   "tipo": "biologico",
+   "titulo": "Los insectos llevan el mercurio del agua a la tierra",
+   "texto": "En el bajo Madeira, los marsupiales insectívoros y omnívoros acumularon más mercurio que los roedores herbívoros, y los terrestres más que los arborícolas. Los insectos transportan metilmercurio del agua al bosque, y el suelo y la hojarasca favorecen la metilación.",
+   "fuentes": [
+    "facundo2026"
+   ],
+   "aplica": {
+    "grupos": [
+     "mamifero"
+    ]
+   }
+  },
+  {
+   "id": "f-gradiente-insectos",
+   "tipo": "quimico",
+   "titulo": "Más mercurio cuanto más materia animal comen",
+   "texto": "En insectos de Madre de Dios el mercurio sube con el consumo de materia animal: los necrófagos tienen unas 39 veces más que los herbívoros. La carroña y las heces en descomposición concentran mercurio, y los microorganismos lo transforman en formas más disponibles.",
+   "fuentes": [
+    "chaboteaux2026"
+   ],
+   "aplica": {
+    "grupos": [
+     "insecto"
+    ]
+   }
+  },
+  {
+   "id": "f-hojas",
+   "tipo": "quimico",
+   "titulo": "Las hojas captan el mercurio del aire",
+   "texto": "Las hojas del dosel captan mercurio gaseoso y en partículas del aire, en proporción a su superficie, y no lo toman del suelo. Registran el mercurio emitido al quemar amalgama y lo llevan al suelo del bosque al caer.",
+   "fuentes": [
+    "gerson2022"
+   ],
+   "aplica": {
+    "generos": [
+     "Ficus",
+     "Inga"
+    ]
+   }
+  },
+  {
+   "id": "f-macrofitas",
+   "tipo": "quimico",
+   "titulo": "Raíces de plantas acuáticas en zonas de metilación",
+   "texto": "Las raíces de Paspalum repens concentraron unas 7 veces más mercurio que la parte aérea. Las macrófitas sirven para identificar humedales y sitios favorables a la metilación del mercurio.",
+   "fuentes": [
+    "monteiro2024"
+   ],
+   "aplica": {
+    "generos": [
+     "Paspalum",
+     "Eichhornia"
+    ]
+   }
+  }
+ ]
+}

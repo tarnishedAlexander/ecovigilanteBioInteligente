@@ -296,3 +296,14 @@ button, input, textarea { font: inherit; }
 .zona-bars { border-bottom: 1px solid var(--border); }
 
 @media (max-width: 420px) { .atlas-nav button svg { display: none; } .atlas-nav button { padding: 7px 8px; } }
+
+/* Bioindicator catalog */
+.species-estado { display: flex !important; align-items: center; gap: 5px; margin-top: 2px; font-size: 11px; }
+.species-estado i { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.species-placeholder { display: grid; place-items: center; }
+.species-placeholder i { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--estado); }
+.report-filters button small { margin-left: 3px; color: var(--text-secondary); font-size: 11px; }
+.bio-meds li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+.bio-meds li:last-child { border-bottom: 0; }
+.bio-chip { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border-radius: 4px; font-size: 11px; background: var(--surface-elevated); color: var(--text-primary); white-space: nowrap; }
+.bio-chip i { width: 7px; height: 7px; border-radius: 50%; }

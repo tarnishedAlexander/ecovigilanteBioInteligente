@@ -3,11 +3,10 @@ import secrets
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List, Dict, Any
-from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, Bioindicador
+from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, CatalogoBioindicadores
 from app.database import (
     init_db,
     get_all_comunidades,
-    get_all_bioindicadores,
     get_all_reportes,
     get_reporte_by_id,
     update_reporte_estado,
@@ -15,6 +14,7 @@ from app.database import (
 )
 from app.seed_data import RIOS_GEOJSON
 from app.geo import haversine_distance
+from app.catalogo import cargar_catalogo
 
 app = FastAPI(
     title="EcoVigilante API",
@@ -48,6 +48,7 @@ def requiere_investigador(x_api_key: Optional[str] = Header(default=None)):
 @app.on_event("startup")
 def startup_event():
     init_db()
+    cargar_catalogo()  # valida el archivo de datos al arrancar
 
 @app.get("/api/v1/health")
 def health_check():
@@ -68,10 +69,11 @@ def list_comunidades():
     """Lista de comunidades monitoreadas con coordenadas y nivel de alerta"""
     return get_all_comunidades()
 
-@app.get("/api/v1/bioindicadores", response_model=List[Bioindicador])
+@app.get("/api/v1/bioindicadores", response_model=CatalogoBioindicadores)
 def list_bioindicadores():
-    """Catálogo de especies bioindicadoras de acumulación de mercurio"""
-    return get_all_bioindicadores()
+    """Mediciones publicadas de mercurio en organismos y sedimentos, sitios de muestreo,
+    fuentes y presencia de cada taxón en Bolivia (GBIF)."""
+    return cargar_catalogo()
 
 @app.get("/api/v1/reportes", response_model=List[Reporte])
 def list_reportes(

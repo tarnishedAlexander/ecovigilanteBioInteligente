@@ -190,64 +190,6 @@ COMUNIDADES_DATA = [
     }
 ]
 
-BIOINDICADORES_DATA = [
-    {
-        "id": "bio-surubi",
-        "nombre_comun": "Surubí / Pintado",
-        "nombre_cientifico": "Pseudoplatystoma fasciatum",
-        "tipo": "pez_carnivoro",
-        "nivel_bioacumulacion": "Crítico",
-        "factor_riesgo_salud": "Muy Alto - Pez predador tope de fondo. Concentra hasta 2.5 a 4.0 ppm de mercurio en zonas mineras.",
-        "descripcion_ecologica": "Pez bentónico piscívoro de gran tamaño. Acumula metilmercurio a lo largo de 10 a 15 años de vida consumiendo otros peces.",
-        "especies_similares": ["Pseudoplatystoma tigrinum", "Zungaro zungaro"],
-        "icono": "Fish"
-    },
-    {
-        "id": "bio-muturo",
-        "nombre_comun": "Muturo / Manguruyú",
-        "nombre_cientifico": "Zungaro zungaro",
-        "tipo": "pez_carnivoro",
-        "nivel_bioacumulacion": "Crítico",
-        "factor_riesgo_salud": "Muy Alto - Especie predadora longeva con alto contenido graso en músculo donde se fija el tóxico.",
-        "descripcion_ecologica": "Bagre gigante de fondo rocoso y pozas profundas. Muy apetecido por comunidades ribereñas para autoconsumo familiar.",
-        "especies_similares": ["Paulicea luetkeni"],
-        "icono": "Fish"
-    },
-    {
-        "id": "bio-sabalo",
-        "nombre_comun": "Sábalo Amazónico",
-        "nombre_cientifico": "Prochilodus nigricans",
-        "tipo": "pez_detritivoro",
-        "nivel_bioacumulacion": "Bajo",
-        "factor_riesgo_salud": "Bajo a Moderado - Se alimenta de fango, lodo y perifiton vegetal.",
-        "descripcion_ecologica": "Especie iliófaga migratoria. Sirve como control biológico negativo: niveles bajos de metilmercurio comparado con los carnívoros.",
-        "especies_similares": ["Curimata cyprinoides"],
-        "icono": "FishSymbol"
-    },
-    {
-        "id": "bio-pirana",
-        "nombre_comun": "Piraña Cariba",
-        "nombre_cientifico": "Pygocentrus nattereri",
-        "tipo": "pez_carnivoro",
-        "nivel_bioacumulacion": "Alto",
-        "factor_riesgo_salud": "Alto - Dieta estrictamente carnívora / carroñera.",
-        "descripcion_ecologica": "Bioindicador de remansos y lagunas laterales (várzea) donde los sedimentos finos con mercurio suelen estancarse.",
-        "especies_similares": ["Serrasalmus rhombeus"],
-        "icono": "Skull"
-    },
-    {
-        "id": "bio-tarope",
-        "nombre_comun": "Tarope / Jacinto de Agua",
-        "nombre_cientifico": "Eichhornia crassipes",
-        "tipo": "planta",
-        "nivel_bioacumulacion": "Medio (Hiperacumuladora)",
-        "factor_riesgo_salud": "Indicador Ambiental - Sus raíces retienen metales pesados disueltos.",
-        "descripcion_ecologica": "Macrófita acuática flotante. Cuando hay alta turbidez y metales pesados presenta clorosis foliar y reducción de raíces.",
-        "especies_similares": ["Pistia stratiotes"],
-        "icono": "Leaf"
-    }
-]
-
 REPORTES_INICIALES = [
     {
         "id": "rep-001",

@@ -48,16 +48,84 @@ export interface Comunidad {
   total_reportes?: number;
 }
 
-export interface Bioindicador {
+/* ---------- Catálogo de bioindicadores (GET /bioindicadores) ---------- */
+
+export type Grupo = 'pez' | 'ave' | 'reptil' | 'mamifero' | 'insecto' | 'planta' | 'abiotico';
+export type Alcance = 'bolivia' | 'madeira' | 'amazonia' | 'fuera' | 'neotropico';
+export type Relacion = 'misma_especie' | 'mismo_genero' | 'misma_familia' | 'mismo_gremio' | 'mismo_habito';
+
+export interface Fuente {
+  id: string;
+  cita: string;
+  url: string;
+}
+
+export interface Sitio {
+  id: string;
+  nombre: string;
+  pais: string | null;
+  region: string | null;
+  lat: number | null;
+  lng: number | null;
+  precision: 'exacta' | 'aproximada' | 'desconocida';
+  contexto: 'minero' | 'referencia' | 'mixto' | 'mercado' | 'desconocido';
+  alcance: Alcance;
+}
+
+export interface Taxon {
   id: string;
   nombre_comun: string;
   nombre_cientifico: string;
-  tipo: string;
-  nivel_bioacumulacion: 'Crítico' | 'Alto' | 'Medio' | 'Bajo';
-  factor_riesgo_salud: string;
-  descripcion_ecologica: string;
-  especies_similares: string[];
-  icono: string;
+  familia: string;
+  grupo: Grupo;
+  nivel: 'especie' | 'genero' | 'grupo';
+  dieta: string;
+  introducida: boolean;
+  bolivia: { gbif_key: number; registros: number; departamentos: string[] } | null;
+  referencias: { taxon: string; relacion: Relacion }[];
+  prioridad: { orden: number; motivo: string; muestra: string } | null;
+  nota: string | null;
+  origen: 'corpus' | 'pariente_gbif';
+  amazonia_bolivia: number | null;
+  foto: { archivo: string; licencia: string | null; autor: string | null } | null;
+}
+
+export interface Fundamento {
+  id: string;
+  tipo: 'quimico' | 'biologico' | 'anatomico';
+  titulo: string;
+  texto: string;
+  fuentes: string[];
+  aplica: { grupos: string[]; familias: string[]; generos: string[]; dietas: string[] };
+}
+
+export interface Medicion {
+  id: string;
+  taxon: string;
+  sitio: string;
+  tejido: string;
+  estadistico: 'media' | 'mediana' | 'individual' | 'rango' | 'total' | 'bajo_ld';
+  valor: number | null;
+  min: number | null;
+  max: number | null;
+  dispersion: number | null;
+  dispersion_tipo: 'DE' | 'EE' | null;
+  unidad: 'mg/kg' | 'µg/g' | 'ng/L' | 'µg/m²';
+  base: 'humedo' | 'seco' | null;
+  n: number | null;
+  periodo: string | null;
+  fuente: string;
+  nota: string | null;
+}
+
+export interface CatalogoBioindicadores {
+  version: string;
+  nota: string;
+  fundamentos: Fundamento[];
+  fuentes: Fuente[];
+  sitios: Sitio[];
+  taxones: Taxon[];
+  mediciones: Medicion[];
 }
 
 export interface Metricas {

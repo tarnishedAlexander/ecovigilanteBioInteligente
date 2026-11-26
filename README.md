@@ -13,7 +13,7 @@ Los equipos de investigación en salud ambiental trabajan con información fragm
 
 1. **Reportes comunitarios.** Observaciones de las comunidades (peces con lesiones, agua turbia, vegetación afectada, síntomas neurológicos compatibles con exposición a mercurio) georreferenciadas y con una entrevista estructurada.
 2. **Huella minera satelital.** Detecciones de minería aurífera sobre imágenes Sentinel-2 publicadas por Amazon Mining Watch, recortadas a Bolivia y agrupadas en zonas por municipio.
-3. **Bioindicadores y estudios de campo.** Catálogo de especies con su nivel de bioacumulación y resultados de muestreo comparados con límites de referencia.
+3. **Bioindicadores.** Mercurio medido en peces, aves, reptiles, mamíferos, insectos, plantas y sedimentos en estudios publicados de la Amazonía (Bolivia, Perú, Brasil) y, como comparación, de otros ecosistemas tropicales. Cada especie indica si vive en Bolivia (registros de GBIF) y, si no tiene mediciones propias, qué pariente medido sirve de base para investigarla.
 
 El objetivo es que un investigador pueda priorizar dónde muestrear: qué comunidades acumulan reportes, qué zonas mineras crecieron recientemente y cuáles están cerca, para luego validar cada caso.
 
@@ -21,7 +21,10 @@ El objetivo es que un investigador pueda priorizar dónde muestrear: qué comuni
 
 - **Territorio.** Directorio de comunidades monitoreadas por departamento, con nivel de alerta, población estimada, actividad reciente, síntomas referidos y huella minera en un radio de 25 km.
 - **Minería.** Zonas mineras detectadas por satélite, ordenables por actividad reciente o extensión, con su evolución anual (2018–2026) y las comunidades más próximas.
-- **Bioindicadores.** Fichas de especies y filtro que resalta en el mapa las comunidades con muestras registradas.
+- **Bioindicadores.** Catálogo por grupo biológico. Cada ficha muestra el mercurio medido (valor, tejido, sitio y artículo de origen), la presencia en Bolivia según GBIF, los parientes bolivianos que pueden estudiarse y, para las especies prioritarias, la muestra sugerida. El mapa muestra los sitios de muestreo coloreados por alcance (Bolivia, cuenca del Madeira, resto de la Amazonía, fuera de la Amazonía).
+- **Candidatos para investigar en Bolivia.** Además de las especies de los papers, el catálogo incluye especies de la misma familia o género registradas en Beni y Pando (GBIF). Cada candidato tiene una solidez de la base (alta, media o baja), que combina el parentesco, la cercanía geográfica del estudio de referencia y la dieta. También trae una propuesta de estudio que el investigador puede copiar.
+- **Por qué podría ser bioindicador.** Cada ficha explica, con cita al paper, los motivos químicos (afinidad del mercurio por el azufre de proteínas y queratina), anatómicos (qué tejido registra qué periodo) y biológicos (nivel trófico, longevidad, sedentarismo) que hacen útil a ese grupo. Si la especie no tiene mediciones propias, muestra el bioindicador de referencia y las similitudes punto por punto.
+- **Bioindicadores potenciales por comunidad.** La ficha de cada comunidad lista las especies del catálogo registradas en su departamento, ordenadas por prioridad de investigación.
 - **Reportes.** Bandeja de reportes por estado. El investigador registra notas y cambia el estado de cada reporte.
 - **Mapa.** Capas base satelital, híbrida y de relieve; red hidrográfica; límite nacional; huella minera filtrable por periodo de detección.
 
@@ -53,7 +56,10 @@ La capa de huella minera y el límite de Bolivia son archivos GeoJSON estáticos
 │   │   ├── main.py          Endpoints, CORS y autenticación por clave
 │   │   ├── models.py        Esquemas Pydantic
 │   │   ├── database.py      Acceso a SQLite y siembra inicial
-│   │   ├── seed_data.py     Ríos, comunidades, bioindicadores y reportes de ejemplo
+│   │   ├── seed_data.py     Ríos, comunidades y reportes de ejemplo
+│   │   ├── catalogo.py      Carga y valida el catálogo de bioindicadores
+│   │   ├── data/
+│   │   │   └── bioindicadores.json  Mediciones publicadas, sitios, fuentes y presencia en Bolivia
 │   │   └── geo.py           Utilidades geográficas
 │   ├── requirements.txt
 │   └── run.sh
@@ -61,8 +67,8 @@ La capa de huella minera y el límite de Bolivia son archivos GeoJSON estáticos
 │   ├── public/data/         GeoJSON de huella minera y límite nacional
 │   └── src/
 │       ├── components/      Mapa, paneles y directorios
-│       ├── data/            Datos de demostración (estudios, testimonios, fotos)
-│       ├── lib/             Lógica de minería y utilidades de presentación
+│       ├── data/            Fotos referenciales y testimonios de demostración
+│       ├── lib/             Lógica de minería, del catálogo de bioindicadores y de presentación
 │       └── services/api.ts  Cliente de la API
 ├── render.yaml              Blueprint de despliegue del backend
 └── ARCHITECTURE_AND_DECISIONS.md
@@ -77,7 +83,7 @@ Base: `/api/v1`. Documentación interactiva en `/docs`.
 | GET | `/health` | Estado del servicio |
 | GET | `/rios` | Red hidrográfica principal (GeoJSON) |
 | GET | `/comunidades` | Comunidades con nivel de alerta y total de reportes |
-| GET | `/bioindicadores` | Catálogo de especies bioindicadoras |
+| GET | `/bioindicadores` | Catálogo de bioindicadores: taxones, mediciones de mercurio, sitios de muestreo, fuentes y presencia en Bolivia |
 | GET | `/reportes` | Reportes; filtros opcionales `estado` y `comunidad_id` |
 | GET | `/reportes/{id}` | Detalle de un reporte |
 | POST | `/reportes` | Registro de un reporte; si no indica comunidad, se asigna la más cercana |
@@ -128,7 +134,8 @@ La aplicación queda en `http://localhost:5173` y en desarrollo usa la API local
 
 ## Limitaciones conocidas
 
-- **Datos de demostración.** Los reportes semilla, los estudios de campo y los testimonios son ficticios y la interfaz los identifica como tales. Los valores de mercurio son plausibles, pero no son mediciones.
+- **Datos de demostración.** Los reportes semilla y los testimonios de las comunidades son ficticios, y la interfaz los identifica como tales. Las mediciones de mercurio del catálogo de bioindicadores, en cambio, provienen de artículos publicados y cada una enlaza a su fuente.
+- **Extrapolación entre regiones.** La mayoría de las mediciones son de Perú y Brasil. La web las presenta como referencia para especies que viven en Bolivia, nunca como valores bolivianos. La presencia en Bolivia se basa en registros de GBIF, que dependen del esfuerzo de muestreo. Las coordenadas de los sitios son aproximadas.
 - **Persistencia.** El plan gratuito de Render no tiene disco persistente: la base SQLite vuelve a su estado inicial en cada reinicio o despliegue. La primera petición tras un periodo de inactividad puede tardar alrededor de un minuto.
 - **Proximidad.** La cercanía entre comunidades y zonas mineras se calcula en línea recta. El mercurio viaja con la corriente, por lo que la relación aguas arriba / aguas abajo debe confirmarse sobre la red hidrográfica.
 - **Autenticación.** La clave del investigador se incluye en el bundle del frontend; protege contra cambios accidentales, no contra un usuario malintencionado. Un despliegue real requiere autenticación por usuario.
@@ -138,8 +145,10 @@ La aplicación queda en `http://localhost:5173` y en desarrollo usa la API local
 
 | Dato | Fuente | Licencia |
 | --- | --- | --- |
+| Mercurio en organismos y sedimentos | Artículos científicos citados en `backend/app/data/bioindicadores.json` (DOI en cada registro) | Según cada artículo |
+| Presencia de especies en Bolivia | [GBIF](https://www.gbif.org), consulta del 26 de noviembre de 2026 | Según cada conjunto de datos (CC0, CC BY, CC BY-NC) |
 | Huella de minería aurífera | [Amazon Mining Watch](https://source.coop/earthgenome/amazon-mining-watch) (Earth Genome) | CC BY 4.0 |
 | Límite nacional de Bolivia | Natural Earth 1:10m | Dominio público |
 | Límites municipales | geoBoundaries / GeoBolivia | Según cada fuente |
-| Fotografías de comunidades y especies | Wikimedia Commons | Según cada archivo; crédito en la interfaz |
+| Fotografías de comunidades y especies | Wikimedia Commons (especies vía la propiedad P18 de Wikidata) | Según cada archivo; autor y licencia en la interfaz |
 | Imágenes base del mapa | Google Maps | Términos de servicio de Google |
