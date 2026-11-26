@@ -14,7 +14,7 @@ from app.database import (
     create_reporte
 )
 from app.seed_data import RIOS_GEOJSON
-from app.services.gemma_extractor import extract_entrevista_from_text, haversine_distance, GEMMA_SYSTEM_PROMPT
+from app.geo import haversine_distance
 
 app = FastAPI(
     title="EcoVigilante API",
@@ -78,7 +78,7 @@ def list_reportes(
     estado: Optional[str] = Query(None, description="Filtrar por: crudo | semiverificado | verificado | descartado"),
     comunidad_id: Optional[str] = Query(None, description="Filtrar por id de comunidad")
 ):
-    """Lista de reportes anónimos y de terreno con georreferenciación y análisis de Gemma"""
+    """Lista de reportes comunitarios georreferenciados, con la entrevista estructurada si existe"""
     return get_all_reportes(estado=estado, comunidad_id=comunidad_id)
 
 @app.get("/api/v1/reportes/{reporte_id}", response_model=Reporte)
@@ -96,29 +96,12 @@ def change_reporte_estado(reporte_id: str, payload: ReporteUpdateEstado):
         raise HTTPException(status_code=404, detail="Reporte no encontrado")
     return updated
 
-@app.get("/api/v1/gemma/prompt")
-def get_gemma_prompt():
-    """Devuelve el system prompt y especificación para Gemma 2B local"""
-    return {
-        "model_target": "Gemma 2B / Gemma-2 2B (4-bit)",
-        "role": "Entrevistador Comunitario Empático (Sin diagnóstico médico directo)",
-        "system_prompt": GEMMA_SYSTEM_PROMPT
-    }
-
 @app.post("/api/v1/reportes", response_model=Reporte, status_code=201)
 def submit_reporte(payload: ReporteCreate):
-    """Ingesta anónima de reportes desde la aplicación móvil del comunario"""
-    data = payload.dict()
+    """Registro anónimo de un reporte comunitario georreferenciado"""
+    data = payload.model_dump()
 
-    # 1. Si no viene entrevista_ia estructurada pero hay transcripción cruda, extraerla
-    if not data.get("entrevista_ia") and data.get("transcripcion_chat"):
-        extracted = extract_entrevista_from_text(
-            data["transcripcion_chat"],
-            comunidad_hint=data.get("comunidad_nombre")
-        )
-        data["entrevista_ia"] = extracted.dict()
-
-    # 2. Si no tiene comunidad asignada, calcular la más cercana según coordenadas GPS
+    # Si no tiene comunidad asignada, usar la más cercana a las coordenadas del reporte
     if not data.get("comunidad_id") or not data.get("comunidad_nombre"):
         todas_comunidades = get_all_comunidades()
         if todas_comunidades:

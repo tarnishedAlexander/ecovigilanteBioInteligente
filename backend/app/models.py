@@ -28,7 +28,6 @@ class ReporteCreate(BaseModel):
     url_foto: Optional[str] = None
     comunidad_id: Optional[str] = None
     comunidad_nombre: Optional[str] = None
-    transcripcion_chat: Optional[str] = Field(None, description="Transcripción cruda de la conversación con el asistente para ser parseada")
     entrevista_ia: Optional[EntrevistaIAModel] = None
 
 class ReporteUpdateEstado(BaseModel):

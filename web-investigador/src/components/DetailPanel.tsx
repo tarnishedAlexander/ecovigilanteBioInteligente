@@ -358,7 +358,7 @@ const ComunidadView: React.FC<{
     ...reportes
       .map((r) => r.entrevista_ia?.indicio_ambiental_adicional || r.descripcion_usuario)
       .filter((t): t is string => !!t)
-      .map((texto) => ({ texto, quien: 'Reporte vía app', demo: false })),
+      .map((texto) => ({ texto, quien: 'Reporte comunitario', demo: false })),
   ];
 
   const especies = Array.from(new Set(entrevistas.flatMap((e) => e.tipos_pescado_mencionados.map(normalize))));

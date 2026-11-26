@@ -1,72 +1,53 @@
-# EcoVigilante: Monitoreo Comunitario y Detección de Mercurio en Cuencas Mineras de Bolivia
+# Arquitectura y decisiones de diseño
 
-## 1. Contexto y Problemática
+Este documento registra las decisiones que dan forma a EcoVigilante y sus motivos. La descripción general del proyecto, la API y la puesta en marcha están en el [README](./README.md).
 
-En Bolivia, la minería aurífera (tanto legal como no regulada / ilegal) utiliza activamente mercurio elemental para el proceso de amalgamación de oro en cuencas amazónicas y subandinas (ej. ríos Beni, Madre de Dios, Mapiri, Kaka, Tuichi).
+## Enfoque
 
-### Los Problemas Clave
-1. **Contaminación y Bioacumulación:** El mercurio vertido a los ríos se metila en sedimentos convirtiéndose en metilmercurio, la forma más neurotóxica. Este asciende rápidamente por la cadena trófica mediante peces piscívoros/carnívoros (surubí, bagre, zúngara), base de la alimentación de comunidades ribereñas e indígenas (Esse Ejja, Tsimane', Tacana, Lecos).
-2. **Brecha Crítica de Información:** Los investigadores, biólogos y epidemiólogos no cuentan con datos oportunos en tiempo real de campo. Trabajan "a ciegas" por la lejanía geográfica y el costo de expediciones científicas.
-3. **Especulación sobre Ubicación Minera:** La ubicación real de operaciones mineras y dragas aluviales en constante movimiento es incierta para el Estado y la academia.
+La ubicación de las operaciones mineras y de los vertidos de mercurio cambia más rápido de lo que la registran los catastros oficiales. EcoVigilante no intenta vigilar directamente cada tramo de río: cruza tres señales independientes (reportes de las comunidades, detecciones satelitales de minería y resultados de muestreo en bioindicadores) para que el investigador decida dónde concentrar el trabajo de campo.
 
----
+Un conjunto de reportes con síntomas compatibles con exposición a mercurio y un alto consumo de peces carnívoros, en una comunidad situada aguas abajo de una zona minera en expansión, es una hipótesis que merece muestreo. La plataforma ayuda a formular esa hipótesis; no la confirma.
 
-## 2. Decisión de Diseño: El Enfoque del Proyecto
+## Decisiones
 
-En lugar de depender exclusivamente de catastros mineros estáticos, se propone un enfoque de **sensores biológicos y ciencia ciudadana inversa**:
-> *"Si una comunidad ribereña registra síntomas neurológicos atípicos, malformaciones o anomalías en peces, la comunidad misma actúa como indicio sensor de que aguas arriba existe actividad minera activa."*
+### 1. Aplicación web de escritorio para el investigador
 
----
+- **Decisión:** la interfaz principal es un atlas web pensado para pantallas grandes, con soporte básico en pantallas pequeñas.
+- **Motivo:** el análisis combina capas densas (huella minera, ríos, comunidades, reportes) con fichas de detalle extensas. Ese trabajo se hace en un computador.
 
-## 3. Registro de Decisiones de Arquitectura (ADR)
+### 2. Reportes anónimos
 
-### Decisión 1: Separación de Experiencias (Opción B: Móvil para Comunario + Web para Investigador)
-* **Decisión:** Desarrollar dos interfaces especializadas conectadas a un mismo Backend y Base de Datos unificada.
-* **Por qué se tomó:**
-  * **Comunarios:** Están en territorio, necesitan interfaz simple, cero texto complejo, captura fotográfica con GPS rápido y soporte **100% offline**.
-  * **Investigadores:** Necesitan pantallas grandes (laptop/PC) para analizar mapas de información densa: capas de ríos, trazado de cuencas aguas arriba, fotos satelitales multitemporales (Google Earth / Sentinel) y gráficos de concentración. Obligarlos a usar un teléfono arruinaría la experiencia analítica.
-* **Alternativa descartada:** Unificar todo en una sola aplicación móvil. Hubiera sacrificado la potencia del análisis SIG de escritorio.
+- **Decisión:** la API no asocia los reportes a una identidad. Un reporte se describe por sus coordenadas, fecha, categoría y contenido.
+- **Motivo:** denunciar actividad minera en zonas de conflicto expone a represalias. No almacenar identidades reduce ese riesgo.
 
----
+### 3. Ciclo de vida con validación progresiva
 
-### Decisión 2: Privacidad y Acceso Anónimo para Comunarios
-* **Decisión:** La app comunaria **no requiere login ni registro de cuenta**.
-* **Por qué se tomó:**
-  * Denunciar minería ilegal o problemas ambientales acarrea riesgos serios de represalias en zonas conflictivas.
-  * Elimina la fricción de uso (no pedir correos ni contraseñas que en zonas rurales causan abandono).
-  * Los reportes se identifican solo por coordenadas GPS, fecha y metadatos técnicos.
+- **Decisión:** cada reporte pasa por los estados `crudo`, `semiverificado`, `verificado` o `descartado`. Solo un investigador autenticado puede cambiarlo.
+- **Motivo:** separa la observación comunitaria de la evidencia de laboratorio sin descartar la primera. El mapa y las métricas muestran ambas, distinguidas por estado.
 
----
+### 4. Huella minera como archivo estático
 
-### Decisión 3: Uso de Edge AI (Gemma Local) como Entrevistador Clínico-Ambiental
-* **Decisión:** Ejecutar un modelo de lenguaje local (Gemma 2B) en el dispositivo del comunario.
-* **Por qué se tomó:**
-  * Funciona en zonas remotas sin señal de internet.
-  * **Comportamiento clave:** No emite diagnósticos médicos (no dice *"tienes hidrargirismo/Minamata"*). Actúa como un encuestador empático que indaga hábitos de consumo de pescado, síntomas neurológicos/motores e indicios del agua/fauna, extrayendo silenciosamente un **JSON estructurado**.
+- **Decisión:** las detecciones de Amazon Mining Watch se preprocesan fuera de la aplicación (recorte a Bolivia, agrupación en zonas por municipio) y se sirven como GeoJSON desde el frontend.
+- **Motivo:** son datos de publicación periódica que no cambian con el uso de la plataforma. Servirlos de forma estática evita carga en la API y permite que la capa funcione aunque el backend no responda. Si más adelante se actualizan con frecuencia, basta con apuntar `MINERIA_URL` a un endpoint.
+- **Representación:** cada detección se dibuja como una celda de ~480 m en canvas, coloreada por el periodo de primera detección. Las detecciones aisladas (menos de 3 celdas) no se listan como zonas, para reducir falsos positivos.
 
----
+### 5. Proximidad en línea recta, con advertencia explícita
 
-### Decisión 4: Análisis Hidrográfico (Topología de Río vs. Distancia en Línea Recta)
-* **Decisión:** El motor espacial evaluará la proximidad mediante **conectividad de cuencas aguas abajo y aguas arriba**, no con simples círculos euclidianos (radios de 25 km).
-* **Por qué se tomó:**
-  * El mercurio viaja con la corriente fluvial. Comunidades a 10 km aguas arriba de una minera no sufren el vertido de ese afluente; comunidades a 50 km aguas abajo sí.
+- **Decisión:** la distancia entre comunidades y zonas mineras se calcula en línea recta, y la interfaz advierte que debe confirmarse si la zona está aguas arriba.
+- **Motivo:** el mercurio viaja con la corriente; la distancia relevante es la del recorrido del río. Mientras no exista una red hidrográfica con topología completa, una distancia euclidiana con advertencia es más honesta que un cálculo de cuenca aproximado.
+- **Trabajo pendiente:** incorporar una red fluvial con dirección de flujo (p. ej. HydroRIVERS) para clasificar cada comunidad como aguas arriba o aguas abajo de cada zona.
 
----
+### 6. Datos de demostración aislados y señalizados
 
-### Decisión 5: Ciclo de Vida de los Datos (Filtrado Progresivo)
-* **Decisión:** Los datos pasan por tres estados:
-  1. `En Crudo`: Datos reportados directamente por comunarios con el pre-procesamiento del LLM.
-  2. `Semiverificado`: Reportes que cumplen umbrales de consistencia geográfica y sintomatológica (alerta para científicos).
-  3. `Verificado / Muestreado`: Casos validados por investigadores tras tomas de muestra biológica (cabello, sangre, agua).
+- **Decisión:** los estudios de campo, testimonios y reportes semilla son ficticios, viven en archivos dedicados (`web-investigador/src/data/`, `backend/app/seed_data.py`) y la interfaz los marca como datos de demostración.
+- **Motivo:** permiten evaluar la plataforma sin presentar como mediciones valores que no lo son, y se pueden reemplazar por datos reales sin tocar los componentes.
 
----
+## Stack
 
-## 4. Stack Tecnológico Elegido
-
-| Módulo | Tecnología | Justificación |
-| :--- | :--- | :--- |
-| **Backend API** | Python (FastAPI) | Rápido, tipado estricto, nativo para manejo de datos geoespaciales y payloads JSON de IA. |
-| **Base de Datos** | SQLite (Prototipo) / PostgreSQL + PostGIS (Producción) | Almacenamiento geoespacial relacional de coordenadas, ríos y comunidades. |
-| **Web Investigador** | React + Vite + TailwindCSS + Leaflet / Mapbox | Mapas fluidos, interactividad visual de alta densidad, ligero de levantar y probar. |
-| **App Comunario** | Flutter (o React Native / Expo) | Soporte nativo para cámara, GPS, SQLite local y sincronización en segundo plano. |
-| **Motor LLM Local** | Google MediaPipe LLM Inference / LiteRT (Gemma 2B) | Inferencia optimizada para chips móviles sin requerir conexión de red. |
+| Módulo | Tecnología | Motivo |
+| --- | --- | --- |
+| API | Python, FastAPI, Pydantic | Validación de esquemas, documentación OpenAPI automática, ecosistema geoespacial de Python. |
+| Base de datos | SQLite (prototipo) | Sin infraestructura adicional. La migración prevista es PostgreSQL con PostGIS para consultas espaciales. |
+| Frontend | React, TypeScript, Vite, Tailwind CSS | Desarrollo rápido con tipado estricto. |
+| Mapas | Leaflet, react-leaflet | Ligero, con renderizado en canvas suficiente para miles de celdas. |
+| Despliegue | Vercel (frontend), Render (API) | Planes gratuitos adecuados para una demostración. |
