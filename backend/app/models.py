@@ -83,6 +83,11 @@ class Prioridad(BaseModel):
     motivo: str
     muestra: str
 
+class Foto(BaseModel):
+    archivo: str  # nombre del archivo en Wikimedia Commons
+    licencia: Optional[str] = None
+    autor: Optional[str] = None
+
 class Taxon(BaseModel):
     id: str
     nombre_comun: str
@@ -134,11 +139,6 @@ class Fundamento(BaseModel):
     texto: str
     fuentes: List[str]
     aplica: AplicaFundamento
-
-class Foto(BaseModel):
-    archivo: str  # nombre del archivo en Wikimedia Commons
-    licencia: Optional[str] = None
-    autor: Optional[str] = None
 
 class CatalogoBioindicadores(BaseModel):
     version: str
