@@ -59,7 +59,7 @@ function Contenido({ inv, matriz, estudioId, onEstudio, sitioId, onSitio }: Cont
   const refs: Referencia[] = referenciasDe(inv, matriz).map((r) => ({ valor: r.valor, etiqueta: r.etiqueta }));
   const sitios = new Set(mediciones.map((m) => m.sitio));
   const maximo = mediciones
-    .filter((m) => m.estadistico !== 'bajo_ld' && m.unidad === meta.unidad && (matriz !== 'peces' || m.base !== 'seco'))
+    .filter((m) => m.valor !== null && m.unidad === meta.unidad && (matriz !== 'peces' || m.base !== 'seco'))
     .reduce<MedicionHg | null>((best, m) => (!best || alto(m) > alto(best) ? m : best), null);
   const atenuar = (m: MedicionHg) => (!!estudioId && m.estudio !== estudioId) || (!!sitioId && m.sitio !== sitioId);
   const sel = estudioId ? inv.estudio.get(estudioId) : null;
@@ -131,7 +131,7 @@ function Contenido({ inv, matriz, estudioId, onEstudio, sitioId, onSitio }: Cont
 }
 
 /** Highest central value: a mean or a single measurement, never the top of a range or a peak. */
-const alto = (m: MedicionHg) => m.valor ?? m.max ?? 0;
+const alto = (m: MedicionHg) => m.valor ?? 0;
 
 /* ---------------------------------------------------------------- charts per matrix */
 
