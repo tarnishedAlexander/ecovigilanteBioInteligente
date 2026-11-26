@@ -50,7 +50,7 @@ export const ExplorerPanel: React.FC<ExplorerPanelProps> = ({
   if (compact) {
     return (
       <div className="explorer-compact panel-left">
-        <button onClick={onExpand} className="compact-open"><Compass size={19} /><span><strong>Explorar la cuenca</strong><small>{filter ? 'Filtro de bioindicadores activo' : view === 'mineria' ? 'Zonas mineras' : 'Comunidades y bioindicadores'}</small></span></button>
+        <button onClick={onExpand} className="compact-open"><Compass size={19} /><span><strong>Explorar la cuenca</strong><small>{filter ? 'Filtro de bioindicadores activo' : view === 'mineria' ? 'Zonas mineras' : view === 'investigacion' ? 'Estudios de mercurio por matriz' : 'Comunidades y bioindicadores'}</small></span></button>
         {filter && <button className="compact-clear" onClick={() => onFilter(null)} aria-label="Quitar filtro"><X size={17} /></button>}
       </div>
     );

@@ -6,10 +6,13 @@ import { Header, AtlasSection } from './components/Header';
 import { MapViewer, CameraTarget } from './components/MapViewer';
 import { ExplorerPanel, BioFilter } from './components/ExplorerPanel';
 import { DetailPanel, Seleccion } from './components/DetailPanel';
+import { ResearchPanel } from './components/ResearchPanel';
+import { ResearchSitesLayer } from './components/ResearchSitesLayer';
 import { api } from './services/api';
 import { Reporte, Comunidad, Metricas, RioGeoJSON, Sitio, Taxon } from './types';
 import { IndiceBio, indexar } from './lib/bio';
 import { normalize } from './lib/ui';
+import { IndiceInv, MATRICES, MatrizTab, indexarInv, medicionesDe } from './lib/investigacion';
 import { DatosMineria, MIN_CELDAS_ZONA, ZonaMinera, cargarMineria } from './lib/mineria';
 
 /** Taxa whose sampling sites the map shows for a filter: the taxon itself plus the relatives it relies on. */
@@ -41,6 +44,13 @@ export function App() {
   // The explorer starts folded so the first view is the whole map; it opens only on request.
   const [explorerCompact, setExplorerCompact] = useState(true);
   const [hoveredZonaId, setHoveredZonaId] = useState<string | null>(null);
+
+  // Investigación: published mercury studies by matrix. Loaded on its own so the atlas never waits for it.
+  const [inv, setInv] = useState<IndiceInv | null>(null);
+  const [invCargando, setInvCargando] = useState(true);
+  const [matriz, setMatriz] = useState<MatrizTab>('agua');
+  const [estudioId, setEstudioId] = useState<string | null>(null);
+  const [invSitioId, setInvSitioId] = useState<string | null>(null);
 
   // Satellite mining footprint: shared by the map, the Minería list and the community panel.
   const [mineria, setMineria] = useState<DatosMineria | null>(null);
@@ -98,6 +108,10 @@ export function App() {
 
   useEffect(() => {
     loadData();
+    api.getInvestigacion()
+      .then((d) => setInv(indexarInv(d)))
+      .catch((err) => console.error('Error al cargar investigación:', err))
+      .finally(() => setInvCargando(false));
   }, []);
 
   const handleUpdateEstado = async (id: string, nuevoEstado: string, notas?: string) => {
@@ -166,6 +180,48 @@ export function App() {
     flyTo(L.latLng(r.latitud, r.longitud).toBounds(8000));
   };
 
+  /* ---------- Investigación ---------- */
+
+  // Measurements drawn on the map: one unit per matrix, so a site's tooltip range is comparable.
+  const invMapa = useMemo(() => {
+    if (!inv) return [];
+    const unidad = MATRICES.find((m) => m.id === matriz)!.unidad;
+    return medicionesDe(inv, matriz).filter((m) => m.unidad === unidad && (matriz !== 'peces' || m.base !== 'seco'));
+  }, [inv, matriz]);
+
+  const flyToInv = (sitios: string[]) => {
+    if (!inv || !sitios.length) return;
+    const bounds = L.latLngBounds(sitios.map((id) => inv.sitio.get(id)!).map((s) => [s.lat, s.lng] as [number, number]));
+    flyTo(bounds.pad(0.25).extend(bounds.getCenter().toBounds(80000)), 8);
+  };
+
+  const elegirMatriz = (m: MatrizTab) => {
+    setMatriz(m);
+    setEstudioId(null);
+    setInvSitioId(null);
+    if (inv) {
+      const unidad = MATRICES.find((x) => x.id === m)!.unidad;
+      // Frame Bolivia and the Peruvian Madre de Dios; the lower Madeira sites in Brazil stay reachable by panning.
+      flyToInv([...new Set(medicionesDe(inv, m).filter((x) => x.unidad === unidad).map((x) => x.sitio))]
+        .filter((id) => inv.sitio.get(id)!.pais !== 'Brasil'));
+    }
+  };
+
+  const elegirEstudio = (id: string | null) => {
+    setEstudioId(id);
+    setInvSitioId(null);
+    if (id && inv) flyToInv([...new Set(invMapa.filter((m) => m.estudio === id).map((m) => m.sitio))]);
+  };
+
+  const elegirSitioInv = (id: string | null) => {
+    setInvSitioId(id);
+    setExplorerCompact(false);
+    if (id && inv) {
+      const s = inv.sitio.get(id)!;
+      flyTo(L.latLng(s.lat, s.lng).toBounds(60000), 9);
+    }
+  };
+
   const highlightIds = useMemo(
     () => (bioFilter && bio ? comunidadesConTaxon(bioFilter, bio, comunidades) : null),
     [bioFilter, bio, comunidades],
@@ -202,6 +258,7 @@ export function App() {
             setHoveredZonaId(null);
             setExplorerCompact(false);
             if (next !== 'bioindicadores') setBioFilter(null);
+            if (next === 'investigacion') elegirMatriz(matriz);
             // Mining zones span several departments: frame all of them.
             if (next === 'mineria' && mineria) {
               const zonas = mineria.zonas.filter((z) => z.celdas >= MIN_CELDAS_ZONA);
@@ -234,10 +291,19 @@ export function App() {
           showBioSites={showBioSites}
           selectedSitioId={seleccion?.tipo === 'sitio' ? seleccion.sitio.id : undefined}
           onSelectSitio={selectSitio}
-        />
+        >
+          {section === 'investigacion' && inv && (
+            <ResearchSitesLayer inv={inv} mediciones={invMapa} estudioId={estudioId} sitioId={invSitioId} onSelect={elegirSitioInv} />
+          )}
+        </MapViewer>
 
-        <BasinSummary comunidades={comunidades} metricas={metricas} />
-        <ExplorerPanel view={section} detailOpen={!!seleccion}
+        {/* The basin summary is about communities; in Investigación it would cover study sites. */}
+        {section !== 'investigacion' && <BasinSummary comunidades={comunidades} metricas={metricas} />}
+        {section === 'investigacion' && !explorerCompact && !seleccion ? (
+          <ResearchPanel inv={inv} loading={invCargando} matriz={matriz} onMatriz={elegirMatriz}
+            estudioId={estudioId} onEstudio={elegirEstudio} sitioId={invSitioId} onSitio={elegirSitioInv}
+            onCollapse={() => setExplorerCompact(true)} />
+        ) : <ExplorerPanel view={section} detailOpen={!!seleccion}
           loading={loading}
           comunidades={comunidades}
           bio={bio}
@@ -256,7 +322,7 @@ export function App() {
           onRetryMineria={() => setIntentoMineria((n) => n + 1)}
           onSelectZona={selectZona}
           onHoverZona={setHoveredZonaId}
-        />
+        />}
 
         {seleccion && (
           <DetailPanel

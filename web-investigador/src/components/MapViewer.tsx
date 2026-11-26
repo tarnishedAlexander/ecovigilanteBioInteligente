@@ -45,6 +45,8 @@ interface MapViewerProps {
   showBioSites: boolean;
   selectedSitioId?: string;
   onSelectSitio: (sitio: Sitio) => void;
+  /** Extra layers drawn above the bioindicator sites (e.g. the research study sites). */
+  children?: React.ReactNode;
 }
 
 const PICKAXE_SVG =
@@ -212,6 +214,7 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   showBioSites,
   selectedSitioId,
   onSelectSitio,
+  children,
 }) => {
   const [baseMap, setBaseMap] = useState<'satellite' | 'pureSatellite' | 'terrain'>('pureSatellite');
   const [showRios, setShowRios] = useState(false);
@@ -435,6 +438,8 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         {showBio && bio && (
           <BioSitesLayer indice={bio} taxonIds={bioTaxonIds} selectedSitioId={selectedSitioId} onSelect={onSelectSitio} />
         )}
+
+        {children}
 
         {mostrarZonas &&
           zonasVisibles.map((z) => {

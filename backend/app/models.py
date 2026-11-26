@@ -160,3 +160,73 @@ class Comunidad(BaseModel):
     posible_fuente_minera_aguas_arriba: str
     total_reportes: int = 0
     alerta_nivel: str = "Bajo" # "Bajo", "Medio", "Alto", "Critico"
+
+# --- Investigación: estudios de mercurio por matriz (datos de referencia en app/data/investigacion.json) ---
+
+Matriz = Literal["aire", "agua", "sedimentos", "peces", "cabello"]
+
+class EstudioHg(BaseModel):
+    id: str
+    cita: str
+    anio: int
+    titulo: str
+    autores: str
+    revista: str
+    url: str = ""
+    matrices: List[Matriz]
+    # Años de muestreo [inicio, fin]; None si el artículo no lo indica.
+    muestreo: List[Optional[int]]
+    # "texto": valores leídos en el texto completo; "resumen": confirmados en el resumen;
+    # "hoja": tomados de la hoja del equipo (DOI verificado, valor sin cotejar con el artículo).
+    verificacion: Literal["texto", "resumen", "hoja"]
+    hallazgo: str
+
+class SitioHg(BaseModel):
+    id: str
+    nombre: str
+    region: Optional[str] = None
+    pais: str
+    lat: float
+    lng: float
+    precision: Literal["exacta", "aproximada"]
+    nota: Optional[str] = None
+
+class EspecieHg(BaseModel):
+    comun: str
+    cientifico: str
+    gremio: Literal["carnivoro", "no_carnivoro", "reptil", "mixto"]
+
+class MedicionHg(BaseModel):
+    id: str
+    estudio: str
+    sitio: str
+    matriz: Matriz
+    forma: str  # Hg total, Hg particulado, MeHg, GEM, TGM
+    especie: Optional[EspecieHg] = None
+    estadistico: Literal["media", "mediana", "individual", "rango", "bajo_ld"]
+    valor: Optional[float] = None
+    min: Optional[float] = None
+    max: Optional[float] = None
+    de: Optional[float] = None
+    unidad: Literal["ng/m³", "ng/L", "µg/g", "ng/g"]
+    base: Optional[Literal["humedo", "seco"]] = None
+    n: Optional[int] = None
+    anio: Optional[float] = None  # año (fracción para meses) usado en series y línea de tiempo
+    periodo: Optional[str] = None
+    nota: Optional[str] = None
+
+class ReferenciaHg(BaseModel):
+    id: str
+    matriz: Matriz
+    valor: float
+    unidad: str
+    etiqueta: str
+    fuente: str
+
+class Investigacion(BaseModel):
+    version: str
+    nota: str
+    estudios: List[EstudioHg]
+    sitios: List[SitioHg]
+    mediciones: List[MedicionHg]
+    referencias: List[ReferenciaHg]

@@ -3,7 +3,7 @@ import secrets
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List, Dict, Any
-from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, CatalogoBioindicadores
+from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, CatalogoBioindicadores, Investigacion
 from app.database import (
     init_db,
     get_all_comunidades,
@@ -15,6 +15,7 @@ from app.database import (
 from app.seed_data import RIOS_GEOJSON
 from app.geo import haversine_distance
 from app.catalogo import cargar_catalogo
+from app.investigacion import cargar_investigacion
 
 app = FastAPI(
     title="EcoVigilante API",
@@ -48,7 +49,8 @@ def requiere_investigador(x_api_key: Optional[str] = Header(default=None)):
 @app.on_event("startup")
 def startup_event():
     init_db()
-    cargar_catalogo()  # valida el archivo de datos al arrancar
+    cargar_catalogo()  # valida los archivos de datos al arrancar
+    cargar_investigacion()
 
 @app.get("/api/v1/health")
 def health_check():
@@ -74,6 +76,12 @@ def list_bioindicadores():
     """Mediciones publicadas de mercurio en organismos y sedimentos, sitios de muestreo,
     fuentes y presencia de cada taxón en Bolivia (GBIF)."""
     return cargar_catalogo()
+
+
+@app.get("/api/v1/investigacion", response_model=Investigacion)
+def list_investigacion():
+    """Estudios de mercurio en aire, agua, sedimentos, peces y cabello, con sitios, mediciones y valores de referencia."""
+    return cargar_investigacion()
 
 @app.get("/api/v1/reportes", response_model=List[Reporte])
 def list_reportes(

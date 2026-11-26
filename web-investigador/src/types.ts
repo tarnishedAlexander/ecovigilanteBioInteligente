@@ -128,6 +128,74 @@ export interface CatalogoBioindicadores {
   mediciones: Medicion[];
 }
 
+/* ---------- Investigación (GET /investigacion) ---------- */
+
+export type Matriz = 'aire' | 'agua' | 'sedimentos' | 'peces' | 'cabello';
+export type Gremio = 'carnivoro' | 'no_carnivoro' | 'reptil' | 'mixto';
+
+export interface EstudioHg {
+  id: string;
+  cita: string;
+  anio: number;
+  titulo: string;
+  autores: string;
+  revista: string;
+  url: string;
+  matrices: Matriz[];
+  muestreo: [number | null, number | null];
+  verificacion: 'texto' | 'resumen' | 'hoja';
+  hallazgo: string;
+}
+
+export interface SitioHg {
+  id: string;
+  nombre: string;
+  region: string | null;
+  pais: string;
+  lat: number;
+  lng: number;
+  precision: 'exacta' | 'aproximada';
+  nota: string | null;
+}
+
+export interface MedicionHg {
+  id: string;
+  estudio: string;
+  sitio: string;
+  matriz: Matriz;
+  forma: string;
+  especie: { comun: string; cientifico: string; gremio: Gremio } | null;
+  estadistico: 'media' | 'mediana' | 'individual' | 'rango' | 'bajo_ld';
+  valor: number | null;
+  min: number | null;
+  max: number | null;
+  de: number | null;
+  unidad: 'ng/m³' | 'ng/L' | 'µg/g' | 'ng/g';
+  base: 'humedo' | 'seco' | null;
+  n: number | null;
+  anio: number | null;
+  periodo: string | null;
+  nota: string | null;
+}
+
+export interface ReferenciaHg {
+  id: string;
+  matriz: Matriz;
+  valor: number;
+  unidad: string;
+  etiqueta: string;
+  fuente: string;
+}
+
+export interface Investigacion {
+  version: string;
+  nota: string;
+  estudios: EstudioHg[];
+  sitios: SitioHg[];
+  mediciones: MedicionHg[];
+  referencias: ReferenciaHg[];
+}
+
 export interface Metricas {
   total_reportes: number;
   en_crudo: number;

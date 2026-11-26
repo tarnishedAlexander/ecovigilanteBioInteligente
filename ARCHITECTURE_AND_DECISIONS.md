@@ -60,6 +60,13 @@ Un conjunto de reportes con síntomas compatibles con exposición a mercurio y u
 - **Decisión:** el "por qué" de cada bioindicador viene de una lista de fundamentos escritos a partir de los papers del corpus, cada uno con su fuente. Se asignan a las especies por reglas (grupo, familia, género, dieta) y se muestran igual en la ficha y en la propuesta de estudio.
 - **Motivo:** la explicación tiene que ser verificable. Una regla explícita evita atribuir a una especie un mecanismo que su grupo no tiene.
 
+### 10. Sección Investigación con datos por matriz
+
+- **Decisión:** los estudios sobre mercurio en aire, agua, sedimentos, peces y cabello viven en `backend/app/data/investigacion.json`. Ahí están los estudios, los sitios con coordenadas, las mediciones (valor, rango, dispersión, unidad, base de peso, n, año y periodo) y los valores de referencia. Se sirven en `GET /api/v1/investigacion`, que valida que cada medición apunte a un estudio y un sitio existentes.
+- **Unidades:** cada matriz tiene una sola unidad para comparar: ng/m³ en aire, ng/L en agua, µg/g en peso seco en sedimentos y µg/g en peso húmedo en peces. Las mediciones en peso seco de peces y el metilmercurio aparecen en la tabla y en las notas, pero no en los gráficos de Hg total.
+- **Trazabilidad:** cada estudio indica cómo se obtuvieron sus valores. Pueden venir del texto completo, del resumen publicado o de la hoja de centralización del equipo; estos últimos tienen el DOI verificado, pero falta cotejar el valor con el artículo. Los sitios sin coordenadas en el artículo se marcan como aproximados y en el mapa se dibujan con borde punteado.
+- **Gráficos propios en SVG:** evitan sumar una librería de gráficos. Las escalas son logarítmicas cuando los valores abarcan varios órdenes de magnitud, como en agua y sedimentos.
+
 ## Stack
 
 | Módulo | Tecnología | Motivo |

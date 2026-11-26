@@ -25,6 +25,7 @@ El objetivo es que un investigador pueda priorizar dónde muestrear: qué comuni
 - **Candidatos para investigar en Bolivia.** Además de las especies de los papers, el catálogo incluye especies de la misma familia o género registradas en Beni y Pando (GBIF). Cada candidato tiene una solidez de la base (alta, media o baja), que combina el parentesco, la cercanía geográfica del estudio de referencia y la dieta. También trae una propuesta de estudio que el investigador puede copiar.
 - **Por qué podría ser bioindicador.** Cada ficha explica, con cita al paper, los motivos químicos (afinidad del mercurio por el azufre de proteínas y queratina), anatómicos (qué tejido registra qué periodo) y biológicos (nivel trófico, longevidad, sedentarismo) que hacen útil a ese grupo. Si la especie no tiene mediciones propias, muestra el bioindicador de referencia y las similitudes punto por punto.
 - **Bioindicadores potenciales por comunidad.** La ficha de cada comunidad lista las especies del catálogo registradas en su departamento, ordenadas por prioridad de investigación.
+- **Investigación.** Estudios publicados sobre mercurio en Bolivia y la cuenca del Madeira, en cuatro pestañas: aire, agua, sedimentos y peces (esta última incluye el mercurio en cabello de la población ribereña). Cada pestaña resume lo que muestran los estudios en conjunto, con gráficos por sitio o especie y series en el tiempo, comparados con valores de referencia (límite boliviano para agua, TEL y PEL para sedimentos, Codex y OMS para pescado). También trae una línea de tiempo de los muestreos, fichas de cada estudio con su DOI y una tabla de mediciones. Los sitios de muestreo aparecen en el mapa; al seleccionar un estudio, el mapa se centra en sus sitios.
 - **Reportes.** Bandeja de reportes por estado. El investigador registra notas y cambia el estado de cada reporte.
 - **Mapa.** Capas base satelital, híbrida y de relieve; red hidrográfica; límite nacional; huella minera filtrable por periodo de detección.
 
@@ -58,8 +59,10 @@ La capa de huella minera y el límite de Bolivia son archivos GeoJSON estáticos
 │   │   ├── database.py      Acceso a SQLite y siembra inicial
 │   │   ├── seed_data.py     Ríos, comunidades y reportes de ejemplo
 │   │   ├── catalogo.py      Carga y valida el catálogo de bioindicadores
+│   │   ├── investigacion.py Carga y valida los estudios de la sección Investigación
 │   │   ├── data/
-│   │   │   └── bioindicadores.json  Mediciones publicadas, sitios, fuentes y presencia en Bolivia
+│   │   │   ├── bioindicadores.json  Mediciones publicadas, sitios, fuentes y presencia en Bolivia
+│   │   │   └── investigacion.json   Estudios de mercurio en aire, agua, sedimentos, peces y cabello
 │   │   └── geo.py           Utilidades geográficas
 │   ├── requirements.txt
 │   └── run.sh
@@ -84,6 +87,7 @@ Base: `/api/v1`. Documentación interactiva en `/docs`.
 | GET | `/rios` | Red hidrográfica principal (GeoJSON) |
 | GET | `/comunidades` | Comunidades con nivel de alerta y total de reportes |
 | GET | `/bioindicadores` | Catálogo de bioindicadores: taxones, mediciones de mercurio, sitios de muestreo, fuentes y presencia en Bolivia |
+| GET | `/investigacion` | Estudios de mercurio por matriz (aire, agua, sedimentos, peces, cabello): sitios con coordenadas, mediciones y valores de referencia |
 | GET | `/reportes` | Reportes; filtros opcionales `estado` y `comunidad_id` |
 | GET | `/reportes/{id}` | Detalle de un reporte |
 | POST | `/reportes` | Registro de un reporte; si no indica comunidad, se asigna la más cercana |
@@ -146,6 +150,7 @@ La aplicación queda en `http://localhost:5173` y en desarrollo usa la API local
 | Dato | Fuente | Licencia |
 | --- | --- | --- |
 | Mercurio en organismos y sedimentos | Artículos científicos citados en `backend/app/data/bioindicadores.json` (DOI en cada registro) | Según cada artículo |
+| Estudios de mercurio en aire, agua, sedimentos, peces y cabello | Artículos e informes citados en `backend/app/data/investigacion.json`. Cada estudio indica si sus valores se leyeron en el texto completo, en el resumen o en la hoja de centralización del equipo | Según cada artículo |
 | Presencia de especies en Bolivia | [GBIF](https://www.gbif.org), consulta del 26 de noviembre de 2026 | Según cada conjunto de datos (CC0, CC BY, CC BY-NC) |
 | Huella de minería aurífera | [Amazon Mining Watch](https://source.coop/earthgenome/amazon-mining-watch) (Earth Genome) | CC BY 4.0 |
 | Límite nacional de Bolivia | Natural Earth 1:10m | Dominio público |
