@@ -26,6 +26,7 @@ El objetivo es que un investigador pueda priorizar dónde muestrear: qué comuni
 - **Por qué podría ser bioindicador.** Cada ficha explica, con cita al paper, los motivos químicos (afinidad del mercurio por el azufre de proteínas y queratina), anatómicos (qué tejido registra qué periodo) y biológicos (nivel trófico, longevidad, sedentarismo) que hacen útil a ese grupo. Si la especie no tiene mediciones propias, muestra el bioindicador de referencia y las similitudes punto por punto.
 - **Bioindicadores potenciales por comunidad.** La ficha de cada comunidad lista las especies del catálogo registradas en su departamento, ordenadas por prioridad de investigación.
 - **Investigación.** Estudios publicados sobre mercurio en Bolivia y la cuenca del Madeira, en cuatro pestañas: aire, agua, sedimentos y peces (esta última incluye el mercurio en cabello de la población ribereña). Cada pestaña resume lo que muestran los estudios en conjunto, con gráficos por sitio o especie y series en el tiempo, comparados con valores de referencia (límite boliviano para agua, TEL y PEL para sedimentos, Codex y OMS para pescado). También trae una línea de tiempo de los muestreos, fichas de cada estudio con su DOI y una tabla de mediciones. Los sitios de muestreo aparecen en el mapa; al seleccionar un estudio, el mapa se centra en sus sitios.
+- **Proyectos.** Cartera de investigaciones por comunidad, con estado (de idea a concluido), financiadores marcados como potenciales o confirmados, plan de trabajo, cronograma y presupuesto. Cada actividad usa un costo cotizado por el equipo o, mientras no lo haya, una estimación referencial (con fuente pública) o un supuesto (sin fuente), siempre identificados como tales. La ficha explica por qué invertir en esa comunidad con los datos del atlas (alerta, huella minera, estudios cercanos, especies registradas). Desde la ficha de cada comunidad, "Generar propuesta" arma un plan de 12 meses.
 - **Reportes.** Bandeja de reportes por estado. El investigador registra notas y cambia el estado de cada reporte.
 - **Mapa.** Capas base satelital, híbrida y de relieve; red hidrográfica; límite nacional; huella minera filtrable por periodo de detección.
 
@@ -88,6 +89,10 @@ Base: `/api/v1`. Documentación interactiva en `/docs`.
 | GET | `/comunidades` | Comunidades con nivel de alerta y total de reportes |
 | GET | `/bioindicadores` | Catálogo de bioindicadores: taxones, mediciones de mercurio, sitios de muestreo, fuentes y presencia en Bolivia |
 | GET | `/investigacion` | Estudios de mercurio por matriz (aire, agua, sedimentos, peces, cabello): sitios con coordenadas, mediciones y valores de referencia |
+| GET | `/proyectos` | Proyectos de investigación por comunidad; filtro opcional `comunidad_id` |
+| GET | `/proyectos/{id}` | Detalle de un proyecto |
+| POST | `/proyectos` | Crea un proyecto. Requiere la cabecera `X-API-Key` |
+| PUT | `/proyectos/{id}` | Actualiza un proyecto. Requiere la cabecera `X-API-Key` |
 | GET | `/reportes` | Reportes; filtros opcionales `estado` y `comunidad_id` |
 | GET | `/reportes/{id}` | Detalle de un reporte |
 | POST | `/reportes` | Registro de un reporte; si no indica comunidad, se asigna la más cercana |
@@ -140,9 +145,10 @@ La aplicación queda en `http://localhost:5173` y en desarrollo usa la API local
 
 - **Datos de demostración.** Los reportes semilla y los testimonios de las comunidades son ficticios, y la interfaz los identifica como tales. Las mediciones de mercurio del catálogo de bioindicadores, en cambio, provienen de artículos publicados y cada una enlaza a su fuente.
 - **Extrapolación entre regiones.** La mayoría de las mediciones son de Perú y Brasil. La web las presenta como referencia para especies que viven en Bolivia, nunca como valores bolivianos. La presencia en Bolivia se basa en registros de GBIF, que dependen del esfuerzo de muestreo. Las coordenadas de los sitios son aproximadas.
-- **Persistencia.** El plan gratuito de Render no tiene disco persistente: la base SQLite vuelve a su estado inicial en cada reinicio o despliegue. La primera petición tras un periodo de inactividad puede tardar alrededor de un minuto.
+- **Persistencia.** El plan gratuito de Render no tiene disco persistente: la base SQLite vuelve a su estado inicial en cada reinicio o despliegue, incluidos los proyectos creados o editados. La primera petición tras un periodo de inactividad puede tardar alrededor de un minuto.
 - **Proximidad.** La cercanía entre comunidades y zonas mineras se calcula en línea recta. El mercurio viaja con la corriente, por lo que la relación aguas arriba / aguas abajo debe confirmarse sobre la red hidrográfica.
 - **Autenticación.** La clave del investigador se incluye en el bundle del frontend; protege contra cambios accidentales, no contra un usuario malintencionado. Un despliegue real requiere autenticación por usuario.
+- **Costos de los proyectos.** Los costos referenciales provienen de tarifas públicas (análisis de mercurio en una universidad de EE. UU., arancel del INLASA para agua) y no reemplazan una cotización. Los supuestos no tienen fuente y se muestran como tales. Los proyectos de demostración son ficticios y no representan compromisos de ninguna institución.
 - **Huella minera.** El modelo de Amazon Mining Watch no distingue minería legal de ilegal ni identifica a los operadores; las detecciones de 2025–2026 son provisionales.
 
 ## Fuentes de datos

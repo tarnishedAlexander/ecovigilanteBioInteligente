@@ -352,3 +352,89 @@ REPORTES_INICIALES = [
         }
     }
 ]
+
+
+# --- Proyectos de demostración (sección Proyectos) ---
+# Ficticios: marcados con demo=True y así se muestran en la interfaz. Los costos unitarios quedan
+# en None ("por cotizar"): el presupuesto real sale de cotizaciones, nunca de un valor inventado.
+
+# Costos referenciales en bolivianos. "referencial" = con fuente pública; "supuesto" = sin fuente,
+# a reemplazar por una cotización. Tipo de cambio: Bs 11,84 por USD (TCO del BCB, 23/10/2026).
+_REF_HG = ("referencial", 118, "Tarifa pública de Hg por DMA-80 (University of Rochester): USD 10 por muestra, a Bs 11,84 por USD. Referencia internacional; un laboratorio en Bolivia puede cobrar distinto.")
+_REF_AGUA = ("referencial", 375, "Arancel 2026 del INLASA para análisis de agua (código LCA-124). No especifica mercurio: confirmar el costo de un método que detecte ng/L.")
+
+def _a(id, nombre, descripcion, rubro, cantidad, unidad, mes_inicio, mes_fin, ref=None, costo_unitario=None):
+    base, valor, fuente = ref if ref else (None, None, None)
+    return {"id": id, "nombre": nombre, "descripcion": descripcion, "rubro": rubro, "cantidad": cantidad, "unidad": unidad,
+            "costo_unitario": costo_unitario, "costo_referencial": valor, "base_referencia": base, "fuente_costo": fuente,
+            "mes_inicio": mes_inicio, "mes_fin": mes_fin}
+
+def _sup(valor, detalle):
+    return ("supuesto", valor, f"Supuesto sin fuente ({detalle}). Reemplazar con una cotización.")
+
+def _plan_base(especies_carnivoras: str, especies_no_carnivoras: str):
+    return [
+        _a("a1", "Consentimiento previo y diseño participativo", "Talleres con la organización comunal para acordar objetivos, muestreo y uso de los datos.",
+           "social", 2, "talleres", 1, 2, _sup(2500, "refrigerio, materiales y traslado de participantes")),
+        _a("a2", "Encuesta de consumo de pescado", "Frecuencia y especies consumidas por familia: explica la exposición.",
+           "social", 60, "encuestas", 2, 3, _sup(40, "pago a encuestador por encuesta")),
+        _a("a3", "Muestreo de pescado (aguas altas y bajas)", f"10 ejemplares por especie y estación. Carnívoras: {especies_carnivoras}. No carnívoras: {especies_no_carnivoras}.",
+           "peces", 100, "muestras de músculo", 2, 9, _REF_HG),
+        _a("a4", "Muestras de cabello", "Prioridad: embarazadas y niños. Con consentimiento informado.",
+           "cabello", 80, "personas", 3, 4, _REF_HG),
+        _a("a5", "Muestras de agua", "6 puntos en dos estaciones, con un método que detecte ng/L.",
+           "agua", 12, "muestras", 2, 9, _REF_AGUA),
+        _a("a6", "Muestras de sedimento", "Mismos 6 puntos que el agua, en dos estaciones.",
+           "sedimentos", 12, "muestras", 2, 9, _REF_HG),
+        _a("a7", "Días de campo del equipo", "Viáticos y personal de las dos campañas (equipo de 3 personas).",
+           "logistica", 20, "días", 2, 9, _sup(1500, "3 personas por día; la escala oficial de viáticos es la del DS 1788")),
+        _a("a8", "Transporte fluvial", "Bote, motorista y combustible.",
+           "logistica", 10, "días", 2, 9, _sup(1200, "alquiler de bote con motorista y combustible por día")),
+        _a("a9", "Devolución de resultados y guía de consumo", "Taller comunitario y guía impresa de consumo por especie.",
+           "difusion", 1, "taller y guía", 11, 12, _sup(6000, "taller, diseño e impresión de la guía")),
+        _a("a10", "Publicación de los datos en EcoVigilante", "Los resultados se suman a la sección Investigación.",
+           "difusion", 1, "publicación", 12, 12, costo_unitario=0),
+    ]
+
+_RESULTADOS_BASE = [
+    "Mercurio total por especie y estación, comparado con 0,5 y 1,0 µg/g.",
+    "Mercurio en cabello por grupo de edad, comparado con 10 µg/g.",
+    "Guía comunitaria de consumo por especie.",
+    "Datos publicados en la sección Investigación.",
+]
+
+PROYECTOS_DEMO = [
+    {
+        "id": "pry-riberalta-01",
+        "titulo": "Mercurio en pescado de consumo y en cabello de familias pescadoras de Riberalta",
+        "comunidad_id": "com-riberalta",
+        "estado": "gestion_fondos",
+        "objetivo": "Medir la exposición al mercurio de las familias que más pescado consumen y orientar qué especies comer.",
+        "duracion_meses": 12,
+        "moneda": "BOB",
+        "financiadores": [
+            {"nombre": "Embajada de Suiza en Bolivia", "tipo": "cooperacion", "estado": "potencial", "monto_comprometido": None,
+             "nota": "Ejemplo. La cooperación bilateral de COSUDE en Bolivia terminó el 30 de junio de 2024: confirmar si hay fondos o convocatorias vigentes."},
+        ],
+        "contrapartes": ["Organización de pescadores de Riberalta (por confirmar)", "Universidad (por definir)"],
+        "actividades": _plan_base("surubí, dorado, piraña", "pacú, sábalo"),
+        "resultados": _RESULTADOS_BASE,
+        "notas": "",
+        "demo": True,
+    },
+    {
+        "id": "pry-cachuela-01",
+        "titulo": "Línea base de mercurio en agua, sedimento y peces del río Beni en Cachuela Esperanza",
+        "comunidad_id": "com-cachuela",
+        "estado": "idea",
+        "objetivo": "Contar con una primera medición local, porque no hay estudios publicados en la comunidad.",
+        "duracion_meses": 12,
+        "moneda": "BOB",
+        "financiadores": [{"nombre": "Por definir", "tipo": "por_definir", "estado": "potencial", "monto_comprometido": None, "nota": None}],
+        "contrapartes": ["Comunidad de Cachuela Esperanza"],
+        "actividades": _plan_base("surubí, dorado, piraña", "pacú, sábalo"),
+        "resultados": _RESULTADOS_BASE,
+        "notas": "",
+        "demo": True,
+    },
+]

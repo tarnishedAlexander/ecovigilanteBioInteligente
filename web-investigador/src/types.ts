@@ -196,6 +196,58 @@ export interface Investigacion {
   referencias: ReferenciaHg[];
 }
 
+/* ---------- Proyectos de investigación e inversión (GET /proyectos) ---------- */
+
+export type EstadoProyecto = 'idea' | 'propuesta' | 'gestion_fondos' | 'financiado' | 'en_ejecucion' | 'concluido';
+export type RubroActividad = 'peces' | 'cabello' | 'agua' | 'sedimentos' | 'aire' | 'social' | 'logistica' | 'difusion';
+
+export interface ActividadProyecto {
+  id: string;
+  nombre: string;
+  descripcion: string;
+  rubro: RubroActividad;
+  cantidad: number;
+  unidad: string;
+  /** Quoted by the team; null = no quote yet. */
+  costo_unitario: number | null;
+  /** Estimate used until there is a quote: 'referencial' has a public source, 'supuesto' has none. */
+  costo_referencial: number | null;
+  base_referencia: 'referencial' | 'supuesto' | null;
+  fuente_costo: string | null;
+  mes_inicio: number;
+  mes_fin: number;
+  completada: boolean;
+}
+
+export interface Financiador {
+  nombre: string;
+  tipo: 'cooperacion' | 'gobierno' | 'ong' | 'universidad' | 'privado' | 'por_definir';
+  estado: 'potencial' | 'confirmado';
+  monto_comprometido: number | null;
+  nota: string | null;
+}
+
+export interface ProyectoDatos {
+  titulo: string;
+  comunidad_id: string;
+  estado: EstadoProyecto;
+  objetivo: string;
+  duracion_meses: number;
+  moneda: 'BOB' | 'USD';
+  financiadores: Financiador[];
+  contrapartes: string[];
+  actividades: ActividadProyecto[];
+  resultados: string[];
+  notas: string;
+  demo: boolean;
+}
+
+export interface Proyecto extends ProyectoDatos {
+  id: string;
+  creado: string;
+  actualizado: string;
+}
+
 export interface Metricas {
   total_reportes: number;
   en_crudo: number;

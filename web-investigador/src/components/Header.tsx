@@ -1,4 +1,4 @@
-import { FlaskConical, Fish, Layers3, NotebookTabs, Pickaxe, RefreshCw, Waves } from 'lucide-react';
+import { FlaskConical, Fish, HandCoins, Layers3, NotebookTabs, Pickaxe, RefreshCw, Waves } from 'lucide-react';
 
 const sections = [
   { id: 'comunidades', label: 'Territorio', Icon: Layers3 },
@@ -6,6 +6,7 @@ const sections = [
   { id: 'mineria', label: 'Minería', Icon: Pickaxe },
   { id: 'reportes', label: 'Reportes', Icon: NotebookTabs },
   { id: 'investigacion', label: 'Investigación', Icon: FlaskConical },
+  { id: 'proyectos', label: 'Proyectos', Icon: HandCoins },
 ] as const;
 
 export type AtlasSection = typeof sections[number]['id'];

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Check, Crosshair, ExternalLink, Minus, Pickaxe, X } from 'lucide-react';
-import { Comunidad, Reporte, Sitio, Taxon } from '../types';
+import { ArrowLeft, Check, Crosshair, ExternalLink, FilePlus2, Minus, Pickaxe, X } from 'lucide-react';
+import { Comunidad, Proyecto, ProyectoDatos, Reporte, Sitio, Taxon } from '../types';
+import type { IndiceInv } from '../lib/investigacion';
+import { formatMonto, presupuesto } from '../lib/proyectos';
+import { ProyectoView } from './ProyectoView';
+import { EstadoProyectoPill } from './ProjectsPanel';
 import { CATEGORIAS, SINTOMAS, formatCoord, formatFecha, normalize, estadoTone } from '../lib/ui';
 import {
   FOTOS_BIOINDICADOR,
@@ -31,7 +35,8 @@ export type Seleccion =
   | { tipo: 'bioindicador'; bio: Taxon }
   | { tipo: 'sitio'; sitio: Sitio }
   | { tipo: 'reporte'; reporte: Reporte; desde?: Comunidad }
-  | { tipo: 'zona'; zona: ZonaMinera };
+  | { tipo: 'zona'; zona: ZonaMinera }
+  | { tipo: 'proyecto'; proyecto: Proyecto };
 
 interface DetailPanelProps {
   seleccion: Seleccion;
@@ -47,6 +52,11 @@ interface DetailPanelProps {
   onCenter: (lat: number, lng: number) => void;
   mineria: DatosMineria | null;
   onSelectZona: (zona: ZonaMinera) => void;
+  inv: IndiceInv | null;
+  proyectos: Proyecto[];
+  onSelectProyecto: (p: Proyecto) => void;
+  onGenerarPropuesta: (c: Comunidad) => Promise<void>;
+  onGuardarProyecto: (datos: ProyectoDatos, id: string) => Promise<void>;
 }
 
 /* ---------- Shared bits ---------- */
@@ -285,6 +295,54 @@ const ZonaView: React.FC<{
 
 /* ---------- Community ---------- */
 
+/** Research projects of a community, and a one-click draft built from the atlas data. */
+const ProyectosComunidad: React.FC<{
+  c: Comunidad;
+  proyectos: Proyecto[];
+  onSelect: (p: Proyecto) => void;
+  onGenerar: (c: Comunidad) => Promise<void>;
+}> = ({ c, proyectos, onSelect, onGenerar }) => {
+  const [generando, setGenerando] = useState(false);
+  const [error, setError] = useState(false);
+  const generar = async () => {
+    setGenerando(true);
+    setError(false);
+    try {
+      await onGenerar(c);
+    } catch {
+      setError(true);
+      setGenerando(false);
+    }
+  };
+  return (
+    <Section title="Proyectos e inversión" aside={<span className="text-[11px] text-ink-3">{proyectos.length} {proyectos.length === 1 ? 'proyecto' : 'proyectos'}</span>}>
+      {proyectos.length > 0 && (
+        <ul className="mb-3 divide-y divide-line rounded border border-line">
+          {proyectos.map((p) => {
+            const b = presupuesto(p);
+            return (
+              <li key={p.id}>
+                <button onClick={() => onSelect(p)} className="block w-full px-3 py-2.5 text-left hover:bg-paper">
+                  <div className="mb-1 flex items-center justify-between gap-2"><EstadoProyectoPill estado={p.estado} />
+                    <span className="text-[11px] text-ink-3">{formatMonto(b.total, p.moneda)} estimado</span></div>
+                  <div className="text-[13px] leading-snug text-ink">{p.titulo}</div>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <button className="btn-secondary w-full justify-center" disabled={generando} onClick={generar}>
+        <FilePlus2 size={15} /> {generando ? 'Generando…' : 'Generar propuesta'}
+      </button>
+      <p className="mt-2 text-[11.5px] leading-snug text-ink-3">
+        Arma un plan de 12 meses (pescado, cabello, agua y sedimento) con las especies registradas en {c.departamento}. Los costos salen estimados y se reemplazan con cotizaciones.
+      </p>
+      {error && <p className="mt-1 text-[12px] text-clay">No se pudo crear la propuesta. Revisa la conexión o la clave de investigador.</p>}
+    </Section>
+  );
+};
+
 const ComunidadView: React.FC<{
   c: Comunidad;
   reportes: Reporte[];
@@ -293,7 +351,10 @@ const ComunidadView: React.FC<{
   onSelectReporte: (r: Reporte) => void;
   mineria: DatosMineria | null;
   onSelectZona: (zona: ZonaMinera) => void;
-}> = ({ c, reportes, bio, onSelectBio, onSelectReporte, mineria, onSelectZona }) => {
+  proyectos: Proyecto[];
+  onSelectProyecto: (p: Proyecto) => void;
+  onGenerarPropuesta: (c: Comunidad) => Promise<void>;
+}> = ({ c, reportes, bio, onSelectBio, onSelectReporte, mineria, onSelectZona, proyectos, onSelectProyecto, onGenerarPropuesta }) => {
   const cover = FOTOS_TERRITORIO[c.id];
   const photos = FOTOS_COMUNIDAD[c.id] ?? [];
   const actividad = [...reportes].sort((a, b) => b.fecha_reporte.localeCompare(a.fecha_reporte)).slice(0, 5);
@@ -344,6 +405,8 @@ const ComunidadView: React.FC<{
       </div>
 
       <HuellaMineraCercana c={c} mineria={mineria} onSelectZona={onSelectZona} />
+
+      <ProyectosComunidad c={c} proyectos={proyectos} onSelect={onSelectProyecto} onGenerar={onGenerarPropuesta} />
 
       <Section title="Actividad reciente">
         {actividad.length === 0 ? <p className="text-[13px] text-ink-3">Aún no hay actividad registrada.</p> : (
@@ -610,6 +673,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   onCenter,
   mineria,
   onSelectZona,
+  inv,
+  proyectos,
+  onSelectProyecto,
+  onGenerarPropuesta,
+  onGuardarProyecto,
 }) => {
   // Re-key on every selection so scroll resets and the entrance animation replays.
   const key =
@@ -621,12 +689,14 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           ? seleccion.zona.id
           : seleccion.tipo === 'sitio'
             ? seleccion.sitio.id
-            : seleccion.reporte.id;
+            : seleccion.tipo === 'proyecto'
+              ? seleccion.proyecto.id
+              : seleccion.reporte.id;
 
   return (
     <aside
       key={key}
-      className="panel-right card absolute bottom-3 right-3 top-3 z-[1000] flex w-[420px] flex-col overflow-hidden shadow-lg"
+      className={`panel-right card absolute bottom-3 right-3 top-3 z-[1000] flex w-[420px] flex-col overflow-hidden shadow-lg${seleccion.tipo === 'proyecto' ? ' is-wide' : ''}`}
     >
       {seleccion.tipo === 'reporte' ? (
         <Header
@@ -636,7 +706,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           aside={<span className="font-mono text-[11px] text-ink-3">{seleccion.reporte.id}</span>}
         />
       ) : (
-        <Header onClose={onClose} aside={<span className="eyebrow">{seleccion.tipo === 'comunidad' ? 'Comunidad' : seleccion.tipo === 'zona' ? 'Zona minera' : seleccion.tipo === 'sitio' ? 'Sitio de muestreo' : 'Bioindicador'}</span>} />
+        <Header onClose={onClose} aside={<span className="eyebrow">{seleccion.tipo === 'comunidad' ? 'Comunidad' : seleccion.tipo === 'zona' ? 'Zona minera' : seleccion.tipo === 'sitio' ? 'Sitio de muestreo' : seleccion.tipo === 'proyecto' ? 'Proyecto' : 'Bioindicador'}</span>} />
       )}
 
       <div className="flex-1 overflow-y-auto">
@@ -649,6 +719,21 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             onSelectReporte={(r) => onSelectReporte(r, seleccion.comunidad)}
             mineria={mineria}
             onSelectZona={onSelectZona}
+            proyectos={proyectos.filter((p) => p.comunidad_id === seleccion.comunidad.id)}
+            onSelectProyecto={onSelectProyecto}
+            onGenerarPropuesta={onGenerarPropuesta}
+          />
+        )}
+        {seleccion.tipo === 'proyecto' && (
+          <ProyectoView
+            proyecto={seleccion.proyecto}
+            comunidad={comunidades.find((c) => c.id === seleccion.proyecto.comunidad_id)}
+            reportes={reportes.filter((r) => r.comunidad_id === seleccion.proyecto.comunidad_id)}
+            bio={bio}
+            inv={inv}
+            mineria={mineria}
+            onSelectComunidad={onSelectComunidad}
+            onGuardar={onGuardarProyecto}
           />
         )}
         {seleccion.tipo === 'bioindicador' && bio && (

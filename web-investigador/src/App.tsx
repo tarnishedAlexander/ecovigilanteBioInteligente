@@ -7,12 +7,14 @@ import { MapViewer, CameraTarget } from './components/MapViewer';
 import { ExplorerPanel, BioFilter } from './components/ExplorerPanel';
 import { DetailPanel, Seleccion } from './components/DetailPanel';
 import { ResearchPanel } from './components/ResearchPanel';
+import { ProjectsPanel } from './components/ProjectsPanel';
 import { ResearchSitesLayer } from './components/ResearchSitesLayer';
 import { api } from './services/api';
-import { Reporte, Comunidad, Metricas, RioGeoJSON, Sitio, Taxon } from './types';
+import { Reporte, Comunidad, Metricas, Proyecto, ProyectoDatos, RioGeoJSON, Sitio, Taxon } from './types';
 import { IndiceBio, indexar } from './lib/bio';
 import { normalize } from './lib/ui';
 import { IndiceInv, MATRICES, MatrizTab, indexarInv, medicionesDe } from './lib/investigacion';
+import { generarPropuesta } from './lib/proyectos';
 import { DatosMineria, MIN_CELDAS_ZONA, ZonaMinera, cargarMineria } from './lib/mineria';
 
 /** Taxa whose sampling sites the map shows for a filter: the taxon itself plus the relatives it relies on. */
@@ -51,6 +53,10 @@ export function App() {
   const [matriz, setMatriz] = useState<MatrizTab>('agua');
   const [estudioId, setEstudioId] = useState<string | null>(null);
   const [invSitioId, setInvSitioId] = useState<string | null>(null);
+
+  // Proyectos: research projects per community. Unlike the catalogs, they change with use (database).
+  const [proyectos, setProyectos] = useState<Proyecto[] | null>(null);
+  const [proyectosCargando, setProyectosCargando] = useState(true);
 
   // Satellite mining footprint: shared by the map, the Minería list and the community panel.
   const [mineria, setMineria] = useState<DatosMineria | null>(null);
@@ -112,6 +118,10 @@ export function App() {
       .then((d) => setInv(indexarInv(d)))
       .catch((err) => console.error('Error al cargar investigación:', err))
       .finally(() => setInvCargando(false));
+    api.getProyectos()
+      .then(setProyectos)
+      .catch((err) => console.error('Error al cargar proyectos:', err))
+      .finally(() => setProyectosCargando(false));
   }, []);
 
   const handleUpdateEstado = async (id: string, nuevoEstado: string, notas?: string) => {
@@ -222,9 +232,34 @@ export function App() {
     }
   };
 
+  /* ---------- Proyectos ---------- */
+
+  const comunidadesConProyecto = useMemo(() => [...new Set((proyectos ?? []).map((p) => p.comunidad_id))], [proyectos]);
+
+  const selectProyecto = (p: Proyecto) => {
+    setSeleccion({ tipo: 'proyecto', proyecto: p });
+    setExplorerCompact(true);
+    const c = comunidades.find((x) => x.id === p.comunidad_id);
+    if (c) flyTo(L.latLng(c.latitud, c.longitud).toBounds(30000), 11);
+  };
+
+  const guardarProyecto = async (datos: ProyectoDatos, id: string) => {
+    const guardado = await api.guardarProyecto(datos, id);
+    setProyectos((prev) => (prev ?? []).map((p) => (p.id === id ? guardado : p)));
+    setSeleccion((s) => (s?.tipo === 'proyecto' && s.proyecto.id === id ? { tipo: 'proyecto', proyecto: guardado } : s));
+  };
+
+  const generarPropuestaPara = async (c: Comunidad) => {
+    const borrador = generarPropuesta({ comunidad: c, reportes: reportes.filter((r) => r.comunidad_id === c.id), bio, inv, mineria });
+    const creado = await api.guardarProyecto(borrador);
+    setProyectos((prev) => [creado, ...(prev ?? [])]);
+    selectProyecto(creado);
+  };
+
   const highlightIds = useMemo(
-    () => (bioFilter && bio ? comunidadesConTaxon(bioFilter, bio, comunidades) : null),
-    [bioFilter, bio, comunidades],
+    () => (section === 'proyectos' && !seleccion ? comunidadesConProyecto
+      : bioFilter && bio ? comunidadesConTaxon(bioFilter, bio, comunidades) : null),
+    [bioFilter, bio, comunidades, section, seleccion, comunidadesConProyecto],
   );
   const bioTaxonIds = useMemo(() => (bioFilter && bio ? taxaDelFiltro(bioFilter, bio) : null), [bioFilter, bio]);
   const showBioSites = section === 'bioindicadores' || seleccion?.tipo === 'bioindicador' || seleccion?.tipo === 'sitio';
@@ -259,6 +294,13 @@ export function App() {
             setExplorerCompact(false);
             if (next !== 'bioindicadores') setBioFilter(null);
             if (next === 'investigacion') elegirMatriz(matriz);
+            if (next === 'proyectos') {
+              const conProyecto = comunidades.filter((c) => comunidadesConProyecto.includes(c.id));
+              if (conProyecto.length) {
+                const bounds = L.latLngBounds(conProyecto.map((c) => [c.latitud, c.longitud] as [number, number]));
+                flyTo(bounds.pad(0.3).extend(bounds.getCenter().toBounds(120000)), 9);
+              }
+            }
             // Mining zones span several departments: frame all of them.
             if (next === 'mineria' && mineria) {
               const zonas = mineria.zonas.filter((z) => z.celdas >= MIN_CELDAS_ZONA);
@@ -298,8 +340,11 @@ export function App() {
         </MapViewer>
 
         {/* The basin summary is about communities; in Investigación it would cover study sites. */}
-        {section !== 'investigacion' && <BasinSummary comunidades={comunidades} metricas={metricas} />}
-        {section === 'investigacion' && !explorerCompact && !seleccion ? (
+        {section !== 'investigacion' && section !== 'proyectos' && <BasinSummary comunidades={comunidades} metricas={metricas} />}
+        {section === 'proyectos' && !explorerCompact && !seleccion ? (
+          <ProjectsPanel proyectos={proyectos} comunidades={comunidades} loading={proyectosCargando}
+            onSelect={selectProyecto} onCollapse={() => setExplorerCompact(true)} />
+        ) : section === 'investigacion' && !explorerCompact && !seleccion ? (
           <ResearchPanel inv={inv} loading={invCargando} matriz={matriz} onMatriz={elegirMatriz}
             estudioId={estudioId} onEstudio={elegirEstudio} sitioId={invSitioId} onSitio={elegirSitioInv}
             onCollapse={() => setExplorerCompact(true)} />
@@ -339,6 +384,11 @@ export function App() {
             onCenter={(lat, lng) => flyTo(L.latLng(lat, lng).toBounds(4000))}
             mineria={mineria}
             onSelectZona={selectZona}
+            inv={inv}
+            proyectos={proyectos ?? []}
+            onSelectProyecto={selectProyecto}
+            onGenerarPropuesta={generarPropuestaPara}
+            onGuardarProyecto={guardarProyecto}
           />
         )}
       </main>

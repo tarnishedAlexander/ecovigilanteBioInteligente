@@ -3,7 +3,7 @@ import json
 import os
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-from app.seed_data import COMUNIDADES_DATA, REPORTES_INICIALES
+from app.seed_data import COMUNIDADES_DATA, REPORTES_INICIALES, PROYECTOS_DEMO
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ecovigilante.db")
 
@@ -52,6 +52,19 @@ def init_db():
     )
     """)
 
+    # Proyectos de investigación e inversión. El contenido va como JSON validado por Pydantic
+    # (models.Proyecto); la comunidad queda como columna para filtrar.
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS proyectos (
+        id TEXT PRIMARY KEY,
+        comunidad_id TEXT NOT NULL,
+        datos_json TEXT NOT NULL,
+        creado TEXT NOT NULL,
+        actualizado TEXT NOT NULL,
+        FOREIGN KEY (comunidad_id) REFERENCES comunidades (id)
+    )
+    """)
+
     conn.commit()
 
     # Sembrar comunidades si está vacía
@@ -87,8 +100,60 @@ def init_db():
                 json.dumps(r["entrevista_ia"])
             ))
 
+    cursor.execute("SELECT COUNT(*) FROM proyectos")
+    if cursor.fetchone()[0] == 0:
+        ahora = datetime.utcnow().isoformat() + "Z"
+        for p in PROYECTOS_DEMO:
+            datos = {k: v for k, v in p.items() if k != "id"}
+            cursor.execute(
+                "INSERT INTO proyectos (id, comunidad_id, datos_json, creado, actualizado) VALUES (?, ?, ?, ?, ?)",
+                (p["id"], p["comunidad_id"], json.dumps(datos, ensure_ascii=False), ahora, ahora),
+            )
+
     conn.commit()
     conn.close()
+
+def _fila_proyecto(row) -> Dict[str, Any]:
+    return {**json.loads(row["datos_json"]), "id": row["id"], "creado": row["creado"], "actualizado": row["actualizado"]}
+
+def get_proyectos(comunidad_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    conn = get_connection()
+    if comunidad_id:
+        rows = conn.execute("SELECT * FROM proyectos WHERE comunidad_id = ? ORDER BY actualizado DESC", (comunidad_id,)).fetchall()
+    else:
+        rows = conn.execute("SELECT * FROM proyectos ORDER BY actualizado DESC").fetchall()
+    conn.close()
+    return [_fila_proyecto(r) for r in rows]
+
+def get_proyecto(proyecto_id: str) -> Optional[Dict[str, Any]]:
+    conn = get_connection()
+    row = conn.execute("SELECT * FROM proyectos WHERE id = ?", (proyecto_id,)).fetchone()
+    conn.close()
+    return _fila_proyecto(row) if row else None
+
+def comunidad_existe(comunidad_id: str) -> bool:
+    conn = get_connection()
+    row = conn.execute("SELECT 1 FROM comunidades WHERE id = ?", (comunidad_id,)).fetchone()
+    conn.close()
+    return row is not None
+
+def guardar_proyecto(proyecto_id: str, datos: Dict[str, Any], nuevo: bool) -> Dict[str, Any]:
+    ahora = datetime.utcnow().isoformat() + "Z"
+    conn = get_connection()
+    texto = json.dumps(datos, ensure_ascii=False)
+    if nuevo:
+        conn.execute(
+            "INSERT INTO proyectos (id, comunidad_id, datos_json, creado, actualizado) VALUES (?, ?, ?, ?, ?)",
+            (proyecto_id, datos["comunidad_id"], texto, ahora, ahora),
+        )
+    else:
+        conn.execute(
+            "UPDATE proyectos SET comunidad_id = ?, datos_json = ?, actualizado = ? WHERE id = ?",
+            (datos["comunidad_id"], texto, ahora, proyecto_id),
+        )
+    conn.commit()
+    conn.close()
+    return get_proyecto(proyecto_id)
 
 def get_all_comunidades() -> List[Dict[str, Any]]:
     conn = get_connection()

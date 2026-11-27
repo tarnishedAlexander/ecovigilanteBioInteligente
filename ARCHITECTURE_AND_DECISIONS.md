@@ -67,6 +67,14 @@ Un conjunto de reportes con síntomas compatibles con exposición a mercurio y u
 - **Trazabilidad:** cada estudio indica cómo se obtuvieron sus valores. Pueden venir del texto completo, del resumen publicado o de la hoja de centralización del equipo; estos últimos tienen el DOI verificado, pero falta cotejar el valor con el artículo. Los sitios sin coordenadas en el artículo se marcan como aproximados y en el mapa se dibujan con borde punteado.
 - **Gráficos propios en SVG:** evitan sumar una librería de gráficos. Las escalas son logarítmicas cuando los valores abarcan varios órdenes de magnitud, como en agua y sedimentos.
 
+### 11. Proyectos en la base de datos, con costos trazables
+
+- **Decisión:** los proyectos de investigación viven en la tabla `proyectos` (contenido validado por Pydantic y guardado como JSON, con la comunidad como columna), no en un archivo del repositorio.
+- **Motivo:** a diferencia del catálogo y de los estudios, cambian con el uso: estado, financiadores, cantidades y costos.
+- **Costos:** cada actividad tiene un costo cotizado o, en su defecto, una estimación `referencial` (con fuente pública) o un `supuesto` (sin fuente). La interfaz separa los tres montos para que un presupuesto nunca presente una estimación como cotización.
+- **Financiadores:** un financiador es `potencial` salvo que exista convenio o carta; solo entonces se registra como `confirmado`, con su monto comprometido.
+- **Por qué aquí:** la justificación de cada proyecto no se guarda; se calcula al mostrarla con los datos vigentes del atlas.
+
 ## Stack
 
 | Módulo | Tecnología | Motivo |

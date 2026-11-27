@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { Comunidad, CatalogoBioindicadores, Investigacion, Reporte, Metricas, RioGeoJSON } from '../types';
+import { Comunidad, CatalogoBioindicadores, Investigacion, Proyecto, ProyectoDatos, Reporte, Metricas, RioGeoJSON } from '../types';
 
 // Local backend only in development. A deployed build must get VITE_API_BASE_URL explicitly:
 // falling back to localhost would make a public page try to reach the visitor's own machine.
@@ -39,6 +39,23 @@ export const api = {
   async getInvestigacion(): Promise<Investigacion> {
     const res = await fetch(`${API_BASE}/investigacion`);
     if (!res.ok) throw new Error('Error al cargar investigación');
+    return res.json();
+  },
+
+  async getProyectos(): Promise<Proyecto[]> {
+    const res = await fetch(`${API_BASE}/proyectos`);
+    if (!res.ok) throw new Error('Error al cargar proyectos');
+    return res.json();
+  },
+
+  /** Creates a project, or replaces it when an id is given. Requires the researcher key in production. */
+  async guardarProyecto(datos: ProyectoDatos, id?: string): Promise<Proyecto> {
+    const res = await fetch(id ? `${API_BASE}/proyectos/${id}` : `${API_BASE}/proyectos`, {
+      method: id ? 'PUT' : 'POST',
+      headers: { 'Content-Type': 'application/json', ...(API_KEY ? { 'X-API-Key': API_KEY } : {}) },
+      body: JSON.stringify(datos),
+    });
+    if (!res.ok) throw new Error('Error al guardar el proyecto');
     return res.json();
   },
 

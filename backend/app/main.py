@@ -3,14 +3,18 @@ import secrets
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List, Dict, Any
-from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, CatalogoBioindicadores, Investigacion
+from app.models import Reporte, ReporteCreate, ReporteUpdateEstado, Comunidad, CatalogoBioindicadores, Investigacion, Proyecto, ProyectoCreate
 from app.database import (
     init_db,
     get_all_comunidades,
     get_all_reportes,
     get_reporte_by_id,
     update_reporte_estado,
-    create_reporte
+    create_reporte,
+    get_proyectos,
+    get_proyecto,
+    guardar_proyecto,
+    comunidad_existe,
 )
 from app.seed_data import RIOS_GEOJSON
 from app.geo import haversine_distance
@@ -34,7 +38,7 @@ app.add_middleware(
     allow_origins=CORS_ORIGINS,
     allow_origin_regex=CORS_ORIGIN_REGEX,
     allow_credentials=False,
-    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "OPTIONS"],
     allow_headers=["Content-Type", "X-API-Key"],
 )
 
@@ -124,6 +128,39 @@ def submit_reporte(payload: ReporteCreate):
 
     nuevo = create_reporte(data)
     return nuevo
+
+@app.get("/api/v1/proyectos", response_model=List[Proyecto])
+def list_proyectos(comunidad_id: Optional[str] = Query(default=None)):
+    """Proyectos de investigación e inversión por comunidad: plan de trabajo, presupuesto y financiadores."""
+    return get_proyectos(comunidad_id)
+
+@app.get("/api/v1/proyectos/{proyecto_id}", response_model=Proyecto)
+def get_un_proyecto(proyecto_id: str):
+    p = get_proyecto(proyecto_id)
+    if not p:
+        raise HTTPException(status_code=404, detail="Proyecto no encontrado")
+    return p
+
+def _validar_actividades(payload: ProyectoCreate):
+    for a in payload.actividades:
+        if a.mes_fin < a.mes_inicio or a.mes_fin > payload.duracion_meses:
+            raise HTTPException(status_code=422, detail=f"Actividad {a.id}: meses fuera de la duración del proyecto")
+
+@app.post("/api/v1/proyectos", response_model=Proyecto, status_code=201, dependencies=[Depends(requiere_investigador)])
+def create_proyecto(payload: ProyectoCreate):
+    if not comunidad_existe(payload.comunidad_id):
+        raise HTTPException(status_code=422, detail="Comunidad desconocida")
+    _validar_actividades(payload)
+    return guardar_proyecto(f"pry-{secrets.token_hex(4)}", payload.model_dump(), nuevo=True)
+
+@app.put("/api/v1/proyectos/{proyecto_id}", response_model=Proyecto, dependencies=[Depends(requiere_investigador)])
+def update_proyecto(proyecto_id: str, payload: ProyectoCreate):
+    if not get_proyecto(proyecto_id):
+        raise HTTPException(status_code=404, detail="Proyecto no encontrado")
+    if not comunidad_existe(payload.comunidad_id):
+        raise HTTPException(status_code=422, detail="Comunidad desconocida")
+    _validar_actividades(payload)
+    return guardar_proyecto(proyecto_id, payload.model_dump(), nuevo=False)
 
 @app.get("/api/v1/metricas")
 def get_metricas():

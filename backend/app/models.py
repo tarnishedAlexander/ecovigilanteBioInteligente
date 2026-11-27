@@ -230,3 +230,56 @@ class Investigacion(BaseModel):
     sitios: List[SitioHg]
     mediciones: List[MedicionHg]
     referencias: List[ReferenciaHg]
+
+# --- Proyectos de investigación e inversión (tabla `proyectos`: cambian con el uso) ---
+
+EstadoProyecto = Literal["idea", "propuesta", "gestion_fondos", "financiado", "en_ejecucion", "concluido"]
+
+class ActividadProyecto(BaseModel):
+    id: str
+    nombre: str
+    descripcion: str = ""
+    # Matriz o rubro: ordena el presupuesto y enlaza con la sección Investigación.
+    rubro: Literal["peces", "cabello", "agua", "sedimentos", "aire", "social", "logistica", "difusion"]
+    cantidad: float = Field(ge=0)
+    unidad: str
+    # Costo cotizado por el equipo (None = aún sin cotización).
+    costo_unitario: Optional[float] = Field(default=None, ge=0)
+    # Estimación mientras no haya cotización: "referencial" tiene fuente pública; "supuesto" no la tiene
+    # y se muestra como tal para que el equipo la reemplace.
+    costo_referencial: Optional[float] = Field(default=None, ge=0)
+    base_referencia: Optional[Literal["referencial", "supuesto"]] = None
+    fuente_costo: Optional[str] = None
+    mes_inicio: int = Field(ge=1, le=60)
+    mes_fin: int = Field(ge=1, le=60)
+    completada: bool = False
+
+class Financiador(BaseModel):
+    nombre: str
+    tipo: Literal["cooperacion", "gobierno", "ong", "universidad", "privado", "por_definir"]
+    # "confirmado" solo con convenio o carta; si no, "potencial".
+    estado: Literal["potencial", "confirmado"] = "potencial"
+    monto_comprometido: Optional[float] = Field(default=None, ge=0)
+    nota: Optional[str] = None
+
+class ProyectoBase(BaseModel):
+    titulo: str = Field(min_length=3)
+    comunidad_id: str
+    estado: EstadoProyecto = "idea"
+    objetivo: str = ""
+    duracion_meses: int = Field(default=12, ge=1, le=60)
+    moneda: Literal["BOB", "USD"] = "BOB"
+    financiadores: List[Financiador] = Field(default_factory=list)
+    contrapartes: List[str] = Field(default_factory=list)
+    actividades: List[ActividadProyecto] = Field(default_factory=list)
+    resultados: List[str] = Field(default_factory=list)
+    notas: str = ""
+    demo: bool = False
+
+class ProyectoCreate(ProyectoBase):
+    pass
+
+class Proyecto(ProyectoBase):
+    id: str
+    creado: str
+    actualizado: str
