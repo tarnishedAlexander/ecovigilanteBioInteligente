@@ -177,8 +177,8 @@ class EstudioHg(BaseModel):
     # Años de muestreo [inicio, fin]; None si el artículo no lo indica.
     muestreo: List[Optional[int]]
     # "texto": valores leídos en el texto completo; "resumen": confirmados en el resumen;
-    # "hoja": tomados de la hoja del equipo (DOI verificado, valor sin cotejar con el artículo).
-    verificacion: Literal["texto", "resumen", "hoja"]
+    # "compilacion": tomados de una compilación secundaria (DOI verificado, valor sin cotejar con el artículo).
+    verificacion: Literal["texto", "resumen", "compilacion"]
     hallazgo: str
 
 class SitioHg(BaseModel):

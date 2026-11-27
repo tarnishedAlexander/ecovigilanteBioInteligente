@@ -91,7 +91,7 @@ export const ExplorerPanel: React.FC<ExplorerPanelProps> = ({
             </li>;
           })}</ul>
           <p className="demo-note mt-3"><Star size={11} className="inline text-ochre" /> Prioridad para proyectos de investigación en Bolivia.</p>
-          <p className="demo-note">Los candidatos viven en Bolivia pero no tienen mediciones propias: su ficha resume la base científica y una propuesta de estudio. Aún no hay estudios amazónicos de mercurio en anfibios ni en microorganismos en el corpus.</p>
+          <p className="demo-note">Los candidatos viven en Bolivia pero no tienen mediciones propias: su ficha resume la base científica y una propuesta de estudio. Aún no hay estudios amazónicos de mercurio en anfibios ni en microorganismos en el catálogo.</p>
         </>}
       </div>}
       {view === 'mineria' && <MiningDirectory mineria={mineria} error={mineriaError} onRetry={onRetryMineria}

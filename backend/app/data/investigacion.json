@@ -1,6 +1,6 @@
 {
  "version": "2026-11-26",
- "nota": "Mediciones de mercurio publicadas para Bolivia y la cuenca del Madeira, extraídas de los artículos de la carpeta del equipo y de la hoja 'Centralización investigaciones de concentración de Hg por minería'. Las coordenadas aproximadas se marcan como tales.",
+ "nota": "Mediciones de mercurio publicadas para Bolivia y la cuenca del Madeira, extraídas de artículos científicos e informes; cada estudio enlaza a su DOI o fuente. Las coordenadas aproximadas se marcan como tales.",
  "estudios": [
   {
    "id": "mb2000",
@@ -185,7 +185,7 @@
     2009,
     2012
    ],
-   "verificacion": "hoja",
+   "verificacion": "compilacion",
    "hallazgo": "En Apolobamba, donde se quema amalgama, el mercurio gaseoso promedia 122 ng/m³, unas 67 veces lo medido en Ventilla (Potosí)."
   },
   {
@@ -240,7 +240,7 @@
     2016,
     2016
    ],
-   "verificacion": "hoja",
+   "verificacion": "compilacion",
    "hallazgo": "Los efluentes mineros y urbanos juntos elevan el metilmercurio en el lago Uru Uru."
   },
   {
@@ -294,7 +294,7 @@
     null,
     null
    ],
-   "verificacion": "hoja",
+   "verificacion": "compilacion",
    "hallazgo": "La mediana es de 0,19 µg/g en 106 peces de mercado. El riesgo de intoxicación crónica empieza a partir de 83 g/día de pescado en mujeres."
   },
   {
@@ -1368,7 +1368,7 @@
    "n": null,
    "anio": 2016,
    "periodo": "2016",
-   "nota": "Monometilmercurio filtrado (0,45 µm). Valor tomado de la hoja del equipo."
+   "nota": "Monometilmercurio filtrado (0,45 µm). Valor de una compilación secundaria; falta cotejarlo con el artículo."
   },
   {
    "id": "guedron2020-36",
@@ -4538,7 +4538,7 @@
    "n": 106,
    "anio": null,
    "periodo": "s. f.",
-   "nota": "Mercados de Riberalta y Rurrenabaque. El rango es p5-p95. Valor tomado de la hoja del equipo."
+   "nota": "Mercados de Riberalta y Rurrenabaque. El rango es p5-p95. Valor de una compilación secundaria; falta cotejarlo con el artículo."
   },
   {
    "id": "loayza2025-190",

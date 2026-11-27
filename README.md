@@ -156,7 +156,7 @@ La aplicación queda en `http://localhost:5173` y en desarrollo usa la API local
 | Dato | Fuente | Licencia |
 | --- | --- | --- |
 | Mercurio en organismos y sedimentos | Artículos científicos citados en `backend/app/data/bioindicadores.json` (DOI en cada registro) | Según cada artículo |
-| Estudios de mercurio en aire, agua, sedimentos, peces y cabello | Artículos e informes citados en `backend/app/data/investigacion.json`. Cada estudio indica si sus valores se leyeron en el texto completo, en el resumen o en la hoja de centralización del equipo | Según cada artículo |
+| Estudios de mercurio en aire, agua, sedimentos, peces y cabello | Artículos e informes citados en `backend/app/data/investigacion.json`. Cada estudio indica si sus valores se leyeron en el texto completo, en el resumen o en una compilación secundaria aún sin cotejar | Según cada artículo |
 | Presencia de especies en Bolivia | [GBIF](https://www.gbif.org), consulta del 26 de noviembre de 2026 | Según cada conjunto de datos (CC0, CC BY, CC BY-NC) |
 | Huella de minería aurífera | [Amazon Mining Watch](https://source.coop/earthgenome/amazon-mining-watch) (Earth Genome) | CC BY 4.0 |
 | Límite nacional de Bolivia | Natural Earth 1:10m | Dominio público |

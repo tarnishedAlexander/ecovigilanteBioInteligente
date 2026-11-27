@@ -50,7 +50,7 @@ export const SERIES_COLORS = ['#3987e5', '#d95926', '#199e70'];
 export const VERIFICACION: Record<EstudioHg['verificacion'], { label: string; detalle: string }> = {
   texto: { label: 'Texto completo', detalle: 'Valores leídos en el artículo.' },
   resumen: { label: 'Resumen', detalle: 'Valores confirmados en el resumen publicado.' },
-  hoja: { label: 'Hoja del equipo', detalle: 'DOI verificado; los valores vienen de la hoja de centralización y falta cotejarlos con el artículo.' },
+  compilacion: { label: 'Valor sin cotejar', detalle: 'DOI verificado; el valor proviene de una compilación secundaria y falta cotejarlo con el artículo.' },
 };
 
 export interface IndiceInv {

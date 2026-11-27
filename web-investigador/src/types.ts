@@ -143,7 +143,7 @@ export interface EstudioHg {
   url: string;
   matrices: Matriz[];
   muestreo: [number | null, number | null];
-  verificacion: 'texto' | 'resumen' | 'hoja';
+  verificacion: 'texto' | 'resumen' | 'compilacion';
   hallazgo: string;
 }
 

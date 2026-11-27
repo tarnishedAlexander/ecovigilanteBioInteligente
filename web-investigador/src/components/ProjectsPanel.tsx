@@ -72,7 +72,7 @@ export function ProjectsPanel({ proyectos, comunidades, loading, onSelect, onCol
                     </span>
                     <span className="project-funders">
                       {p.financiadores.map((f) => (
-                        <span key={f.nombre} className={`study-check ${f.estado === 'confirmado' ? 'is-ok' : 'is-hoja'}`}>
+                        <span key={f.nombre} className={`study-check ${f.estado === 'confirmado' ? 'is-ok' : 'is-pendiente'}`}>
                           {f.nombre} · {f.estado === 'confirmado' ? 'Confirmado' : 'Potencial'}
                         </span>
                       ))}

@@ -547,7 +547,7 @@
    ],
    "prioridad": {
     "orden": 6,
-    "motivo": "Muy consumido y sin ninguna medición en el corpus",
+    "motivo": "Muy consumido y sin ninguna medición en el catálogo",
     "muestra": "Músculo"
    },
    "foto": {
@@ -954,7 +954,7 @@
    },
    "prioridad": {
     "orden": 2,
-    "motivo": "Las medias más altas del corpus (hasta 39 µg/g) y común en Beni y Pando",
+    "motivo": "Las medias más altas del catálogo (hasta 39 µg/g) y común en Beni y Pando",
     "muestra": "Pluma del pecho, sin sacrificar al ave"
    },
    "foto": {
@@ -2196,7 +2196,7 @@
      "relacion": "mismo_habito"
     }
    ],
-   "nota": "Ningún paper de la carpeta mide su mercurio; macrófita flotante como Paspalum repens.",
+   "nota": "Ningún estudio del catálogo mide su mercurio; macrófita flotante como Paspalum repens.",
    "foto": {
     "archivo": "Pontederia crassipes in native habitat, Transpantaneira, Poconé, Mato Grosso, Brazil.jpg",
     "licencia": "CC BY-SA 2.0",

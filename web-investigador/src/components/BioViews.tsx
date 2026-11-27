@@ -333,7 +333,7 @@ export const BioView: React.FC<{
           </>
         )}
         {!propias.length && !prestadas.length && (
-          <p className="text-[13px] text-ink-3">No hay mediciones publicadas en el corpus para esta especie ni para sus parientes.</p>
+          <p className="text-[13px] text-ink-3">No hay mediciones publicadas en el catálogo para esta especie ni para sus parientes.</p>
         )}
       </Section>
 
